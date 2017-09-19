@@ -2,13 +2,14 @@
   <div id="underground_boxes">
     <ul>
       <li class="underground_boxes" v-for="underground_box in underground_boxes">
-        {{underground_box.box_id}}
-        {{underground_box.latitude}}
-        {{underground_box.longitude}}
-        {{underground_box.cover_type}}
-        {{underground_box.created_at}}
-        {{underground_box.removed_at}}
-        {{underground_box.box_type}}
+        {{underground_box.box_id}}<br>
+        {{underground_box.latitude}}<br>
+        {{underground_box.longitude}}<br>
+        {{underground_box.cover_type}}<br>
+        {{underground_box.created_at}}<br>
+        {{underground_box.removed_at}}<br>
+        {{underground_box.draw_number}}<br>
+        {{underground_box.box_type}}<br><br>
       </li>
     </ul>
 
@@ -30,6 +31,9 @@
 
       <label for = "underground_box_removed_at">Remoção Caixa subterrânea</label>
       <input type="number" name="underground_box_removed_at" v-model="underground_box_removed_at"><br><br>
+
+       <label for = "underground_box_draw_number">Draw number</label>
+      <input type="number" name="underground_box_draw_number" v-model="underground_box_draw_number"><br><br>
 
       <label for="underground_box_type">Tipo Caixa subterrânea: </label>
       <select v-model="underground_box_type_name">
@@ -61,17 +65,19 @@ export default {
     underground_box_cover_type: '',
     underground_box_created_at: '',
     underground_box_removed_at: '',
+    underground_box_draw_number: '',
     underground_box_type: '',
     underground_box_type_name: '',
     underground_box_list: [],
     formpost: {
       box_id: this.underground_box_id,
+      box_type: this.underground_box_type,
       latitude: this.underground_box_latitude,
-      longitude: this.underground_box_longitude,
       cover_type: this.underground_box_cover_type,
+      longitude: this.underground_box_longitude,
       created_at: this.underground_box_created_at,
       removed_at: this.underground_box_removed_at,
-      box_type: this.underground_box_type,
+      draw_number: this.underground_box_draw_number,
     },
     errors: [],
   }),
@@ -79,12 +85,13 @@ export default {
     post() {
       axios.post('http://localhost:8000/undergroundbox/', {
         box_id: this.underground_box_id,
+        box_type: this.underground_box_type,
         latitude: this.underground_box_latitude,
-        longitude: this.underground_box_longitude,
         cover_type: this.underground_box_cover_type,
+        longitude: this.underground_box_longitude,
         created_at: this.underground_box_created_at,
         removed_at: this.underground_box_removed_at,
-        box_type: this.underground_box_type,
+        draw_number: this.underground_box_draw_number,
       })
         .then()
         .catch((e) => {
@@ -108,7 +115,7 @@ export default {
         });
     },
     getType() {
-      axios.get('http://localhost:8000/undergroudboxtype/')
+      axios.get('http://localhost:8000/undergroundboxtype/')
         .then((response) => {
           this.underground_box_types = response.data;
         })
