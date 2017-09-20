@@ -1,7 +1,12 @@
 <template>
   <div id="underground_boxes">
-    <ul>
+   <!--  <ul>
       <li class="underground_boxes" v-for="underground_box in underground_boxes">
+      </li>
+    </ul> -->
+    <table>
+      <tr>
+        <td class="underground_boxes" v-for="underground_box in underground_boxes">
         ID:{{underground_box.id}},<br>
         LAT:{{underground_box.latitude}},
         LONG:{{underground_box.longitude}}<br>
@@ -10,8 +15,11 @@
         R:{{underground_box.removed_at}},
         DN{{underground_box.draw_number}},
         TYPE:{{underground_box.box_type}}<br>
-      </li>
-    </ul>
+        <button v-on:click.prevent="deleteUndergroundBox(underground_box.id)">Deletar Caixa subterrânea</button>
+          <button v-on:click.prevent="updateUndergroundBox(underground_box.id)">Atualizar Caixa subterrânea</button>
+        </td>
+      </tr>
+    </table> 
 
      <div class="form">
       
@@ -57,7 +65,7 @@ export default {
   data: () => ({
     underground_boxes: [],
     underground_box_types: [],
-    // underground_box_id: '',
+    underground_box_id: '',
     underground_box_latitude: '',
     underground_box_longitude: '',
     underground_box_cover_type: '',
@@ -68,7 +76,7 @@ export default {
     underground_box_type_name: '',
     underground_box_list: [],
     formpost: {
-      // id: this.underground_box_id,
+      id: this.underground_box_id,
       box_type: this.underground_box_type,
       latitude: this.underground_box_latitude,
       cover_type: this.underground_box_cover_type,
@@ -82,7 +90,7 @@ export default {
   methods: {
     post() {
       axios.post('http://localhost:8000/undergroundbox/', {
-        // id: this.underground_box_id,
+        id: this.underground_box_id,
         box_type: this.underground_box_type,
         latitude: this.underground_box_latitude,
         cover_type: this.underground_box_cover_type,
@@ -120,6 +128,34 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+    delete(id) {
+      axios.delete('http://localhost:8000/undergroundbox/'.concat(id).concat('/'))
+      .then()
+      .catch((e) => {
+        this.errors.push(e);
+      });
+    },
+    put(id) {
+      axios.put('http://localhost:8000/undergroundbox/'.concat(id).concat('/'), {
+        box_type: this.underground_box_type,
+        latitude: this.underground_box_latitude,
+        cover_type: this.underground_box_cover_type,
+        longitude: this.underground_box_longitude,
+        created_at: this.underground_box_created_at,
+        removed_at: this.underground_box_removed_at,
+        draw_number: this.underground_box_draw_number,
+      })
+      .then()
+      .catch((e) => {
+        this.errors.push(e);
+      });
+    },
+    updateUndergroundBox(id) {
+      this.put(id);
+    },
+    deleteUndergroundBox(id) {
+      this.delete(id);
     },
     getUndergroundBox() {
       this.get();
