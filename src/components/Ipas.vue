@@ -2,22 +2,22 @@
   <div id="ipas">
     <ul>
       <li class="ipas" v-for="ipa in ipas">
-        Código da IPA:{{ipa.id_ipa}}<br> 
+        Código da IPA:{{ipa.id}}<br> 
         Nome da IPA:{{ipa.name}}<br>
         Tipo da IPA:{{ipa.institution_type}}<br><br>
+        <button v-on:click.prevent="deleteipa(ipa.id)">Deletar IPA</button>
+         <button v-on:click.prevent="updateipa(ipa.id)">Atualizar IPA</button>
       </li>
     </ul>
     <div class="form">
-      <label for="ipa_id_ipa">Codigo da IPA: </label>
-      <input type="number" name="ipa_id_ipa" v-model="ipa_id_ipa"><br><br>
 
       <label for="ipa_name">Nome da IPA: </label>
       <input type="text" name="ipa_name" v-model="ipa_name"><br><br>
 
       <label for="ipa_institution_type">Tipo da IPA: </label>
       <!-- <input type="number" name="ipa_institution_type" v-model="ipa_institution_type"><br><br> -->
-      <select v-model="ipa_type_name">
-        <option v-for="type_ipa in types_ipa" v-bind:value="type_ipa.id_type">
+      <select v-model="ipa_institution_type">
+        <option v-for="type_ipa in types_ipa" v-model="ipa_institution_type" v-bind:value="type_ipa.id">
           {{ type_ipa.description }}
         </option>
       </select>
@@ -60,7 +60,7 @@ export default {
     post() {
       axios.post('http://localhost:8000/ipas/', {
         name: this.ipa_name,
-        id_ipa: this.ipa_id_ipa,
+        id: this.ipa_id_ipa,
         institution_type: this.ipa_institution_type,
       })
         .then()
@@ -84,6 +84,26 @@ export default {
           this.errors.push(e);
         });
     },
+    delete(id) {
+      axios.delete('http://localhost:8000/ipas/'.concat(id))
+        .then()
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+    put(id) {
+      axios.put('http://localhost:8000/ipas/'.concat(id).concat('/'), {
+        name: this.ipa_name,
+        institution_type: this.ipa_institution_type,
+      })
+        .then()
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+    updateipa(id) {
+      this.put(id);
+    },
     getType() {
       axios.get('http://localhost:8000/ipas-type/')
         .then((response) => {
@@ -92,6 +112,9 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+    deleteipa(id) {
+      this.delete(id);
     },
     getipa() {
       this.get();
