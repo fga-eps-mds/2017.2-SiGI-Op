@@ -2,21 +2,19 @@
   <div id="underground_boxes">
     <ul>
       <li class="underground_boxes" v-for="underground_box in underground_boxes">
-        {{underground_box.box_id}}<br>
-        {{underground_box.latitude}}<br>
-        {{underground_box.longitude}}<br>
-        {{underground_box.cover_type}}<br>
-        {{underground_box.created_at}}<br>
-        {{underground_box.removed_at}}<br>
-        {{underground_box.draw_number}}<br>
-        {{underground_box.box_type}}<br><br>
+        ID:{{underground_box.id}},<br>
+        LAT:{{underground_box.latitude}},
+        LONG:{{underground_box.longitude}}<br>
+        TAMPA:{{underground_box.cover_type}}
+        C:{{underground_box.created_at}},
+        R:{{underground_box.removed_at}},
+        DN{{underground_box.draw_number}},
+        TYPE:{{underground_box.box_type}}<br>
       </li>
     </ul>
 
      <div class="form">
-      <label for = "underground_box_id">ID Caixa subterrânea</label>
-      <input type="number" name="underground_box_id" v-model="underground_box_id"><br><br>
-
+      
       <label for = "underground_box_latitude">Latitude Caixa subterrânea</label>
       <input type="number" name="underground_box_latitude" v-model="underground_box_latitude"><br><br>
 
@@ -27,18 +25,18 @@
       <input type="text" name="underground_box_cover_type" v-model="underground_box_cover_type"><br><br>
 
       <label for = "underground_box_created_at">Crição Caixa subterrânea</label>
-      <input type="number" name="underground_box_created_at" v-model="underground_box_created_at"><br><br>
+      <input type="date" name="underground_box_created_at" v-model="underground_box_created_at"><br><br>
 
       <label for = "underground_box_removed_at">Remoção Caixa subterrânea</label>
-      <input type="number" name="underground_box_removed_at" v-model="underground_box_removed_at"><br><br>
+      <input type="date" name="underground_box_removed_at" v-model="underground_box_removed_at"><br><br>
 
        <label for = "underground_box_draw_number">Draw number</label>
       <input type="number" name="underground_box_draw_number" v-model="underground_box_draw_number"><br><br>
 
       <label for="underground_box_type">Tipo Caixa subterrânea: </label>
-      <select v-model="underground_box_type_name">
-        <option v-for="type_box in underground_box_types" v-bind:value="type_box.type_id">
-           {{ type_box.type_id }}
+      <select v-model="underground_box_type">
+        <option v-for="type_box in underground_box_types" v-model="underground_box_type" v-bind:value="type_box.id">
+           {{ type_box.name }}
        </option>
       </select>
 
@@ -59,7 +57,7 @@ export default {
   data: () => ({
     underground_boxes: [],
     underground_box_types: [],
-    underground_box_id: '',
+    // underground_box_id: '',
     underground_box_latitude: '',
     underground_box_longitude: '',
     underground_box_cover_type: '',
@@ -70,7 +68,7 @@ export default {
     underground_box_type_name: '',
     underground_box_list: [],
     formpost: {
-      box_id: this.underground_box_id,
+      // id: this.underground_box_id,
       box_type: this.underground_box_type,
       latitude: this.underground_box_latitude,
       cover_type: this.underground_box_cover_type,
@@ -84,7 +82,7 @@ export default {
   methods: {
     post() {
       axios.post('http://localhost:8000/undergroundbox/', {
-        box_id: this.underground_box_id,
+        // id: this.underground_box_id,
         box_type: this.underground_box_type,
         latitude: this.underground_box_latitude,
         cover_type: this.underground_box_cover_type,
