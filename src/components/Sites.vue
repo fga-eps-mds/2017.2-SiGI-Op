@@ -1,15 +1,24 @@
 <template>
-  <div id="site">
-    <ul>
-      <li class="sites" v-for="site in site">
-        Código do site:{{site.id_site}}<br> 
-        Nome do site:{site.name}}<br>
-        Tipo do Site:{{site.type_site}}<br><br>
-        Latitude e Longitude d Site: {{site.lattitude}},{{site.longitude}}<br><br>
-        Banda larga do site: {{site.bandwidth}}
-        Ipa do site: {{site.ipa_code}}
-      </li>
-    </ul>
+    <div id="sites">
+      <!--  <ul>
+         <li class="sites" v-for="site in sites">
+         </li>
+       </ul> -->
+       <table>
+         <tr>
+           <td class="sites" v-for="site in sites">
+           nome:{{site.name}},<br>
+           id:{{site.id}},
+           lattitude:{{site.lattitude}},
+           longitude:{{site.longitude}}<br>
+           bandwidth:{{site.bandwidth}}
+           ipa_code:{{site.ipa_code}},
+           site_type:{{site.site_type}},<br>
+           <button v-on:click.prevent="deleteSite(site.id)">Deletar site</button>
+             <button v-on:click.prevent="updateSite(site.id)">Atualizar site</button>
+           </td>
+         </tr>
+    </table>
     <div class="form">
       <label for="site_id">Codigo do site: </label>
       <input type="number" name="site_id" v-model="site_id"><br><br>
@@ -32,7 +41,7 @@
       <input type="number" name="site_ipa_code" v-model="site_ipa_code"><br><br>
 
       <label for="site_type_site">Tipo do Site: </label>
-      
+
       <select v-model="site_type_site">
         <option v-for="site_type in site_types" v-bind:value="site_type.id">
           {{ site_type.description }}
@@ -41,8 +50,8 @@
 
       <br><br>
 
-      <button v-on:click.prevent="addsite">Adicionar Sites</button>
-      <button v-on:click.prevent="getsite">Lista Sites</button>
+      <button v-on:click.prevent="addSite">Adicionar Sites</button>
+      <button v-on:click.prevent="getSite">Lista Sites</button>
 
     </div>
 
@@ -111,6 +120,27 @@ export default {
           this.errors.push(e);
         });
     },
+    delete(id) {
+      axios.delete('http://localhost:8000/site/'.concat(id).concat('/'))
+      .then()
+      .catch((e) => {
+        this.errors.push(e);
+      });
+    },
+    put(id) {
+      axios.put('http://localhost:8000/site/'.concat(id).concat('/'), {
+        name: this.site_name,
+        lattitude: this.site_lattitude,
+        longitude: this.site_longitude,
+        bandwidth: this.site_bandwidth,
+        ipa_code: this.site_ipa_code,
+        site_type: this.site_type_site,
+      })
+     .then()
+     .catch((e) => {
+       this.errors.push(e);
+     });
+    },
     getType() {
       axios.get('http://localhost:8000/sitetype/')
         .then((response) => {
@@ -120,19 +150,25 @@ export default {
           this.errors.push(e);
         });
     },
-    getsite() {
+    deleteSite(id) {
+      this.delete(id);
+    },
+    updateSite(id) {
+      this.put(id);
+    },
+    getSite() {
       this.get();
     },
     getTypeSite() {
       this.getType();
     },
-    addsite() {
+    addSite() {
       this.post();
     },
   },
   // Fetches posts when the component is created.
   created() {
-    this.getsite();
+    this.getSite();
     this.getTypeSite();
   },
 };
