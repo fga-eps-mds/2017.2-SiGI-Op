@@ -38,8 +38,12 @@
       <input type="number" min="0" name="site_bandwidth" v-model="site_bandwidth"><br><br>
 
       <label for="site_ipa_code">Código da ipa: </label>
-      <input type="number" name="site_ipa_code" v-model="site_ipa_code"><br><br>
-
+      <select v-model="site_ipa_code">
+        <option v-for="ipa in ipalist" v-bind:value="ipa.id">
+          {{ ipa.name }}
+        </option>
+      </select>
+      <br><br>
       <label for="site_type_site">Tipo do Site: </label>
 
       <select v-model="site_type_site">
@@ -76,6 +80,7 @@ export default {
     site_ipa_code: '',
     site_type_site: '',
     // ipa: {name: this.ipa_name, code: ipa_code},
+    ipalist: [],
     sitelist: [],
     formpost: {
       id: this.site_id,
@@ -150,6 +155,15 @@ export default {
           this.errors.push(e);
         });
     },
+    getIpa() {
+      axios.get('http://localhost:8000/ipas/')
+        .then((response) => {
+          this.ipalist = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
     deleteSite(id) {
       this.delete(id);
     },
@@ -162,6 +176,9 @@ export default {
     getTypeSite() {
       this.getType();
     },
+    getIpaCode() {
+      this.getIpa();
+    },
     addSite() {
       this.post();
     },
@@ -170,6 +187,7 @@ export default {
   created() {
     this.getSite();
     this.getTypeSite();
+    this.getIpaCode();
   },
 };
 </script>
