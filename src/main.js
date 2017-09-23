@@ -5,6 +5,7 @@ import Vue from 'vue';
 import App from './App';
 import Site from './components/Sites';
 import Hello from './components/Hello';
+import Reserve from './components/Reserve';
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -12,6 +13,7 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: Hello },
   { path: '/sites', component: Site },
+  { path: '/reserves', component: Reserve },
 ];
 
 
