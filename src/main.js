@@ -15,8 +15,8 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: Hello },
   { path: '/sites', component: Site },
-  { path: '/login', component: Login },
-  { path: '/register', component: Register },
+  { path: '/login', component: Login, title: 'SiGI-Op Login' },
+  { path: '/register', component: Register, title: 'SiGI-Op Registro' },
 ];
 
 Vue.use(Vuetify);

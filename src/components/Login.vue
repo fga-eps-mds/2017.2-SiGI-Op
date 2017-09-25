@@ -54,7 +54,6 @@
   import axios from 'axios';
 
   export default {
-    $validates: true,
     data() {
       return {
         name: '',
@@ -63,9 +62,6 @@
       };
     },
     methods: {
-      submit() {
-        this.$validator.validateAll();
-      },
       post() {
         axios.post('http://localhost:8000/login', {
           username: this.name,
