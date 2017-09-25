@@ -9,6 +9,7 @@ import Site from './components/Sites';
 import Hello from './components/Hello';
 import Login from './components/Login';
 import Register from './components/Register';
+import Uplink from './components/Uplink';
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,7 @@ const routes = [
   { path: '/sites', component: Site },
   { path: '/login', component: Login, title: 'SiGI-Op Login' },
   { path: '/register', component: Register, title: 'SiGI-Op Registro' },
+  { path: '/uplink', component: Uplink },
 ];
 
 Vue.use(Vuetify);
