@@ -8,6 +8,7 @@ import App from './App';
 import Site from './components/Sites';
 import Hello from './components/Hello';
 import Login from './components/Login';
+import Register from './components/Register';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,7 @@ const routes = [
   { path: '/', component: Hello },
   { path: '/sites', component: Site },
   { path: '/login', component: Login },
+  { path: '/register', component: Register },
 ];
 
 Vue.use(Vuetify);
