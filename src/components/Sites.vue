@@ -1,87 +1,63 @@
 <template>
     <div id="sites">
-      <v-container>
-        <v-layout row>
-          <v-flex xs12 sm6 offset-sm3>
-            <v-card>
-              <v-card-text>
-                <v-container>
-                  <form>
-                    <v-layout row>
-                      <v-flex xs12>
-                        <v-text-field
-                          label="Código do site"
-                          v-model="site_id"
-                          type="number"
-                          min="0">
-                        </v-text-field>
-                        <v-text-field
-                          label="Nome do site"
-                          v-model="site_name">
-                        </v-text-field>
-                        <v-text-field
-                          label="Latitude"
-                          v-model="site_lattitude"
-                          type="number">
-                        </v-text-field>
-                        <v-text-field
-                          label="Longitude"
-                          v-model="site_longitude"
-                          type="number">
-                        </v-text-field>
-                        <v-text-field
-                          label="Banda larga do site"
-                          v-model="site_bandwidth"
-                          type="number"
-                          min="0">
-                        </v-text-field>
-                        <select v-model="site_ipa_code">
-                          <option disabled value = "">Selecione uma ipa</option>
-                          <option v-for="ipa in ipalist" v-bind:value="ipa.id">
-                            {{ ipa.name }}
-                          </option>
-                        </select>
-                        <select v-model="site_type_site">
-                          <option disabled value = "">Selecione um tipo de site</option>
-                          <option v-for="site_type in site_types" v-bind:value="site_type.id">
-                            {{ site_type.description }}
-                          </option>
-                        </select>
-                      </v-flex>
-                    </v-layout>
-                    <v-layout row>
-                      <v-flex xs12>
-                        <v-btn primary dark
-                        v-on:click.prevent="addSite"
-                        type="submit">
-                          Adicionar Site
-                        </v-btn>
-                      </v-flex>
-                    </v-layout row>
-                  </form>
-                </v-container>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    <table>
-         <tr>
-           <td class="sites" v-for="site in sites">
-           nome:{{site.name}},<br>
-           id:{{site.id}},
-           lattitude:{{site.lattitude}},
-           longitude:{{site.longitude}}<br>
-           bandwidth:{{site.bandwidth}}
-           ipa_code:{{site.ipa_code}},
-           site_type:{{site.site_type}},<br>
-           <button v-on:click.prevent="deleteSite(site.id)">Deletar site</button>
-             <button v-on:click.prevent="updateSite(site.id)">Atualizar site</button>
-           </td>
-         </tr>
-    </table>
-    <router-view></router-view>
-  </div>
+      <v-app id="sites">
+        <v-container>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-card>
+                <v-card-title primary-title>
+                  <div>
+                    <h3 class="headline mb-0"> Cadastro de Sites</h3>
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <form>
+                      <v-layout row>
+                        <v-flex xs12>
+                          <v-text-field
+                            label="Nome do site"
+                            v-model="site_name">
+                          </v-text-field>
+                          <v-text-field
+                            label="Latitude"
+                            v-model="site_lattitude"
+                            type="number">
+                          </v-text-field>
+                          <v-text-field
+                            label="Longitude"
+                            v-model="site_longitude"
+                            type="number">
+                          </v-text-field>
+                          <v-text-field
+                            label="Banda larga do site"
+                            v-model="site_bandwidth"
+                            type="number"
+                            min="0">
+                          </v-text-field>
+                          <v-select v-bind:items="ipalist" v-model="site_ipa_code" label="Qual a IPA do site?"item-text="name" bottom></v-select>
+                          <v-select v-bind:items="site_types" v-model="site_type_site" label="Tipo do site?"item-text="description" bottom></v-select>
+                          
+                        </v-flex>
+                      </v-layout>
+                      <v-layout row>
+                        <v-flex xs12>
+                          <v-btn primary dark
+                          v-on:click.prevent="addSite"
+                          type="submit">
+                            Adicionar Site
+                          </v-btn>
+                        </v-flex>
+                      </v-layout row>
+                    </form>
+                  </v-container>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      <router-view></router-view>
+    </v-app>
   </div>
 </template>
 
