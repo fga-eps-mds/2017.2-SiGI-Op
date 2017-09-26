@@ -7,16 +7,14 @@ import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import Site from './components/Sites';
 import Hello from './components/Hello';
-import Login from './components/Login';
-import Register from './components/Register';
+import Reserve from './components/Reserve';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Hello },
   { path: '/sites', component: Site },
-  { path: '/login', component: Login, title: 'SiGI-Op Login' },
-  { path: '/register', component: Register, title: 'SiGI-Op Registro' },
+  { path: '/reserves', component: Reserve },
 ];
 
 Vue.use(Vuetify);
