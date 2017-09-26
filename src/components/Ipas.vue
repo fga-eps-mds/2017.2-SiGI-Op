@@ -1,35 +1,52 @@
 <template>
   <div id="ipas">
+    <v-app id="ipas">
     <ul>
       <li class="ipas" v-for="ipa in ipas">
         Código da IPA:{{ipa.id}}<br> 
         Nome da IPA:{{ipa.name}}<br>
         Tipo da IPA:{{ipa.institution_type}}<br><br>
-        <button v-on:click.prevent="deleteipa(ipa.id)">Deletar IPA</button>
-         <button v-on:click.prevent="updateipa(ipa.id)">Atualizar IPA</button>
+     
       </li>
     </ul>
-    <div class="form">
-
-      <label for="ipa_name">Nome da IPA: </label>
-      <input type="text" name="ipa_name" v-model="ipa_name"><br><br>
-
-      <label for="ipa_institution_type">Tipo da IPA: </label>
-      <!-- <input type="number" name="ipa_institution_type" v-model="ipa_institution_type"><br><br> -->
-      <select v-model="ipa_institution_type">
-        <option v-for="type_ipa in types_ipa" v-model="ipa_institution_type" v-bind:value="type_ipa.id">
-          {{ type_ipa.description }}
-        </option>
-      </select>
-
-      <button v-on:click.prevent="addipa">Adicionar IPA</button>
-      <button v-on:click.prevent="getipa">Lista IPA</button>
-
-    </div>
-    <div class="display">
-      codigo da ipa: {{ipa_id_ipa}}<br> ipa: {{ipa_name}}<br> tipo: {{ipa_type_name}}
-    </div>
+    <v-container>
+      <v-layout row>
+        <v-flex xs12 sm6 offset-sm3>
+          <v-card>
+            <v-card-text>
+              <v-container>
+                <form>
+                  <v-alert error :value="alert" hide-icon transition="scale-transition">
+                    Preencha os campos requeridos.
+                  </v-alert>
+                  <v-layout row>
+                    <v-flex xs12>
+                      <v-text-field label="Nome da IPA" v-model="ipa_name" required single-line>
+                      </v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout row>
+                    <v-flex xs6>
+                      <v-select v-bind:items="types_ipa" v-model="ipa_institution_type" label="Tipo da IPA" item-text="description" single-line bottom></v-select>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout row>
+                    <v-flex xs12>
+                      <v-btn primary dark v-on:click.prevent="addipa" type="submit">
+                        Adicionar
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+                </form>
+              </v-container>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout row>
+    </v-container>
+    <v-btn primary dark v-on:click.prevent="getipa">Lista IPA</v-btn>
     <router-view></router-view>
+  </v-app>
   </div>
   </div>
 </template>
@@ -48,6 +65,7 @@ export default {
     ipa_type_name: '',
     // ipa: {name: this.ipa_name, code: ipa_code},
     ipalist: [],
+    alert: false,
     formpost: {
       id_ipa: this.ipa_id_ipa,
       name: this.ipa_name,
@@ -61,7 +79,7 @@ export default {
       axios.post('http://localhost:8000/ipas/', {
         name: this.ipa_name,
         id: this.ipa_id_ipa,
-        institution_type: this.ipa_institution_type,
+        institution_type: this.ipa_institution_type.id,
       })
         .then()
         .catch((e) => {

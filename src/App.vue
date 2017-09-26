@@ -1,7 +1,17 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+    <div id="app">
+    <v-navigation-drawer permanent clipped light>
+    </v-navigation-drawer>
+    <v-toolbar dark class="primary">
+        <img src="./assets/logogc4.png">
+    </v-toolbar>
+    <main>
+        <v-container fluid>
+            <!--v-router-->
+        </v-container>
+    </main>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
@@ -17,6 +27,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
