@@ -21,13 +21,13 @@
                   </v-alert>
                   <v-layout row>
                     <v-flex xs12>
-                      <v-text-field label="Nome da IPA" v-model="ipa_name" required single-line>
+                      <v-text-field label="Nome da IPA" v-model="name" required single-line>
                       </v-text-field>
                     </v-flex>
                   </v-layout>
                   <v-layout row>
                     <v-flex xs6>
-                      <v-select v-bind:items="types_ipa" v-model="ipa_institution_type" label="Tipo da IPA" item-text="description" single-line bottom></v-select>
+                      <v-select v-bind:items="types_ipa" v-model="institution_type" label="Tipo da IPA" item-text="description" single-line bottom></v-select>
                     </v-flex>
                   </v-layout>
                   <v-layout row>
@@ -59,27 +59,16 @@ export default {
   data: () => ({
     ipas: [],
     types_ipa: [],
-    ipa_id_ipa: '',
-    ipa_name: '',
-    ipa_institution_type: '',
-    ipa_type_name: '',
-    // ipa: {name: this.ipa_name, code: ipa_code},
-    ipalist: [],
+    name: '',
+    institution_type: '',
     alert: false,
-    formpost: {
-      id_ipa: this.ipa_id_ipa,
-      name: this.ipa_name,
-      institution_type: this.ipa_institution_type,
-    },
-
     errors: [],
   }),
   methods: {
     post() {
       axios.post('http://localhost:8000/ipas/', {
-        name: this.ipa_name,
-        id: this.ipa_id_ipa,
-        institution_type: this.ipa_institution_type.id,
+        name: this.name,
+        institution_type: this.institution_type.id,
       })
         .then()
         .catch((e) => {
@@ -111,8 +100,8 @@ export default {
     },
     put(id) {
       axios.put('http://localhost:8000/ipas/'.concat(id).concat('/'), {
-        name: this.ipa_name,
-        institution_type: this.ipa_institution_type,
+        name: this.name,
+        institution_type: this.institution_type,
       })
         .then()
         .catch((e) => {
