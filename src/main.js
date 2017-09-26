@@ -5,7 +5,8 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
-import Site from './components/Sites';
+import Site from './components/sites/Site';
+import NewSite from './components/sites/NewSite';
 import Hello from './components/Hello';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -15,6 +16,7 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: Hello },
   { path: '/sites', component: Site },
+  { path: '/sites/new', component: NewSite },
   { path: '/login', component: Login, title: 'SiGI-Op Login' },
   { path: '/register', component: Register, title: 'SiGI-Op Registro' },
 ];

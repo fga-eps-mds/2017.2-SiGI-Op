@@ -93,13 +93,12 @@ export default {
   methods: {
     post() {
       axios.post('http://localhost:8000/site/', {
-        id: this.site_id,
         name: this.site_name,
         lattitude: this.site_lattitude,
         longitude: this.site_longitude,
         bandwidth: this.site_bandwidth,
-        ipa_code: this.site_ipa_code,
-        site_type: this.site_type_site,
+        ipa_code: this.site_ipa_code.id,
+        site_type: this.site_type_site.id,
       })
         .then()
         .catch((e) => {
