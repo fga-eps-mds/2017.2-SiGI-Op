@@ -23,6 +23,57 @@
                   <v-icon dark> remove </v-icon>
                 </v-btn>
               </td>
+              <td class="text-xs-right">
+                <v-dialog width="50%">
+                  <v-btn primary dark slot="activator">
+                    <v-icon dark> update</v-icon>
+                  </v-btn>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline"> Atualizar Site </span>
+                    </v-card-title>
+
+                    <v-card-text>
+                      <v-container grid-list-md>
+                        <form>
+                          <v-layout row>
+                            <v-flex xs12>
+                              <v-text-field
+                              label="Nome do site"
+                              v-model="site.item.name">
+                              </v-text-field>
+                              <v-text-field
+                              label="Latitude"
+                              v-model="site.item.lattitude"
+                              type="number">
+                              </v-text-field>
+                              <v-text-field
+                              label="Longitude"
+                              v-model="site.item.longitude"
+                              type="number">
+                              </v-text-field>
+                              <v-text-field
+                                label="Banda larga do site"
+                                v-model="site.item.bandwidth"
+                                type="number"
+                                min="0">
+                              </v-text-field>
+                              <v-select v-bind:items="ipalist" v-model="site.item.ipa_code" label="Qual a IPA do site?"item-text="name" bottom></v-select>
+                              <v-select v-bind:items="site_types" v-model="site.item.site_type" label="Tipo do site?"item-text="description" bottom></v-select>
+                            </v-flex>
+                          </v-layout>
+                        </form>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn class="blue--text darken-1" flat @click.native="dialog=false">Fechar</v-btn>
+                      <v-btn class="blue--text darken-1" v-on:click.prevent="updateSite(site.item)"
+                type="submit" flat @click.native="dialog=false">Salvar alterações</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </td>
             </template>
           </v-data-table>
         </v-container>
@@ -45,7 +96,7 @@ export default {
       { text: 'Coordenadas geográficas' },
       { text: 'Banda larga' },
       { text: 'Tipo do Site' },
-      { text: 'IPa' },
+      { text: 'Tipo da IPA' },
       { text: 'Ações' },
     ],
     sites: [],
@@ -111,8 +162,14 @@ export default {
         this.errors.push(e);
       });
     },
-    put(id) {
-      axios.put('http://localhost:8000/site/'.concat(id).concat('/'), {
+    put(site) {
+      this.site_name = site.name;
+      this.site_lattitude = site.lattitude;
+      this.site_longitude = site.longitude;
+      this.site_bandwidth = site.bandwidth;
+      this.site_ipa_code = site.ipa_code.id;
+      this.site_type_site = site.site_type.id;
+      axios.put('http://localhost:8000/site/'.concat(site.id).concat('/'), {
         name: this.site_name,
         lattitude: this.site_lattitude,
         longitude: this.site_longitude,
@@ -164,8 +221,8 @@ export default {
     deleteSite(id) {
       this.delete(id);
     },
-    updateSite(id) {
-      this.put(id);
+    updateSite(site) {
+      this.put(site);
     },
     getIpaCode() {
       this.getIpa();
