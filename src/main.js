@@ -5,7 +5,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
-import Ipas from './components/Ipas';
+import Ipas from './components/Ipas/Ipas';
 import Hello from './components/Hello';
 import Site from './components/Sites';
 import Login from './components/Login';
