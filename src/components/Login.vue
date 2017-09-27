@@ -79,7 +79,7 @@
             localStorage.setItem('Token', response.data.token);
             localStorage.setItem('username', response.data.username);
             this.alert = false;
-            this.$router.push('/');
+            this.$router.push('/home');
             this.$router.go(this.$router.currentRoute);
           })
           .catch(() => {

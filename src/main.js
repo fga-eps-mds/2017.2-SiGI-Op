@@ -15,10 +15,10 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/sites', component: Site },
-  { path: '/login', component: Login, title: 'SiGI-Op Login' },
+  { path: '/', component: Login, title: 'SiGI-Op Login' },
   { path: '/register', component: Register, title: 'SiGI-Op Registro' },
   { path: '/ipas', component: Ipas },
-  { path: '/', component: Home },
+  { path: '/home', component: Home },
 ];
 
 Vue.use(Vuetify);
