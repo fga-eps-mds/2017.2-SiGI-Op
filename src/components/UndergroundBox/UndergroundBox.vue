@@ -18,7 +18,9 @@
             <td class="text-xs-right">
               <v-layout row justify-center style="position: relative;">
                 <v-dialog v-model="dialog2" lazy absolute>
-                  <v-btn fab dark small primary slot="activator"></v-btn>
+                  <v-btn fab dark small primary slot="activator">
+                    <v-icon dark>remove</v-icon>
+                  </v-btn>
                   <v-card>
                     <v-card-title>
                       <div class="headline">Deseja realmente deletar a Caixa Subterrânea?</div>
@@ -125,6 +127,19 @@ import axios from 'axios';
 
 export default {
   data: () => ({
+    headers: [
+      {
+        text: 'ID da Caixa Subterrânea',
+        align: 'left',
+      },
+      { text: 'Latitude' },
+      { text: 'Longitude' },
+      { text: 'Tipo Tampa' },
+      { text: 'Data Criação' },
+      { text: 'Data Remoção' },
+      { text: 'Número Arquitetura' },
+      { text: 'Tipo Caixa Subterrânea' },
+    ],
     underground_boxes: [],
     actual_undergroundbox: '',
     underground_box_types: [],
@@ -137,6 +152,7 @@ export default {
     draw_number: '',
     box_type: '',
     name: '',
+    name1: '',
     dialog: false,
     dialog1: false,
     dialog2: false,
@@ -192,15 +208,22 @@ export default {
         this.errors.push(e);
       });
     },
-    put(id) {
-      axios.put('http://localhost:8000/undergroundbox/'.concat(id).concat('/'), {
-        box_type: this.box_type,
-        latitude: this.latitude,
-        cover_type: this.cover_type,
-        longitude: this.longitude,
-        created_at: this.created_at,
-        removed_at: this.removed_at,
-        draw_number: this.draw_number,
+    put(undergroundbox) {
+      this.lat = undergroundbox.latitude;
+      this.long = undergroundbox.longitude;
+      this.c_type = undergroundbox.cover_type;
+      this.create = undergroundbox.created_at;
+      this.remove = undergroundbox.removed_at;
+      this.btype = undergroundbox.box_type;
+      this.d_number = undergroundbox.draw_number;
+      axios.put('http://localhost:8000/undergroundbox/'.concat(undergroundbox.id).concat('/'), {
+        box_type: this.btype,
+        latitude: this.lat,
+        cover_type: this.c_type,
+        longitude: this.long,
+        created_at: this.creat,
+        removed_at: this.remov,
+        draw_number: this.d_number,
       })
       .then()
       .catch((e) => {
