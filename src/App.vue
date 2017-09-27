@@ -40,11 +40,14 @@ export default {
       render_sidebar: localStorage.getItem('Token') !== 'null',
       items: [
         { title: 'IPAs', path: '/ipas' },
-        { title: 'Reservas Técnicas', path: '/technical_reserves' },
         { title: 'Sites', path: '/sites' },
+        { title: 'Contatos', path: '/contacts' },
+        { title: 'Reservas Técnicas', path: '/technical_reserves' },
         { title: 'Caixas Subterrâneas', path: '/undergroundbox' },
         { title: 'DGOs', path: '/dgos' },
-        { title: 'Uplink', path: '/uplink' },
+        { title: 'Segmentos', path: '/segments' },
+        { title: 'Uplink', path: '/Uplink' },
+        { title: 'Caixas de Emenda', path: '/emendation_boxes' },
       ],
       right: null,
     };
