@@ -43,7 +43,7 @@ export default {
         { title: 'Sites', path: '/sites' },
         { title: 'Contatos', path: '/contacts' },
         { title: 'Reservas Técnicas', path: '/technical_reserves' },
-        { title: 'Caixas Subterrâneas', path: '/underground_box' },
+        { title: 'Caixas Subterrâneas', path: '/undergroundbox' },
         { title: 'DGOs', path: '/dgos' },
         { title: 'Segmentos', path: '/segments' },
         { title: 'Uplink', path: '/Uplink' },
