@@ -26,6 +26,7 @@
       </v-container>
     </main>
   </v-app>
+
 </template>
 
 <script>
@@ -41,7 +42,7 @@ export default {
         { title: 'IPAs', path: '/ipas' },
         { title: 'Reservas Técnicas', path: '/technical_reserves' },
         { title: 'Sites', path: '/sites' },
-        { title: 'Caixas Subterrâneas', path: '/underground_boxes' },
+        { title: 'Caixas Subterrâneas', path: '/undergroundbox' },
         { title: 'DGOs', path: 'dgos' },
       ],
       right: null,
