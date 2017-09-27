@@ -9,12 +9,14 @@ import Site from './components/Sites';
 import Hello from './components/Hello';
 import Login from './components/Login';
 import Register from './components/Register';
+import Contact from './components/Contacts';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Hello },
   { path: '/sites', component: Site },
+  { path: '/contacts', component: Contact },
   { path: '/login', component: Login, title: 'SiGI-Op Login' },
   { path: '/register', component: Register, title: 'SiGI-Op Registro' },
 ];
