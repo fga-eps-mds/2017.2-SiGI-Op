@@ -7,7 +7,7 @@ import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import Site from './components/Sites';
 import Hello from './components/Hello';
-import Reserve from './components/Reserve';
+import Reserve from './components/Reserves/Reserve';
 
 Vue.use(VueRouter);
 
