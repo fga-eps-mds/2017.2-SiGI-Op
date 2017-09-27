@@ -13,7 +13,9 @@
             <td class="text-xs-right">
               <v-layout row justify-center style="position: relative;">
                 <v-dialog v-model="dialog2" lazy absolute>
-                  <v-btn fab dark small primary slot="activator"></v-btn>
+                  <v-btn fab dark small primary slot="activator">
+                    <v-icon dark> remove </v-icon>
+                  </v-btn>
                   <v-card>
                     <v-card-title>
                       <div class="headline">Deseja realmente deletar a IPA?</div>
@@ -28,7 +30,6 @@
                 </v-dialog>
               </v-layout>
 
-              <v-icon dark> remove </v-icon>
               </v-btn>
               <td class="text-xs-right">
                 <v-dialog v-model="dialog" persistent width="50%">

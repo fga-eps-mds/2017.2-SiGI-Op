@@ -7,6 +7,7 @@ import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import Site from './components/sites/Site';
 import Ipas from './components/Ipas/Ipas';
+import Reserve from './components/Reserves/Reserve';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
@@ -15,6 +16,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/sites', component: Site },
+  { path: '/technical_reserves', component: Reserve },
   { path: '/', component: Login, title: 'SiGI-Op Login' },
   { path: '/register', component: Register, title: 'SiGI-Op Registro' },
   { path: '/ipas', component: Ipas },
