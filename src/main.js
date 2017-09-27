@@ -11,6 +11,7 @@ import Reserve from './components/Reserves/Reserve';
 import UndergroundBox from './components/UndergroundBox/UndergroundBox';
 import Login from './components/Login';
 import Register from './components/Register';
+import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
 
 Vue.use(VueRouter);
@@ -20,6 +21,7 @@ const routes = [
   { path: '/technical_reserves', component: Reserve },
   { path: '/', component: Login, title: 'SiGI-Op Login' },
   { path: '/register', component: Register, title: 'SiGI-Op Registro' },
+  { path: '/uplink', component: Uplink },
   { path: '/ipas', component: Ipas },
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
