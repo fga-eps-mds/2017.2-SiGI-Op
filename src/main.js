@@ -1,28 +1,42 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
 import VueRouter from 'vue-router';
 import Vue from 'vue';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
 import App from './App';
+import Site from './components/sites/Site';
+import Ipas from './components/Ipas/Ipas';
+import Reserve from './components/Reserves/Reserve';
 import UndergroundBox from './components/UndergroundBox/UndergroundBox';
-import Hello from './components/Hello';
+import Login from './components/Login';
+import Register from './components/Register';
+import Home from './components/Home';
 
-Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(Vuetify);
 
 const routes = [
-  { path: '/', component: Hello },
+  { path: '/sites', component: Site },
+  { path: '/technical_reserves', component: Reserve },
+  { path: '/', component: Login, title: 'SiGI-Op Login' },
+  { path: '/register', component: Register, title: 'SiGI-Op Registro' },
+  { path: '/ipas', component: Ipas },
+  { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
 ];
 
+Vue.use(Vuetify);
+
+Vue.config.productionTip = false;
+Vue.use(VueRouter);
+
+// Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
 const router = new VueRouter({
   routes, // short for routes: routes
   mode: 'history',
 });
-
-Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
