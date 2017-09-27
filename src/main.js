@@ -9,7 +9,7 @@ import Site from './components/Sites';
 import Hello from './components/Hello';
 import Login from './components/Login';
 import Register from './components/Register';
-import Uplink from './components/Uplink';
+import Uplink from './components/Uplink/Uplink';
 
 Vue.use(VueRouter);
 
