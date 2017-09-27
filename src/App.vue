@@ -26,6 +26,7 @@
       </v-container>
     </main>
   </v-app>
+
 </template>
 
 <script>
@@ -39,14 +40,14 @@ export default {
       render_sidebar: localStorage.getItem('Token') !== 'null',
       items: [
         { title: 'IPAs', path: '/ipas' },
-        { title: 'Reservas Técnicas', path: '/technical_reserves' },
         { title: 'Sites', path: '/sites' },
-        { title: 'Caixas Subterrâneas', path: '/underground_boxes' },
+        { title: 'Contatos', path: '/contacts' },
+        { title: 'Reservas Técnicas', path: '/technical_reserves' },
+        { title: 'Caixas Subterrâneas', path: '/underground_box' },
         { title: 'DGOs', path: '/dgos' },
         { title: 'Segmentos', path: '/segments' },
-        { title: 'Uplink', path: '/uplinks' },
+        { title: 'Uplink', path: '/Uplink' },
         { title: 'Caixas de Emenda', path: '/emendation_boxes' },
-        { title: 'Contatos', path: '/contacts' },
       ],
       right: null,
     };
