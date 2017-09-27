@@ -2,58 +2,10 @@
   <div id="sites">
     <v-app id="sites">
       <v-container>
-        <v-dialog v-model="dialog1" persistent width="50%">
-          <v-btn primary dark slot="activator">Cadastrar Site</v-btn>
-          <v-card>
-            <v-card-title>
-              <span class="headline"> Cadastrar Site </span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container grid-list-md>
-                <form>
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-text-field
-                        label="Nome do site"
-                        v-model="site_name">
-                      </v-text-field>
-                      <v-text-field
-                        label="Latitude"
-                        v-model="site_lattitude"
-                        type="number">
-                      </v-text-field>
-                      <v-text-field
-                        label="Longitude"
-                        v-model="site_longitude"
-                        type="number">
-                      </v-text-field>
-                      <v-text-field
-                        label="Banda larga do site"
-                        v-model="site_bandwidth"
-                        type="number"
-                        min="0">
-                      </v-text-field>
-                      <v-select v-bind:items="ipalist" v-model="site_ipa_code" label="Qual a IPA do site?"item-text="name" bottom></v-select>
-                      <v-select v-bind:items="site_types" v-model="site_type_site" label="Tipo do site?"item-text="description" bottom></v-select>
-                      
-                    </v-flex>
-                  </v-layout>
-                </form>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog1 = false">Fechar</v-btn>
-                <v-btn class="blue--text darken-1" v-on:click.prevent="addSite" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-
+        
         <v-container>
           <v-data-table v-bind:headers="headers" :items="sites" class="elevation-1">
             <template slot="items" scope="site">
-              <td>{{site.item.id}}</td>
               <td class="text-xs-right">{{ site.item.name }}</td>
               <td class="text-xs-right">
                 {{ '('.concat(site.item.lattitude).concat(',') .concat(site.item.longitude).concat(')')}}
@@ -107,6 +59,54 @@
             </template>
           </v-data-table>
         </v-container>
+
+        <v-dialog v-model="dialog1" persistent width="50%">
+          <v-btn primary dark slot="activator">Cadastrar Site</v-btn>
+          <v-card>
+            <v-card-title>
+              <span class="headline"> Cadastrar Site </span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container grid-list-md>
+                <form>
+                  <v-layout row>
+                    <v-flex xs12>
+                      <v-text-field
+                        label="Nome do site"
+                        v-model="site_name">
+                      </v-text-field>
+                      <v-text-field
+                        label="Latitude"
+                        v-model="site_lattitude"
+                        type="number">
+                      </v-text-field>
+                      <v-text-field
+                        label="Longitude"
+                        v-model="site_longitude"
+                        type="number">
+                      </v-text-field>
+                      <v-text-field
+                        label="Banda larga do site"
+                        v-model="site_bandwidth"
+                        type="number"
+                        min="0">
+                      </v-text-field>
+                      <v-select v-bind:items="ipalist" v-model="site_ipa_code" label="Qual a IPA do site?"item-text="name" bottom></v-select>
+                      <v-select v-bind:items="site_types" v-model="site_type_site" label="Tipo do site?"item-text="description" bottom></v-select>
+                      
+                    </v-flex>
+                  </v-layout>
+                </form>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog1 = false">Fechar</v-btn>
+                <v-btn class="blue--text darken-1" v-on:click.prevent="addSite" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-container>
       <router-view></router-view>
     </v-app>
@@ -142,18 +142,8 @@ export default {
     dialog1: false,
     site_type_site: '',
     actual_site: '',
-    // ipa: {name: this.ipa_name, code: ipa_code},
     ipalist: [],
     sitelist: [],
-    formpost: {
-      id: this.site_id,
-      name: this.site_name,
-      lattitude: this.site_lattitude,
-      longitude: this.site_longitude,
-      bandwidth: this.site_bandwidth,
-      ipa_code: this.site_ipa_code,
-      site_type: this.site_type_site,
-    },
     errors: [],
   }),
   methods: {
@@ -178,6 +168,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+      this.$router.go(this.$router.currentRoute);
     },
     get() {
       axios.get('http://localhost:8000/site/')
@@ -214,6 +205,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+      this.$router.go(this.$router.currentRoute);
     },
     getSpecificSite(id) {
       axios.get('http://localhost:8000/site/'.concat(id).concat('/'))
@@ -253,18 +245,18 @@ export default {
     },
     deleteSite(id) {
       this.delete(id);
-      this.getSites();
+      this.get();
     },
     updateSite(site) {
       this.put(site);
-      this.getSites();
+      this.get();
     },
     getIpaCode() {
       this.getIpa();
     },
     addSite() {
       this.post();
-      this.getSites();
+      this.get();
     },
   },
   // Fetches posts when the component is created.

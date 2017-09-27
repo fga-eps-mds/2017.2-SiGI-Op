@@ -1,16 +1,15 @@
 import Site from '../../../src/components/sites/Site';
 
 describe('Site', () => {
-  it('get sites', () => {
+  it('check default values', () => {
     expect(typeof Site.data).to.equal('function');
     const defaultData = Site.data();
-    expect(defaultData.id).to.equal('null');
-    expect(defaultData.name).to.equal('null');
-    expect(defaultData.lattitude).to.equal('null');
-    expect(defaultData.longitude).to.equal('null');
-    expect(defaultData.bandwidth).to.equal('null');
-    expect(defaultData.ipa_code).to.equal('null');
-    expect(defaultData.site_type).to.equal('null');
+    expect(defaultData.site_name).to.equal('');
+    expect(defaultData.site_lattitude).to.equal('');
+    expect(defaultData.site_longitude).to.equal('');
+    expect(defaultData.site_ipa_code).to.equal('');
+    expect(defaultData.site_type_site).to.equal('');
+    expect(defaultData.site_bandwidth).to.equal('');
   });
 
   it('check getsites function', () => {
