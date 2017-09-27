@@ -15,7 +15,11 @@
               <td class="text-xs-right">
                 <v-layout row justify-center style="position: relative;">
                   <v-dialog v-model="dialog2" lazy absolute>
-                    <v-btn fab dark small primary slot="activator"></v-btn>
+                    <v-btn fab dark small primary slot="activator">
+                      <v-icon dark>
+                        remove
+                      </v-icon>
+                    </v-btn>
                     <v-card>
                       <v-card-title>
                         <div class="headline">Deseja realmente deletar o Uplink?</div>
@@ -126,6 +130,9 @@ export default {
     actual_uplink: '',
     uplink_id: '',
     name_vlan: '',
+    cd: '',
+    bad: '',
+    vname: '',
     dialog: false,
     dialog1: false,
     dialog2: false,
@@ -171,12 +178,14 @@ export default {
         this.errors.push(e);
       });
     },
-    put(id) {
-      axios.put('http://localhost:8000/uplink/'.concat(id).concat('/'), {
-        id: this.uplink_id,
-        name_vlan: this.uplink_name_vlan,
-        code: this.uplink_code,
-        band: this.uplink_band,
+    put(uplink) {
+      this.vname = uplink.name_vlan;
+      this.cd = uplink.code;
+      this.bad = uplink.band;
+      axios.put('http://localhost:8000/uplink/'.concat(uplink.id).concat('/'), {
+        name_vlan: this.vname,
+        code: this.cd,
+        band: this.bad,
       })
      .then()
      .catch((e) => {
