@@ -14,94 +14,94 @@
             <td class="text-xs-right">{{ reserve.item.longitude }}</td>
             <td class="text-xs-right">
               <v-layout row justify-center style="position: relative;">
-                  <v-dialog v-model="dialog2" lazy absolute>
-                    <v-btn fab dark small primary slot="activator"></v-btn>
-                    <v-card>
-                      <v-card-title>
-                        <div class="headline">Deseja realmente deletar a Reserva Técnica?</div>
-                      </v-card-title>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn class="green--text darken-1" flat="flat" @click.native="dialog2 = false">Cancelar</v-btn>
-                        <v-btn class="green--text darken-1" v-if="!alert" v-on:click="alert = true" v-on:click.prevent="deletereserve(reserve.item.id)" flat="flat" @click.native="dialog2 = false">Confirmar
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-layout>
+                <v-dialog v-model="dialog2" lazy absolute>
+                  <v-btn fab dark small primary slot="activator"></v-btn>
+                  <v-card>
+                    <v-card-title>
+                      <div class="headline">Deseja realmente deletar a Reserva Técnica?</div>
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn class="green--text darken-1" flat="flat" @click.native="dialog2 = false">Cancelar</v-btn>
+                      <v-btn class="green--text darken-1" v-if="!alert" v-on:click="alert = true" v-on:click.prevent="deletereserve(reserve.item.id)" flat="flat" @click.native="dialog2 = false">Confirmar
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-layout>
 
-                <v-icon dark> remove</v-icon>
-                </v-btn>
-                <td class="text-xs-right">
-                  <v-dialog v-model="dialog" persistent width="50%">
-                    <v-btn primary dark slot="activator" v-on:click.prevent="getSpecificReserve(reserve.item.id)">
-                      <v-icon dark> update</v-icon>
-                    </v-btn>
-                    <v-card>
-                      <v-card-title>
-                        <span class="headline"> Atualizar Reserva Técnica </span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-container grid-list-md>
-                          <form>
-                            <v-layout row>
-                              <v-flex xs12>
-                                <v-text-field label="Código da Reserva Técnica" v-model="actual_reserve.code">
-                                </v-text-field>
-                                <v-text-field label="Extensão da  Reserva Técnica" v-model="actual_reserve.length">
-                                </v-text-field>
-                                <v-text-field label="Latitude da Reserva Técnica" v-model="actual_reserve.latitude">
-                                </v-text-field>
-                                <v-text-field label="Longitude da Reserva Técnica" v-model="actual_reserve.longitude">
-                                </v-text-field>
-                              </v-flex>
-                            </v-layout>
-                          </form>
-                        </v-container>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog = false">Fechar</v-btn>
-                        <v-btn class="blue--text darken-1" v-on:click.prevent="updatereserve(actual_reserve)" flat="flat" @click.native="dialog = false" type="submit">Salvar alterações</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </td>
+              <v-icon dark> remove</v-icon>
+              </v-btn>
+              <td class="text-xs-right">
+                <v-dialog v-model="dialog" persistent width="50%">
+                  <v-btn primary dark slot="activator" v-on:click.prevent="getSpecificReserve(reserve.item.id)">
+                    <v-icon dark> update</v-icon>
+                  </v-btn>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline"> Atualizar Reserva Técnica </span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container grid-list-md>
+                        <form>
+                          <v-layout row>
+                            <v-flex xs12>
+                              <v-text-field label="Código da Reserva Técnica" v-model="actual_reserve.code">
+                              </v-text-field>
+                              <v-text-field label="Extensão da  Reserva Técnica" v-model="actual_reserve.length">
+                              </v-text-field>
+                              <v-text-field label="Latitude da Reserva Técnica" v-model="actual_reserve.latitude">
+                              </v-text-field>
+                              <v-text-field label="Longitude da Reserva Técnica" v-model="actual_reserve.longitude">
+                              </v-text-field>
+                            </v-flex>
+                          </v-layout>
+                        </form>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog = false">Fechar</v-btn>
+                      <v-btn class="blue--text darken-1" v-on:click.prevent="updatereserve(actual_reserve)" flat="flat" @click.native="dialog = false" type="submit">Salvar alterações</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </td>
-            </template>
-          </v-data-table>
-        </v-container>
-         <v-dialog v-model="dialog1" persistent width="50%">
-          <v-btn primary dark slot="activator">Cadastrar Reserva Técnica</v-btn>
-          <v-card>
-            <v-card-title>
-              <span class="headline"> Cadastrar Reserva Técnica </span>
-            </v-card-title>
-            <v-card-text>
-              <v-container grid-list-md>
-                <form>
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-text-field label="Código da Reserva Técnica" v-model="reserve_code">
-                      </v-text-field>
-                      <v-text-field label="Extensão da Reserva Técnica" v-model="reserve_length">
-                      </v-text-field>
-                      <v-text-field label="Latitude da Reserva Técnica" v-model="reserve_latitude">
-                      </v-text-field>
-                      <v-text-field label="Longitude da Reserva Técnica" v-model="reserve_longitude">
-                      </v-text-field>
-                    </v-flex>
-                  </v-layout>
-                </form>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog1 = false">Fechar</v-btn>
-              <v-btn class="blue--text darken-1" v-on:click.prevent="addreserve" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+            </td>
+          </template>
+        </v-data-table>
+      </v-container>
+      <v-dialog v-model="dialog1" persistent width="50%">
+        <v-btn primary dark slot="activator">Cadastrar Reserva Técnica</v-btn>
+        <v-card>
+          <v-card-title>
+            <span class="headline"> Cadastrar Reserva Técnica </span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <form>
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field label="Código da Reserva Técnica" v-model="reserve_code">
+                    </v-text-field>
+                    <v-text-field label="Extensão da Reserva Técnica" v-model="reserve_length">
+                    </v-text-field>
+                    <v-text-field label="Latitude da Reserva Técnica" v-model="reserve_latitude">
+                    </v-text-field>
+                    <v-text-field label="Longitude da Reserva Técnica" v-model="reserve_longitude">
+                    </v-text-field>
+                  </v-flex>
+                </v-layout>
+              </form>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog1 = false">Fechar</v-btn>
+            <v-btn class="blue--text darken-1" v-on:click.prevent="addreserve" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       </v-container>
       <router-view></router-view>
     </v-app>
@@ -209,6 +209,7 @@ export default {
     },
     addreserve() {
       this.post();
+      this.$router.go(this.$router.currentRoute);
     },
     updatereserve(reserve) {
       this.put(reserve);
@@ -232,6 +233,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 .reserves {
   font-size: 18px;
   color: #FFFFF;
