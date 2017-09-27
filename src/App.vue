@@ -18,7 +18,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar dark fixed class="primary">
-      <router-link :to="'/'"><img src="./assets/logogc4.png"></router-link>
+      <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -51,7 +51,7 @@ export default {
     sign_out() {
       localStorage.setItem('Token', null);
       localStorage.setItem('username', null);
-      this.$router.push('/login');
+      this.$router.push('/');
       this.$router.go(this.$router.currentRoute);
     },
   },
