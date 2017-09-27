@@ -6,17 +6,17 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import Site from './components/Sites';
-import Hello from './components/Hello';
 import Login from './components/Login';
 import Register from './components/Register';
+import Home from './components/Home';
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Hello },
   { path: '/sites', component: Site },
-  { path: '/login', component: Login, title: 'SiGI-Op Login' },
-  { path: '/register', component: Register, title: 'SiGI-Op Registro' },
+  { path: '/login', component: Login },
+  { path: '/register', component: Register },
+  { path: '/', component: Home },
 ];
 
 Vue.use(Vuetify);

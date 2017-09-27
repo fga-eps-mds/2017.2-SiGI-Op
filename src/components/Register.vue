@@ -36,7 +36,7 @@
                   <v-flex xs12>
                     <v-text-field
                     label="Confirmar senha"
-                    v-model="password2"
+                    v-model="password_confirm"
                     type="password"
                     required
                     single-line>
@@ -80,6 +80,7 @@
     data: () => ({
       name: '',
       password: '',
+      password_confirm: '',
       email: '',
       alert: false,
     }),
@@ -92,7 +93,8 @@
         })
           .then((response) => {
             console.log(response);
-            window.location.replace('/login');
+            this.$router.push('/login');
+            this.$router.go(this.$router.currentRoute);
           })
           .catch(() => {
             this.alert = true;
