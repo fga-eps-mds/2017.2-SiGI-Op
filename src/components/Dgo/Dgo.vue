@@ -1,10 +1,10 @@
 <template>
-    <div id="dgos">
+    <div id="gods">
       <v-alert success dismissible transition="scale-transition" v-model="alert">
         DGO deletado com sucesso. Por favor, recarregue a pagina.
       </v-alert>
 
-      <v-app id="dgos">
+      <v-app id="gods">
         <v-container>
           <v-data-table v-bind:headers="headers" :items="gods" class="elevation-1">
             <template slot="items" scope="god">
@@ -48,13 +48,13 @@
                         <form>
                           <v-layout row>
                             <v-flex xs12>
-                              <v-text-field label="Fabricant" v-model="actual_god.fabricant">
+                              <v-text-field label="Fabricante" v-model="actual_god.fabricant">
                               </v-text-field>
 
-                              <v-text-field label="Code" v-model="actual_god.code">
+                              <v-text-field label="Código" v-model="actual_god.code">
                               </v-text-field>
 
-                              <v-text-field label="port_quantity" v-model="actual_god.port_quantity">
+                              <v-text-field label="Quantidade de Portas" v-model="actual_god.port_quantity">
                               </v-text-field>
                             </v-flex>
                           </v-layout>
@@ -85,11 +85,11 @@
                 <form>
                   <v-layout row>
                     <v-flex xs12>
-                      <v-text-field label="Fabricant" v-model="fabricant">
+                      <v-text-field label="Fabricante" v-model="fabricant">
                       </v-text-field>
-                      <v-text-field label="Code" v-model="code">
+                      <v-text-field label="Código" v-model="code">
                       </v-text-field>
-                      <v-text-field label="port_quantity" v-model="port_quantity">
+                      <v-text-field label="Quantidade de Portas" v-model="port_quantity">
                       </v-text-field>
                     </v-flex>
                   </v-layout>
@@ -99,7 +99,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog1 = false">Fechar</v-btn>
-                <v-btn class="blue--text darken-1" v-on:click.prevent="addGod" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
+                <v-btn class="blue--text darken-1" v-on:click.prevent="addGod()" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -116,10 +116,9 @@ export default {
   data: () => ({
     headers: [
       {
-        text: 'ID do DGO',
+        text: 'Código do DGO',
         align: 'left',
       },
-      { text: 'Códoig' },
       { text: 'Fabricante' },
       { text: 'Quantidade de Portas' },
       { text: 'Deletar DGO' },
@@ -127,22 +126,20 @@ export default {
     ],
     gods: [],
     actual_god: '',
-    god_id: '',
     fabricant: '',
+    code: '',
+    port_quantity: '',
     dialog: false,
     dialog1: false,
     dialog2: false,
-    code: '',
-    port_quantity: '',
     alert: false,
     errors: [],
   }),
   methods: {
     post() {
       axios.post('http://localhost:8000/dgos/', {
-        id: this.id,
-        fabricant: this.fabricant,
         code: this.code,
+        fabricant: this.fabricant,
         port_quantity: this.port_quantity,
       })
         .then()
@@ -151,7 +148,7 @@ export default {
         });
       axios.get('http://localhost:8000/dgos/')
         .then((response) => {
-          this.god = response.data;
+          this.gods = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
@@ -161,7 +158,7 @@ export default {
     get() {
       axios.get('http://localhost:8000/dgos/')
         .then((response) => {
-          this.god = response.data;
+          this.gods = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
@@ -178,7 +175,7 @@ export default {
       this.fabricant = god.fabricant;
       this.code = god.code;
       this.port_quantity = god.port_quantity;
-      axios.put('http://localhost:8000/dgos/'.concat(god.id).concat('/'), {
+      axios.put('http://localhost:8000/dgos/'.concat(god.code).concat('/'), {
         fabricant: this.fabricant,
         code: this.code,
         port_quantity: this.port_quantity,
@@ -220,7 +217,7 @@ export default {
 </script>
 
 <style>
-#dgos {
+#gods {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -228,7 +225,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-.dgos {
+.gods {
   font-size: 18px;
   color: #FFFFF;
 }
