@@ -14,6 +14,8 @@ import Register from './components/Register';
 import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
+import Segment from './components/Segments/Segment';
+
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,7 @@ const routes = [
   { path: '/ipas', component: Ipas },
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
+  { path: '/segment', component: Segment },
 ];
 
 Vue.use(Vuetify);
