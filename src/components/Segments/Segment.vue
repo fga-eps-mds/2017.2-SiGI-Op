@@ -1,7 +1,7 @@
 <template>
   <div class="segment">
     <div>
-      <modal :headers="headers" :name="name" :alert="alert" v-on:register="post"></modal>
+      <modal :headers="headers" :name="name" :alert="alert" v-on:register="post()"></modal>
     </div>
     <div>
       <data-table :headers="headers" :name="name" :objects="objects"></data-table>
@@ -30,7 +30,7 @@ export default {
       ],
       objects: [],
       errors: [],
-      alert: true,
+      alert: false,
     };
   },
   components: { Modal, DataTable },
@@ -49,8 +49,9 @@ export default {
         cable_length: this.headers[1].value,
         segment_number: this.headers[2].value,
       })
-        .then()
+        .then(this.alert = false)
         .catch((e) => {
+          this.alert = true;
           this.errors.push(e);
         });
     },

@@ -2,25 +2,23 @@
   <div class="table">
     <v-data-table :headers="headers"  :items="objects" class="elevation-1">
       <template slot="items" scope="props" >
-        <tr v-for="object in objects">
-          <td class="text-xs-right" v-for="item in object" >
+        <tr>
+          <td class="text-xs-right" v-for="item in props.item">
             {{ item }}
           </td>
           <td class="text-xs-right">
-            <delete :name="name" v-on:delete="deleteObject" ></delete>
+            <delete :name="name" :id="props.item.id" v-on:delete="deleteObject" ></delete>
           </td>
           <td class="text-xs-right">
             <update :headers="headers"></update>
           </td>
-      </tr>
+        </tr>
       </template>
     </v-data-table>
-
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import Delete from './DeleteModal';
 import Update from './UpdateModal';
 
@@ -33,16 +31,7 @@ export default {
     };
   },
   components: { Delete, Update },
-  methods: {
-    deleteObject(id) {
-      axios.delete('http://localhost:8000/ipas/'.concat(id))
-        .then()
-        .catch((e) => {
-          this.errors.push(e);
-        });
-      this.getipa();
-    },
-  },
+
 };
 </script>
 

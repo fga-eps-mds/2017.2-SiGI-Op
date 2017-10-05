@@ -6,12 +6,19 @@
       </v-btn>
       <v-card>
         <v-card-title>
-          <div class="headline">are you sure you want to delete this {{ name }}?</div>
+          <div class="headline">Delete</div>
         </v-card-title>
+        <v-card-content>
+          Are you sure you want to delete this {{ name }}?
+        </v-card-content>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">No</v-btn>
-          <v-btn class="green--text darken-1" v-if="!alert" @click="alert = true" v-on:click.prevent="deleteObject" flat="flat" @click.native="dialog = false">Yes
+          <v-btn class="green--text darken-1"
+          v-on:click.prevent="deleteObject"
+          flat="flat"
+          @click.native="dialog = false">
+          Yes
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -20,8 +27,11 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+
 export default {
-  props: ['name'],
+  props: ['name', 'id'],
   data() {
     return {
       dialog: false,
@@ -39,7 +49,11 @@ export default {
       }
     },
     deleteObject() {
-      this.$emit('delete');
+      axios.delete('http://localhost:8000/'.concat('segments', '/', this.id)) // Trocar segments para this.name
+        .then()
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
   },
 };

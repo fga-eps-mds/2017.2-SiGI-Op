@@ -43,8 +43,8 @@
        </v-card-text>
        <v-card-actions>
          <v-spacer></v-spacer>
-         <v-btn class="blue--text darken-1" flat="flat" @click="close(true)">Close</v-btn>
-         <v-btn class="blue--text darken-1" @click.prevent="register;close(false)" flat="flat" >Register</v-btn>
+         <v-btn class="blue--text darken-1" flat="flat" @click="close()">Close</v-btn>
+         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" >Register</v-btn>
        </v-card-actions>
      </v-card>
    </v-dialog>
@@ -61,18 +61,28 @@ export default {
     };
   },
   methods: {
-    close(t) {
-      if (this.alert === true && !t) {
-        this.dialog = true;
-      } else {
-        for (let i = 0; i < this.headers.length; i += 1) {
-          this.headers[i].value = '';
-        }
-        this.dialog = false;
+    close() {
+      for (let i = 0; i < this.headers.length; i += 1) {
+        this.headers[i].value = '';
       }
+      this.dialog = false;
+      this.alert = false;
     },
     register() {
-      this.$emit('register');
+      let j = 0;
+      for (let i = 1; i < this.headers.length; i += 1) {
+        if (this.headers[i].value === '') {
+          j += j + 1;
+        }
+      }
+      if (j > 0) {
+        this.alert = true;
+      } else {
+        this.$emit('register');
+        if (this.alert !== true) {
+          this.close();
+        }
+      }
     },
   },
   filters: {
