@@ -1,17 +1,25 @@
 <template>
   <div class="segment">
-    <modal :headers="headers" :name="name" :alert="alert" v-on:register="post"></modal>
-    <table :headers="headers" :name="name"></table>
+    <div>
+      <modal :headers="headers" :name="name" :alert="alert" v-on:register="post"></modal>
+    </div>
+    <div>
+      <data-table :headers="headers" :name="name" :objects="objects"></data-table>
+    </div>
+    <v-btn primary dark slot="activator" v-on:click.prevent="get()">
+      <v-icon dark> update</v-icon>
+    </v-btn>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import Modal from './Modal';
-import Table from './Table';
+import DataTable from './DataList';
 
 export default {
   name: 'segment',
+
   data() {
     return {
       name: 'segment',
@@ -20,40 +28,42 @@ export default {
         { text: 'Cable Length', type: 'float', value: '' },
         { text: 'Segment Number', type: 'number', value: '' },
       ],
-      segment: [],
+      objects: [],
       errors: [],
       alert: true,
     };
   },
-  components: { Modal, Table },
+  components: { Modal, DataTable },
   methods: {
     get() {
-      axios.get('http://localhost:8000/segment/')
+      axios.get('http://localhost:8000/segments/')
         .then((response) => {
-          this.segment = response.data;
+          this.objects = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
         });
+    },
+    post() {
+      axios.post('http://localhost:8000/segments/', {
+        cable_length: this.headers[1].value,
+        segment_number: this.headers[2].value,
+      })
+        .then()
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+  },
+  watch: {
+    afterPost() {
+      this.$router.push();
     },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
+<style>
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>

@@ -15,7 +15,7 @@
        <v-card-text>
          <v-container grid-list-md>
            <form>
-             <v-layout row v-for="head in headers">
+             <v-layout row v-for="head in headers" :key="head.id">
                <v-flex xs12 v-if="head.text != 'ID'">
                  <v-text-field
                   v-if="head.type === 'number'"
