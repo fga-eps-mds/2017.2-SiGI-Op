@@ -52,7 +52,7 @@
                               </v-text-field>
                               <v-text-field label="Proprietário do NoBreak" v-model="actual_nobreak.proprietary">
                               </v-text-field>
-                              <v-text-field label="Número de Patrimônio do NoBreak" v-model="actual_nobreak.proprietary_number">
+                              <v-text-field label="Número de Patrimônio do NoBreak" v-model="actual_nobreak.patrimony_number">
                               </v-text-field>
                                 <v-select v-bind:items="sitelist" v-model="actual_nobreak.site_id" label="Qual o Site do NoBreak?" item-text="name" bottom></v-select>
                             </v-flex>
@@ -87,7 +87,7 @@
                     </v-text-field>
                     <v-text-field label="Proprietário do NoBreak" v-model="nobreak_proprietary">
                     </v-text-field>
-                    <v-text-field label="Número de Patrimônio do NoBreak" v-model="nobreak_proprietary_number">
+                    <v-text-field label="Número de Patrimônio do NoBreak" v-model="nobreak_patrimony_number">
                     </v-text-field>
                     <v-select v-bind:items="sitelist" v-model="nobreak_site_id" label="Qual o Site do NoBreak?"item-text="name" bottom></v-select>
                   </v-flex>
@@ -119,7 +119,6 @@ export default {
         text: 'ID do NoBreak',
         align: 'left',
       },
-      { text: 'Código do NoBreak' },
       { text: 'Potência do NoBreak' },
       { text: 'Proprietário do NoBreak' },
       { text: 'Número de Patrimônio do NoBreak' },
@@ -180,13 +179,13 @@ export default {
     put(nobreak) {
       this.nobreak_power = nobreak.power;
       this.nobreak_proprietary = nobreak.proprietary;
-      this.nobreak_proprietary_number = nobreak.proprietary_number;
-      this.nobreak_site_id = nobreak.site_id;
+      this.nobreak_patrimony_number = nobreak.patrimony_number;
+      this.nobreak_site_id = nobreak.site_id.id;
 
       axios.put('http://localhost:8000/nobreak/'.concat(nobreak.id).concat('/'), {
         power: this.nobreak_power,
         proprietary: this.nobreak_proprietary,
-        proprietary_number: this.nobreak_proprietary_number,
+        patrimony_number: this.nobreak_patrimony_number,
         site_id: this.nobreak_site_id,
       })
         .then()
@@ -194,7 +193,7 @@ export default {
           this.errors.push(e);
         });
     },
-    getSpecificnobreak(id) {
+    getSpecificNoBreak(id) {
       axios.get('http://localhost:8000/nobreak/'.concat(id).concat('/'))
         .then((response) => {
           this.actual_nobreak = response.data;
@@ -218,9 +217,19 @@ export default {
       this.getnobreak();
       this.$router.go(this.$router.currentRoute);
     },
+    getSite() {
+      axios.get('http://localhost:8000/site/')
+        .then((response) => {
+          this.sitelist = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
   },
   // Fetches posts when the component is created.
   created() {
+    this.getSite();
     this.getnobreak();
   },
 };
