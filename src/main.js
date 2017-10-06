@@ -6,7 +6,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import Dgo from './components/Dgo/Dgo';
-import Site from './components/sites/Site';
+import Site from './components/Sites/Site';
 import Ipas from './components/Ipas/Ipas';
 import Reserve from './components/Reserves/Reserve';
 import UndergroundBox from './components/UndergroundBox/UndergroundBox';
@@ -15,6 +15,7 @@ import Register from './components/Register';
 import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
+import EmendationBox from './components/EmendationBoxes/EmendationBox';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,7 @@ const routes = [
   { path: '/ipas', component: Ipas },
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
+  { path: '/emendation_boxes', component: EmendationBox },
 ];
 
 Vue.use(Vuetify);
