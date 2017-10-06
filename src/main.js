@@ -5,6 +5,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
+import Dgo from './components/Dgo/Dgo';
 import Site from './components/Sites/Site';
 import Ipas from './components/Ipas/Ipas';
 import Reserve from './components/Reserves/Reserve';
@@ -19,6 +20,7 @@ import EmendationBox from './components/EmendationBoxes/EmendationBox';
 Vue.use(VueRouter);
 
 const routes = [
+  { path: '/dgos', component: Dgo },
   { path: '/sites', component: Site },
   { path: '/contacts', component: Contact },
   { path: '/login', component: Login, title: 'SiGI-Op Login' },
