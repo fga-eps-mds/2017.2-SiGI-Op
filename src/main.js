@@ -15,6 +15,7 @@ import Register from './components/Register';
 import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
+import NoBreak from './components/NoBreaks/NoBreak';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,7 @@ const routes = [
   { path: '/ipas', component: Ipas },
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
+  { path: '/nobreaks', component: NoBreak },
 ];
 
 Vue.use(Vuetify);
