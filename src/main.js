@@ -5,7 +5,6 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
-import Dgo from './components/Dgo/Dgo';
 import Site from './components/sites/Site';
 import Ipas from './components/Ipas/Ipas';
 import Reserve from './components/Reserves/Reserve';
@@ -19,17 +18,15 @@ import Home from './components/Home';
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/dgos', component: Dgo },
-  { path: '/sites', component: Site },
-  { path: '/contacts', component: Contact },
-  { path: '/login', component: Login, title: 'SiGI-Op Login' },
-  { path: '/technical_reserves', component: Reserve },
-  { path: '/', component: Login, title: 'SiGI-Op Login' },
-  { path: '/register', component: Register, title: 'SiGI-Op Registro' },
-  { path: '/uplink', component: Uplink },
-  { path: '/ipas', component: Ipas },
-  { path: '/home', component: Home },
-  { path: '/undergroundbox', component: UndergroundBox },
+  { name: 'sites', path: '/sites', component: Site },
+  { name: 'contacts', path: '/contacts', component: Contact },
+  { name: 'login', path: '/login', component: Login },
+  { name: 'techinical_reserves', path: '/technical_reserves', component: Reserve },
+  { name: 'register', path: '/register', component: Register },
+  { name: 'uplink', path: '/uplink', component: Uplink },
+  { name: 'ipas', path: '/ipas', component: Ipas },
+  { name: 'home', path: '/', component: Home },
+  { name: 'undergroundbox', path: '/undergroundbox', component: UndergroundBox },
 ];
 
 Vue.use(Vuetify);
@@ -44,6 +41,19 @@ const router = new VueRouter({
   routes, // short for routes: routes
   mode: 'history',
 });
+
+router.beforeEach((to, from, next) => {
+  const isAuth = localStorage.getItem('Token') !== 'null';
+
+  if ((to.name !== 'login' && to.name !== 'register') && !isAuth) {
+    next({ name: 'login' });
+  } else if ((to.name === 'register' || to.name === 'login') && isAuth) {
+    next({ name: 'home' });
+  } else {
+    next();
+  }
+});
+
 
 /* eslint-disable no-new */
 new Vue({
