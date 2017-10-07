@@ -55,6 +55,11 @@ export default {
         });
     },
   },
+  watch: {
+    afterDelete() {
+      this.$router.push();
+    },
+  },
 };
 </script>
 

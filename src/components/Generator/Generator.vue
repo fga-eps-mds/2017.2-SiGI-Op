@@ -1,7 +1,7 @@
 <template>
   <div class="generator">
     <div>
-      <modal :headers="headers" :name="name" :alert="alert" v-on:register="post()"></modal>
+      <modal :headers="headers" :name="name" :alert="alert" :items="sites" :siteid="site" v-on:register="post()"></modal>
     </div>
     <div>
       <data-table :headers="headers" :name="name" :objects="objects"></data-table>
@@ -24,13 +24,14 @@ export default {
       name: 'generator',
       headers: [
         { text: 'ID', type: '', value: '' },
-        { text: 'Power', type: 'float', value: '' },
+        { text: 'Power', type: 'number', value: '' },
         { text: 'Manufacturer', type: 'text', value: '' },
         { text: 'Patrimony', type: 'text', value: '' },
-        { text: 'Site', type: 'number', value: '' },
+        { text: 'Site', type: 'select', value: '' },
       ],
       objects: [],
-      sites: ['asçldkjfas'],
+      sites: [],
+      site: null,
       errors: [],
       alert: false,
     };
@@ -45,6 +46,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+      this.getSites();
     },
     getSites() {
       axios.get('http://localhost:8000/site/')
@@ -60,7 +62,7 @@ export default {
         power: this.headers[1].value,
         manufacturer: this.headers[2].value,
         patrimony: this.headers[3].value,
-        site: this.headers[4].value,
+        site: this.headers[4].value.id,
       })
         .then(this.alert = false)
         .catch((e) => {
@@ -73,6 +75,10 @@ export default {
     afterPost() {
       this.$router.push();
     },
+  },
+  created() {
+    this.get();
+    this.getSites();
   },
 };
 </script>
