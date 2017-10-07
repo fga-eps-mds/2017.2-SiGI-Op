@@ -16,6 +16,7 @@ import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
+import Generator from './components/Generator/Generator';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,7 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
+  { path: '/generator', component: Generator },
 ];
 
 Vue.use(Vuetify);
