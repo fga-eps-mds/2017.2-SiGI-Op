@@ -4,7 +4,7 @@
       <modal :headers="headers" :name="name" :alert="alert" v-on:register="post()"></modal>
     </div>
     <div>
-      <data-table :headers="headers" :name="name" :objects="objects" v-on:reload="reload()"></data-table>
+      <data-table :headers="headers" :name="name" :alert="alert" :objects="objects" v-on:reload="reload()"></data-table>
     </div>
   </div>
 </template>

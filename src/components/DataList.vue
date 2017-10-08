@@ -6,11 +6,11 @@
           <td class="text-xs-right" v-for="item in props.item">
             {{ item }}
           </td>
-          <td class="text-xs-right">
-            <delete :name="name" :id="props.item.id" v-on:deleted="callreload()" ></delete>
+          <td class="text-xs-right actions">
+            <update class="actions" :name="name" :headers="headers" :alert="alert" :id="props.item.id" v-on:update="this.$emit('update')"></update>
+            <delete class="actions" :name="name" :id="props.item.id" v-on:deleted="callreload()" ></delete>
           </td>
           <td class="text-xs-right">
-
           </td>
         </tr>
       </template>
@@ -24,7 +24,7 @@ import Update from './UpdateModal';
 
 
 export default {
-  props: ['headers', 'name', 'objects'],
+  props: ['headers', 'name', 'objects', 'alert'],
   data() {
     return {
 
@@ -53,6 +53,10 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+.actions{
+  float:right;
+
 }
 
 a {

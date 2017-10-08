@@ -2,7 +2,7 @@
   <v-layout row justify-center style="position: relative;">
     <v-dialog v-model="dialog" lazy absolute>
       <v-btn fab dark small primary slot="activator">
-        <v-icon dark> remove </v-icon>
+        <v-icon dark> delete </v-icon>
       </v-btn>
       <v-card>
         <v-card-title>
