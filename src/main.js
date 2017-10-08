@@ -30,7 +30,7 @@ const routes = [
   { path: '/ipas', component: Ipas },
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
-  { path: '/segment', component: Segment },
+  { path: '/segments', component: Segment, name: 'segments' },
 ];
 
 Vue.use(Vuetify);

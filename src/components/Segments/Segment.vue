@@ -4,18 +4,15 @@
       <modal :headers="headers" :name="name" :alert="alert" v-on:register="post()"></modal>
     </div>
     <div>
-      <data-table :headers="headers" :name="name" :objects="objects"></data-table>
+      <data-table :headers="headers" :name="name" :objects="objects" v-on:reload="reload()"></data-table>
     </div>
-    <v-btn primary dark slot="activator" v-on:click.prevent="get()">
-      <v-icon dark> update</v-icon>
-    </v-btn>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import Modal from './Modal';
-import DataTable from './DataList';
+import Modal from '../Modal';
+import DataTable from '../DataList';
 
 export default {
   name: 'segment',
@@ -25,7 +22,7 @@ export default {
       name: 'segment',
       headers: [
         { text: 'ID', type: '', value: '' },
-        { text: 'Cable Length', type: 'float', value: '' },
+        { text: 'Cable Length', type: 'number', value: '' },
         { text: 'Segment Number', type: 'number', value: '' },
       ],
       objects: [],
@@ -49,17 +46,22 @@ export default {
         cable_length: this.headers[1].value,
         segment_number: this.headers[2].value,
       })
-        .then(this.alert = false)
+        .then(this.alert = false,
+          this.reload())
         .catch((e) => {
           this.alert = true;
           this.errors.push(e);
         });
     },
-  },
-  watch: {
-    afterPost() {
-      this.$router.push();
+
+    reload() {
+      setTimeout(() => {
+        this.get();
+      }, 1000);
     },
+  },
+  created() {
+    this.get();
   },
 };
 </script>
