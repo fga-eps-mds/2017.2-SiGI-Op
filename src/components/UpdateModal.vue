@@ -27,10 +27,11 @@
                  </v-text-field>
                  <v-select
                   v-if="head.type === 'select'"
-                  :items="head.items"
+                  :items="items"
                   v-model="head.value"
                   :label="head.text"
-                  :item-text="head.item.text"
+                  :item-text="head.itemtext"
+                  :item-value="head.itemvalue"
                   bottom>
                 </v-select>
                  <v-text-field
@@ -58,7 +59,7 @@
 import axios from 'axios';
 
 export default {
-  props: ['headers', 'name', 'alert', 'id'],
+  props: ['headers', 'name', 'alert', 'id', 'items'],
   data() {
     return {
       dialog: false,
@@ -88,7 +89,6 @@ export default {
       }
       this.dialog = false;
       this.alert = false;
-      console.log(this.item);
     },
     update() {
       let j = 0;
@@ -108,13 +108,9 @@ export default {
       }
     },
     fill() {
-      for (const key in this.item) {
-        if (this.item.hasOwnProperty(key)) {
-          this.itemlist.push(this.item[key]);
-        }
-      }
-      for (let i = 0; i < this.headers.length; i += 1) {
-        this.headers[i].value = this.itemlist[i];
+      let i = 0;
+      for (i = 0; i < Object.values(this.item).length; i += 1) {
+        this.headers[i].value = Object.values(this.item)[i];
       }
     },
   },
