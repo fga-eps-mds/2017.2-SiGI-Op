@@ -7,8 +7,19 @@
             {{ item }}
           </td>
           <td class="text-xs-right actions">
-            <update class="actions" :name="name" :headers="headers" :alert="alert" :id="props.item.id" v-on:update="this.$emit('update')"></update>
-            <delete class="actions" :name="name" :id="props.item.id" v-on:deleted="callreload()" ></delete>
+            <update class="actions"
+              :name="name"
+              :headers="headers"
+              :alert="alert"
+              :items="items"
+              :id="props.item.id"
+              v-on:update="callupdate">
+              </update>
+            <delete class="actions"
+            :name="name"
+            :id="props.item.id"
+            v-on:deleted="callreload()" >
+            </delete>
           </td>
           <td class="text-xs-right">
           </td>
@@ -24,7 +35,7 @@ import Update from './UpdateModal';
 
 
 export default {
-  props: ['headers', 'name', 'objects', 'alert'],
+  props: ['headers', 'name', 'objects', 'alert', 'items'],
   data() {
     return {
 
@@ -34,6 +45,9 @@ export default {
   methods: {
     callreload() {
       this.$emit('reload');
+    },
+    callupdate(id) {
+      this.$emit('update', id);
     },
   },
 

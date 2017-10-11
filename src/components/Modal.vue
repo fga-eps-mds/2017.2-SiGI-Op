@@ -25,10 +25,11 @@
                  </v-text-field>
                  <v-select
                   v-if="head.type === 'select'"
-                  :items="head.items"
+                  :items="items"
                   v-model="head.value"
                   :label="head.text"
-                  :item-text="head.item.text"
+                  :item-text="head.itemtext"
+                  :item-value="head.itemvalue"
                   bottom>
                 </v-select>
                  <v-text-field
@@ -54,7 +55,7 @@
 
 <script>
 export default {
-  props: ['headers', 'name', 'alert'],
+  props: ['headers', 'name', 'alert', 'items'],
   data() {
     return {
       dialog: false,
@@ -67,6 +68,7 @@ export default {
       }
       this.dialog = false;
       this.alert = false;
+      console.log(this.headers);
     },
     register() {
       let j = 0;

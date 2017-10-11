@@ -101,7 +101,7 @@ export default {
         this.alert = true;
         this.dialog = true;
       } else {
-        this.$emit('update');
+        this.$emit('update', this.id);
         if (this.alert !== true) {
           this.close();
         }
@@ -110,6 +110,7 @@ export default {
     fill() {
       let i = 0;
       for (i = 0; i < Object.values(this.item).length; i += 1) {
+        // Get item's values, and put this into headers values
         this.headers[i].value = Object.values(this.item)[i];
       }
     },

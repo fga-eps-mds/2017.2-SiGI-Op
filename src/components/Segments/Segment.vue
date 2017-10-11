@@ -1,10 +1,24 @@
 <template>
   <div class="segment">
     <div>
-      <modal :headers="headers" :name="name" :alert="alert" v-on:register="post()"></modal>
+      <modal
+      :headers="headers"
+      :name="name"
+      :items="selectitems"
+      :alert="alert"
+      v-on:register="post()">
+      </modal>
     </div>
     <div>
-      <data-table :headers="headers" :name="name" :alert="alert" :objects="objects" v-on:reload="reload()"></data-table>
+      <data-table
+      :headers="headers"
+      :name="name"
+      :items="selectitems"
+      :alert="alert"
+      :objects="objects"
+      v-on:update="put"
+      v-on:reload="reload()">
+      </data-table>
     </div>
   </div>
 </template>
@@ -26,6 +40,7 @@ export default {
         { text: 'Segment Number', type: 'number', value: '' },
       ],
       objects: [],
+      selectitems: [],
       errors: [],
       alert: false,
     };
@@ -43,6 +58,18 @@ export default {
     },
     post() {
       axios.post('http://localhost:8000/segments/', {
+        cable_length: this.headers[1].value,
+        segment_number: this.headers[2].value,
+      })
+        .then(this.alert = false,
+          this.reload())
+        .catch((e) => {
+          this.alert = true;
+          this.errors.push(e);
+        });
+    },
+    put(id) {
+      axios.put('http://localhost:8000/segments/'.concat(id).concat('/'), {
         cable_length: this.headers[1].value,
         segment_number: this.headers[2].value,
       })
