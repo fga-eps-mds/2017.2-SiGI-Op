@@ -15,7 +15,7 @@
 <script>
 import axios from 'axios';
 import Modal from './Modal';
-import DataTable from './DataList';
+import DataTable from '../DataList';
 
 export default {
   name: 'generator',
@@ -39,7 +39,7 @@ export default {
   components: { Modal, DataTable },
   methods: {
     get() {
-      axios.get('http://localhost:8000/generator/')
+      axios.get('http://localhost:8000/generators/')
         .then((response) => {
           this.objects = response.data;
         })
@@ -49,7 +49,7 @@ export default {
       this.getSites();
     },
     getSites() {
-      axios.get('http://localhost:8000/site/')
+      axios.get('http://localhost:8000/sites/')
         .then((response) => {
           this.sites = response.data;
         })
@@ -58,7 +58,7 @@ export default {
         });
     },
     post() {
-      axios.post('http://localhost:8000/generator/', {
+      axios.post('http://localhost:8000/generators/', {
         power: this.headers[1].value,
         manufacturer: this.headers[2].value,
         patrimony: this.headers[3].value,

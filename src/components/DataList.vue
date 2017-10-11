@@ -6,11 +6,22 @@
           <td class="text-xs-right" v-for="item in props.item">
             {{ item }}
           </td>
-          <td class="text-xs-right">
-            <delete :name="name" :id="props.item.id" v-on:delete="deleteObject" ></delete>
+          <td class="text-xs-right actions">
+            <update class="actions"
+              :name="name"
+              :headers="headers"
+              :alert="alert"
+              :items="items"
+              :id="props.item.id"
+              v-on:update="callupdate">
+              </update>
+            <delete class="actions"
+            :name="name"
+            :id="props.item.id"
+            v-on:deleted="callreload()" >
+            </delete>
           </td>
           <td class="text-xs-right">
-            <update :headers="headers"></update>
           </td>
         </tr>
       </template>
@@ -22,29 +33,46 @@
 import Delete from './DeleteModal';
 import Update from './UpdateModal';
 
+
 export default {
-  props: ['headers', 'name', 'objects'],
+  props: ['headers', 'name', 'objects', 'alert', 'items'],
   data() {
     return {
+
     };
   },
   components: { Delete, Update },
+  methods: {
+    callreload() {
+      this.$emit('reload');
+    },
+    callupdate(id) {
+      this.$emit('update', id);
+    },
+  },
+
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+.actions{
+  float:right;
+
+}
+
 a {
   color: #42b983;
 }
