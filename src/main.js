@@ -16,6 +16,8 @@ import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
 import NoBreak from './components/NoBreaks/NoBreak';
+import Segment from './components/Segments/Segment';
+
 
 Vue.use(VueRouter);
 
@@ -32,6 +34,7 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/nobreaks', component: NoBreak },
+  { path: '/segments', component: Segment, name: 'segments' },
 ];
 
 Vue.use(Vuetify);
