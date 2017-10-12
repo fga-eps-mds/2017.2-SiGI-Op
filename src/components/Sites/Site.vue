@@ -148,7 +148,7 @@ export default {
   }),
   methods: {
     post() {
-      axios.post('http://localhost:8000/site/', {
+      axios.post('http://localhost:8000/sites/', {
         id: this.site_id,
         name: this.site_name,
         lattitude: this.site_lattitude,
@@ -161,7 +161,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
-      axios.get('http://localhost:8000/site/')
+      axios.get('http://localhost:8000/sites/')
         .then((response) => {
           this.sites = response.data;
         })
@@ -171,7 +171,7 @@ export default {
       this.$router.go(this.$router.currentRoute);
     },
     get() {
-      axios.get('http://localhost:8000/site/')
+      axios.get('http://localhost:8000/sites/')
         .then((response) => {
           this.sites = response.data;
         })
@@ -180,7 +180,7 @@ export default {
         });
     },
     delete(id) {
-      axios.delete('http://localhost:8000/site/'.concat(id).concat('/'))
+      axios.delete('http://localhost:8000/sites/'.concat(id).concat('/'))
         .then()
         .catch((e) => {
           this.errors.push(e);
@@ -193,7 +193,7 @@ export default {
       this.site_bandwidth = site.bandwidth;
       this.site_ipa_code = site.ipa_code.id;
       this.site_type_site = site.site_type.id;
-      axios.put('http://localhost:8000/site/'.concat(site.id).concat('/'), {
+      axios.put('http://localhost:8000/sites/'.concat(site.id).concat('/'), {
         name: this.site_name,
         lattitude: this.site_lattitude,
         longitude: this.site_longitude,
@@ -208,7 +208,7 @@ export default {
       this.$router.go(this.$router.currentRoute);
     },
     getSpecificSite(id) {
-      axios.get('http://localhost:8000/site/'.concat(id).concat('/'))
+      axios.get('http://localhost:8000/sites/'.concat(id).concat('/'))
         .then((response) => {
           this.actual_site = response.data;
         })

@@ -66,7 +66,6 @@ export default {
       item: '',
       itemlist: [],
       errors: [],
-      sites: [],
     };
   },
   methods: {
