@@ -73,22 +73,21 @@ export default {
       axios.get(('http://localhost:8000/'.concat(this.name, 's', '/', this.id)))
         .then((response) => {
           this.item = response.data;
-          this.fill();
         })
         .catch((e) => {
           this.errors.push(e);
         });
       setTimeout(() => {
         this.fill();
-      }, 1000);
+      }, 100);
     },
 
     close() {
+      this.dialog = false;
+      this.alert = false;
       for (let i = 0; i < this.headers.length; i += 1) {
         this.headers[i].value = '';
       }
-      this.dialog = false;
-      this.alert = false;
     },
     update() {
       let j = 0;
@@ -109,9 +108,11 @@ export default {
     },
     fill() {
       let i = 0;
-      for (i = 0; i < Object.values(this.item).length; i += 1) {
-        // Get item's values, and put this into headers values
-        this.headers[i].value = Object.values(this.item)[i];
+      if (this.dialog) {
+        for (i = 0; i < Object.values(this.item).length; i += 1) {
+          // Get item's values, and put this into headers values
+          this.headers[i].value = Object.values(this.item)[i];
+        }
       }
     },
   },

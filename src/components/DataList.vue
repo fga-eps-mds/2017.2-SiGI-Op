@@ -6,22 +6,22 @@
           <td class="text-xs-right" v-for="item in props.item">
             {{ item }}
           </td>
-          <td class="text-xs-right actions">
-            <update class="actions"
-              :name="name"
-              :headers="headers"
-              :alert="alert"
-              :items="items"
-              :id="props.item.id"
-              v-on:update="callupdate">
-              </update>
-            <delete class="actions"
+          <td class="text-xs-right ">
+            <delete class=""
             :name="name"
             :id="props.item.id"
             v-on:deleted="callreload()" >
             </delete>
           </td>
           <td class="text-xs-right">
+            <update class=""
+              :name="name"
+              :headers="headers"
+              :alert="alert"
+              :items="items"
+              :id="props.item.id"
+              v-on:update="callupdate">
+            </update>
           </td>
         </tr>
       </template>
@@ -67,10 +67,6 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-.actions{
-  float:right;
-
 }
 
 a {

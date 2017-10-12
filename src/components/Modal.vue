@@ -63,12 +63,14 @@ export default {
   },
   methods: {
     close() {
+      this.clear();
+      this.dialog = false;
+      this.alert = false;
+    },
+    clear() {
       for (let i = 0; i < this.headers.length; i += 1) {
         this.headers[i].value = '';
       }
-      this.dialog = false;
-      this.alert = false;
-      console.log(this.headers);
     },
     register() {
       let j = 0;
