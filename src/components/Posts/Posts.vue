@@ -35,8 +35,8 @@
                               </v-text-field>
                               <v-text-field label="Stretch" v-model="actual_post.stretch" type="number">
                               </v-text-field>
-                              <v-select v-bind:items="emendation_boxlist" v-model="actual_post.emendation_box" label="Emendation box?" item-text="name" bottom></v-select>
-                              <v-select v-bind:items="godlist" v-model="actual_post.god" label="DGO?" item-text="description" bottom></v-select>
+                              <v-select v-bind:items="emendation_boxlist" v-model="emendation_box" label="Emendation box?" item-text="name" bottom></v-select>
+                             <v-select v-bind:items="godlist" v-model="god" label="DGO?" item-text="description" bottom></v-select>
                             </v-flex>
                           </v-layout>
                         </form>
@@ -76,8 +76,8 @@
                         v-model="stretch"
                         type="number">
                       </v-text-field>
-                      <v-select v-bind:items="emendation_boxlist" v-model="actual_post.emendation_box" label="Emendation box?" item-text="name" bottom></v-select>
-                      <v-select v-bind:items="godlist" v-model="actual_post.god" label="DGO?" item-text="description" bottom></v-select>
+                      <v-select v-bind:items="emendation_boxlist" v-model="emendation_box" label="Emendation box?" item-text="name" bottom></v-select>
+                      <v-select v-bind:items="godlist" v-model="god" label="DGO?" item-text="description" bottom></v-select>
                     </v-flex>
                   </v-layout>
                 </form>
@@ -133,7 +133,7 @@ export default {
         cable_length: this.cable_length,
         stretch: this.stretch,
         emendation_box: this.emendation_box.id,
-        god: this.god.id,
+        god: this.god.code,
       })
         .then()
         .catch((e) => {
@@ -169,13 +169,13 @@ export default {
       this.cable_length = post.cable_length;
       this.stretch = post.stretch;
       this.emendation_box = post.emendation_box.id;
-      this.god = post.god.id;
+      this.god = post.god.code;
       axios.put('http://localhost:8000/posts/'.concat(post.id).concat('/'), {
         id: this.id,
         cable_length: this.cable_length,
         stretch: this.stretch,
-        emendation_box: this.emendation_box,
-        god: this.god.id,
+        emendation_box: this.emendation_box.id,
+        god: this.god.code,
       })
         .then()
         .catch((e) => {
