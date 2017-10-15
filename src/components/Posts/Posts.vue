@@ -99,10 +99,7 @@
 <script>
 
 import axios from 'axios';
-// Cable length
-// Stretch
-// Emendation box
-// God
+
 export default {
   data: () => ({
     headers: [
@@ -135,8 +132,8 @@ export default {
         id: this.id,
         cable_length: this.cable_length,
         stretch: this.stretch,
-        emendation_box: this.emendation_box,
-        god: this.god,
+        emendation_box: this.emendation_box.id,
+        god: this.god.id,
       })
         .then()
         .catch((e) => {
@@ -171,14 +168,14 @@ export default {
       this.id = post.id;
       this.cable_length = post.cable_length;
       this.stretch = post.stretch;
-      this.emendation_box = post.emendation_box;
-      this.god = post.god;
+      this.emendation_box = post.emendation_box.id;
+      this.god = post.god.id;
       axios.put('http://localhost:8000/posts/'.concat(post.id).concat('/'), {
         id: this.id,
         cable_length: this.cable_length,
         stretch: this.stretch,
         emendation_box: this.emendation_box,
-        god: this.god,
+        god: this.god.id,
       })
         .then()
         .catch((e) => {
@@ -201,6 +198,24 @@ export default {
     getpost(id) {
       this.getSpecificpost(id);
     },
+    getEmendationBox() {
+      axios.get('http://localhost:8000/emendation_box/')
+        .then((response) => {
+          this.emendation_boxlist = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+    getGod() {
+      axios.get('http://localhost:8000/dgos/')
+        .then((response) => {
+          this.godlist = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
     deletepost(id) {
       this.delete(id);
       this.get();
@@ -208,6 +223,12 @@ export default {
     updatepost(post) {
       this.put(post);
       this.get();
+    },
+    getEmendationBoxCode() {
+      this.getEmendationBox();
+    },
+    getGodCode() {
+      this.getGod();
     },
     addpost() {
       this.post();
@@ -217,6 +238,8 @@ export default {
   // Fetches posts when the component is created.
   created() {
     this.getposts();
+    this.getEmendationBox();
+    this.getGod();
   },
 };
 </script>
