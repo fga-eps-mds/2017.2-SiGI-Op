@@ -16,6 +16,7 @@ import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
+import Posts from './components/Posts/Posts';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,7 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
+  { path: '/posts', component: Posts },
 ];
 
 Vue.use(Vuetify);
