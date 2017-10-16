@@ -54,22 +54,26 @@ export default {
         });
     },
     get() {
-      axios.get('http://localhost:8000/nobreaks/')
+      const request = axios.get('http://localhost:8000/nobreaks/')
         .then((response) => {
           this.objects = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+
+      return request;
     },
     getSites() {
-      axios.get('http://localhost:8000/site/')
+      const request = axios.get('http://localhost:8000/site/')
         .then((response) => {
           this.selectitems = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+
+      return request;
     },
     put(id) {
       axios.put('http://localhost:8000/nobreaks/'.concat(id).concat('/'), {
