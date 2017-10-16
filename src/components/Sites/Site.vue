@@ -2,7 +2,7 @@
   <div id="sites">
     <v-app id="sites">
       <v-container>
-        
+
         <v-container>
           <v-data-table v-bind:headers="headers" :items="sites" class="elevation-1">
             <template slot="items" scope="site">
@@ -94,7 +94,7 @@
                       </v-text-field>
                       <v-select v-bind:items="ipalist" v-model="site_ipa_code" label="Qual a IPA do site?"item-text="name" bottom></v-select>
                       <v-select v-bind:items="site_types" v-model="site_type_site" label="Tipo do site?"item-text="description" bottom></v-select>
-                      
+
                     </v-flex>
                   </v-layout>
                 </form>
