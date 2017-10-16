@@ -5,6 +5,7 @@
       :headers="headers"
       :name="name"
       :items="selectitems"
+      :items2="selectitems2"
       :alert="alert"
       v-on:register="post()">
       </modal>
@@ -14,6 +15,7 @@
       :headers="headers"
       :name="name"
       :items="selectitems"
+      :items2="selectitems2"
       :alert="alert"
       :objects="objects"
       v-on:update="put"
@@ -38,9 +40,10 @@ export default {
         { text: 'ID', type: '', value: '' },
         { text: 'Cable Length', type: 'number', value: '' },
         { text: 'stretch', type: 'number', value: '' },
-        { text: 'Emendation box', type: 'select', value: '' },
-        { text: 'GOD', type: 'select', value: '' },
+        { text: 'Emendation box', type: 'select', value: '', itemtext: 'id' },
+        { text: 'GOD', type: 'select', value: '', itemtext: 'id' },
       ],
+      text: 'description',
       objects: [],
       selectitems: [],
       errors: [],
@@ -49,6 +52,7 @@ export default {
   },
   components: { Modal, DataTable },
   methods: {
+
     get() {
       axios.get('http://localhost:8000/posts/')
         .then((response) => {
@@ -58,26 +62,44 @@ export default {
           this.errors.push(e);
         });
     },
+    getEmendationBox() {
+      axios.get('http://localhost:8000/emendation_box/')
+       .then((response) => {
+         this.selectitems = response.data;
+       })
+       .catch((e) => {
+         this.errors.push(e);
+       });
+    },
+    getGod() {
+      axios.get('http://localhost:8000/dgos/')
+       .then((response) => {
+         this.selectitems2 = response.data;
+       })
+       .catch((e) => {
+         this.errors.push(e);
+       });
+    },
     post() {
       axios.post('http://localhost:8000/posts/', {
         cable_length: this.headers[1].value,
         stretch: this.headers[2].value,
-        emendation_box: this.headers[3].value,
-        god: this.headers[4].value,
+        emendation_box: this.headers[3].value.id,
+        god: this.headers[4].value.id,
       })
-        .then(this.alert = false,
-          this.reload())
-        .catch((e) => {
-          this.alert = true;
-          this.errors.push(e);
-        });
+       .then(this.alert = false,
+       this.reload())
+       .catch((e) => {
+         this.alert = true;
+         this.errors.push(e);
+       });
     },
     put(id) {
       axios.put('http://localhost:8000/posts/'.concat(id).concat('/'), {
         cable_length: this.headers[1].value,
         stretch: this.headers[2].value,
-        emendation_box: this.headers[3].value,
-        god: this.headers[4].value,
+        emendation_box: this.headers[3].value.id,
+        god: this.headers[4].value.id,
       })
         .then(this.alert = false,
           this.reload())
@@ -95,6 +117,8 @@ export default {
   },
   created() {
     this.get();
+    this.getEmendationBox();
+    this.getGod();
   },
 };
 </script>
