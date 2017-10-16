@@ -29,7 +29,7 @@ const routes = [
   { path: '/register', component: Register, title: 'SiGI-Op Registro' },
   { path: '/uplink', component: Uplink },
   { path: '/ipas', component: Ipas },
-  { path: '/home', component: Home },
+  { name: 'home', path: '/', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
 ];
@@ -46,6 +46,19 @@ const router = new VueRouter({
   routes, // short for routes: routes
   mode: 'history',
 });
+
+router.beforeEach((to, from, next) => {
+  const isAuth = localStorage.getItem('Token') !== 'null';
+
+  if ((to.name !== 'login' && to.name !== 'register') && !isAuth) {
+    next({ name: 'login' });
+  } else if ((to.name === 'register' || to.name === 'login') && isAuth) {
+    next({ name: 'home' });
+  } else {
+    next();
+  }
+});
+
 
 /* eslint-disable no-new */
 new Vue({
