@@ -15,7 +15,7 @@
           <v-spacer></v-spacer>
           <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">No</v-btn>
           <v-btn class="green--text darken-1"
-          v-on:click.prevent="deleteObject"
+          v-on:click.prevent="deleteObject()"
           flat="flat"
           @click.native="dialog = false">
           Yes
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     deleteObject() {
-      axios.delete('http://localhost:8000/'.concat(this.name, '/', this.id))
+      axios.delete('http://localhost:8000/'.concat(this.name, 's', '/', this.id))
         .then(this.$emit('deleted'))
         .catch((e) => {
           this.errors.push(e);
