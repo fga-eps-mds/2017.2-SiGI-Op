@@ -1,26 +1,17 @@
 <template>
   <div class="table">
-    <v-data-table :headers="headers"  :items="objects" class="elevation-1">
-      <template slot="items" scope="props" >
+    <v-data-table :headers="headers" :items="objects" class="elevation-1">
+      <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="item in props.item">
             {{ item }}
           </td>
           <td class="text-xs-right ">
-            <delete class=""
-            :name="name"
-            :id="props.item.id"
-            v-on:deleted="callreload()" >
+            <delete class="" :name="name" :id="props.item.id" v-on:deleted="callreload()">
             </delete>
           </td>
           <td class="text-xs-right">
-            <update class=""
-              :name="name"
-              :headers="headers"
-              :alert="alert"
-              :items="items"
-              :id="props.item.id"
-              v-on:update="callupdate">
+            <update class="" :name="name" :headers="headers" :alert="alert" :items="items" :id="props.item.id" v-on:update="callupdate">
             </update>
           </td>
         </tr>
@@ -55,7 +46,8 @@ export default {
 </script>
 
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 

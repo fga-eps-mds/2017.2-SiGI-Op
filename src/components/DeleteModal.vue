@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     deleteObject() {
-      axios.delete('http://localhost:8000/'.concat(this.name, 's', '/', this.id))
+      axios.delete('http://localhost:8000/'.concat(this.name, '/', this.id))
         .then(this.$emit('deleted'))
         .catch((e) => {
           this.errors.push(e);
