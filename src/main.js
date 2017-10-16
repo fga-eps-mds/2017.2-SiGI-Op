@@ -15,6 +15,7 @@ import Register from './components/Register';
 import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
+import Segment from './components/Segments/Segment';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
 
 Vue.use(VueRouter);
@@ -31,6 +32,7 @@ const routes = [
   { path: '/ipas', component: Ipas },
   { name: 'home', path: '/', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
+  { path: '/segments', component: Segment, name: 'segments' },
   { path: '/emendation_boxes', component: EmendationBox },
 ];
 
