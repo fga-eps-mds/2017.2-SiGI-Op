@@ -18,6 +18,7 @@ import Home from './components/Home';
 import NoBreak from './components/NoBreaks/NoBreak';
 import Segment from './components/Segments/Segment';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
+import GBIC from './components/GBIC/GBIC';
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,7 @@ const routes = [
   { path: '/nobreaks', component: NoBreak },
   { path: '/segments', component: Segment, name: 'segments' },
   { path: '/emendation_boxes', component: EmendationBox },
+  { path: '/gbics', component: GBIC },
 ];
 
 Vue.use(Vuetify);
