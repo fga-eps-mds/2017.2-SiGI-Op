@@ -1,34 +1,33 @@
 import moxios from 'moxios';
 import { equal } from 'assert';
 
-import NoBreak from '../../../src/components/NoBreaks/NoBreak';
+import Generator from '../../../src/components/Generator/Generator';
 
-describe('NoBreak', () => {
-  it('check default values', () => {
-    expect(typeof NoBreak.data).to.equal('function');
-    const defaultData = NoBreak.data();
+describe('Generator', () => {
+  it('check default Generator values', () => {
+    expect(typeof Generator.data).to.equal('function');
+    const defaultData = Generator.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('Potência do NoBreak');
-    expect(defaultData.headers[2].text).to.equal('Proprietário do NoBreak');
-    expect(defaultData.headers[3].text).to.equal('Número de Patrimônio do NoBreak');
+    expect(defaultData.headers[1].text).to.equal('Power');
+    expect(defaultData.headers[2].text).to.equal('Manufacturer');
+    expect(defaultData.headers[3].text).to.equal('Patrimony');
     expect(defaultData.headers[4].text).to.equal('Site');
   });
-
-  it('get request in NoBreak', (done) => {
+  it('get request in Generator', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Generator.methods.get().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 200,
           response: {
-            id: 1,
-            power: 1,
-            proprietary: 'Proprietary',
-            patrimony_number: 1,
-            site_id: 1,
+            id: 3,
+            power: 404.0,
+            manufacturer: 'asdf',
+            patrimony: 'asdf',
+            site: 2,
           },
         }).then(() => {
           equal(onFulfilled.called, true);
@@ -37,11 +36,10 @@ describe('NoBreak', () => {
       });
     });
   });
-
-  it('bad get request in NoBreak', (done) => {
+  it('bad get request in Generator', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Generator.methods.get().then();
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -55,21 +53,21 @@ describe('NoBreak', () => {
       });
     });
   });
-
-  it('getSites request in NoBreak', (done) => {
+  it('getSites request in Generator', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Generator.methods.getSites().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 200,
           response: {
-            name: 'name',
-            lattitude: 1,
-            longitude: 1,
-            bandwith: 1,
+            id: 1,
+            name: 'rick',
+            lattitude: 8.0,
+            longitude: 8.0,
+            bandwith: 5,
             ipa_code: 1,
             site_type: 1,
           },
@@ -80,11 +78,11 @@ describe('NoBreak', () => {
       });
     });
   });
-  
-  it('bad getSites request in NoBreak', (done) => {
+
+  it('bad getSites request in Generator', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Generator.methods.getSites().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
