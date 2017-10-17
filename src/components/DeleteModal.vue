@@ -39,18 +39,8 @@ export default {
     };
   },
   methods: {
-    close(t) {
-      if (this.alert === true && !t) {
-        this.dialog = true;
-      } else {
-        for (let i = 0; i < this.headers.length; i += 1) {
-          this.headers[i].value = '';
-        }
-        this.dialog = false;
-      }
-    },
     deleteObject() {
-      axios.delete('http://localhost:8000/'.concat(this.name, 's', '/', this.id, '/'))
+      axios.delete('http://localhost:8000/'.concat(this.name, '/', this.id, '/'))
         .then(this.$emit('deleted'))
         .catch((e) => {
           this.errors.push(e);

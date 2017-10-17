@@ -33,10 +33,10 @@ import Modal from '../Modal';
 import DataTable from '../DataList';
 
 export default {
-  name: 'generator',
+  name: 'generators',
   data() {
     return {
-      name: 'generator',
+      name: 'generators',
       headers: [
         { text: 'ID', type: '', value: '' },
         { text: 'Power', type: 'number', value: '' },
