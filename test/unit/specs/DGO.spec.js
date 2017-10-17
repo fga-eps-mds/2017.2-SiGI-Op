@@ -1,23 +1,23 @@
 import moxios from 'moxios';
 import { equal } from 'assert';
 
-import NoBreak from '../../../src/components/NoBreaks/NoBreak';
+import Dgo from '../../../src/components/Dgo/Dgo';
 
-describe('NoBreak', () => {
+describe('Dgo', () => {
   it('check default values', () => {
-    expect(typeof NoBreak.data).to.equal('function');
-    const defaultData = NoBreak.data();
+    expect(typeof Dgo.data).to.equal('function');
+    const defaultData = Dgo.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('Potência do NoBreak');
-    expect(defaultData.headers[2].text).to.equal('Proprietário do NoBreak');
-    expect(defaultData.headers[3].text).to.equal('Número de Patrimônio do NoBreak');
+    expect(defaultData.headers[1].text).to.equal('Code');
+    expect(defaultData.headers[2].text).to.equal('Fabricator');
+    expect(defaultData.headers[3].text).to.equal('Port Quantity');
     expect(defaultData.headers[4].text).to.equal('Site');
   });
 
-  it('get request in NoBreak', (done) => {
+  it('get request in Dgo', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Dgo.methods.get().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -25,9 +25,9 @@ describe('NoBreak', () => {
           status: 200,
           response: {
             id: 1,
-            power: 1,
-            proprietary: 'Proprietary',
-            patrimony_number: 1,
+            code: 'abc',
+            fabricant: 'ChinaMakesEverything',
+            port_quantity: 1,
             site_id: 1,
           },
         }).then(() => {
@@ -38,10 +38,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('bad get request in NoBreak', (done) => {
+  it('bad get request in Dgo', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Dgo.methods.get().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -56,10 +56,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('getSites request in NoBreak', (done) => {
+  it('getSites request in Dgo', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Dgo.methods.getSites().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -81,10 +81,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('bad getSites request in NoBreak', (done) => {
+  it('bad getSites request in Dgo', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Dgo.methods.getSites().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
