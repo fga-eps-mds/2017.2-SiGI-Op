@@ -6,6 +6,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import Dgo from './components/Dgo/Dgo';
+import GODPort from './components/GODPort/GODPort';
 import Site from './components/Sites/Site';
 import Ipas from './components/Ipas/Ipas';
 import Reserve from './components/Reserves/Reserve';
@@ -25,6 +26,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/dgos', component: Dgo },
+  { path: '/godports', component: GODPort },
   { path: '/sites', component: Site },
   { path: '/contacts', component: Contact },
   { name: 'login', path: '/login', component: Login, title: 'SiGI-Op Login' },
