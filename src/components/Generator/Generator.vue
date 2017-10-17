@@ -54,22 +54,24 @@ export default {
   components: { Modal, DataTable },
   methods: {
     get() {
-      axios.get('http://localhost:8000/generators/')
+      const request = axios.get('http://localhost:8000/generators/')
         .then((response) => {
           this.objects = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     getSites() {
-      axios.get('http://localhost:8000/sites/')
+      const request = axios.get('http://localhost:8000/sites/')
         .then((response) => {
           this.sites = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     post() {
       axios.post('http://localhost:8000/generators/', {
