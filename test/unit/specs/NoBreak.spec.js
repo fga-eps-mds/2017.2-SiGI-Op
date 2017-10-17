@@ -38,7 +38,7 @@ describe('NoBreak', () => {
     });
   });
 
-it('bad get request in NoBreak', (done) => {
+  it('bad get request in NoBreak', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
       NoBreak.methods.get().then(onFulfilled);
@@ -71,7 +71,7 @@ it('bad get request in NoBreak', (done) => {
             longitude: 1,
             bandwith: 1,
             ipa_code: 1,
-			site_type: 1,
+            site_type: 1,
           },
         }).then(() => {
           equal(onFulfilled.called, true);
@@ -80,7 +80,6 @@ it('bad get request in NoBreak', (done) => {
       });
     });
   });
-  
   it('bad getSites request in NoBreak', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
@@ -98,5 +97,4 @@ it('bad get request in NoBreak', (done) => {
       });
     });
   });
-
 });
