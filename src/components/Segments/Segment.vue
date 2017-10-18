@@ -1,23 +1,11 @@
 <template>
   <div class="segment">
     <div>
-      <modal
-      :headers="headers"
-      :name="name"
-      :items="selectitems"
-      :alert="alert"
-      v-on:register="post()">
+      <modal :headers="headers" :name="name" :items="selectitems" :alert="alert" v-on:register="post()">
       </modal>
     </div>
     <div>
-      <data-table
-      :headers="headers"
-      :name="name"
-      :items="selectitems"
-      :alert="alert"
-      :objects="objects"
-      v-on:update="put"
-      v-on:reload="reload()">
+      <data-table :headers="headers" :name="name" :items="selectitems" :alert="alert" :objects="objects" v-on:update="put" v-on:reload="reload()">
       </data-table>
     </div>
   </div>
@@ -62,7 +50,7 @@ export default {
         segment_number: this.headers[2].value,
       })
         .then(this.alert = false,
-          this.reload())
+        this.reload())
         .catch((e) => {
           this.alert = true;
           this.errors.push(e);
@@ -74,7 +62,7 @@ export default {
         segment_number: this.headers[2].value,
       })
         .then(this.alert = false,
-          this.reload())
+        this.reload())
         .catch((e) => {
           this.alert = true;
           this.errors.push(e);

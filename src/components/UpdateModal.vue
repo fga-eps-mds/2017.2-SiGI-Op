@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     get() {
-      axios.get(('http://localhost:8000/'.concat(this.name, 's', '/', this.id)))
+      axios.get(('http://localhost:8000/'.concat(this.name, '/', this.id, '/')))
         .then((response) => {
           this.item = response.data;
         })
