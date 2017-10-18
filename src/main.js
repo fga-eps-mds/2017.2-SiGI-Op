@@ -6,6 +6,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import Dgo from './components/Dgo/Dgo';
+import GODPort from './components/GODPort/GODPort';
 import Site from './components/Sites/Site';
 import Ipas from './components/Ipas/Ipas';
 import Reserve from './components/Reserves/Reserve';
@@ -15,14 +16,18 @@ import Register from './components/Register';
 import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
-import Segment from './components/Segments/Segment';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
 import Posts from './components/Posts/Posts';
+import Generator from './components/Generator/Generator';
+import Segment from './components/Segments/Segment';
+import NoBreak from './components/NoBreaks/NoBreak';
+import GBIC from './components/GBIC/GBIC';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/dgos', component: Dgo },
+  { path: '/godports', component: GODPort },
   { path: '/sites', component: Site },
   { path: '/contacts', component: Contact },
   { name: 'login', path: '/login', component: Login, title: 'SiGI-Op Login' },
@@ -33,9 +38,12 @@ const routes = [
   { path: '/ipas', component: Ipas },
   { name: 'home', path: '/', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
-  { path: '/segments', component: Segment, name: 'segments' },
   { path: '/emendation_boxes', component: EmendationBox },
   { path: '/posts', component: Posts },
+  { path: '/generators', component: Generator },
+  { path: '/segments', component: Segment, name: 'segments' },
+  { path: '/nobreaks', component: NoBreak },
+  { path: '/gbics', component: GBIC },
 ];
 
 Vue.use(Vuetify);

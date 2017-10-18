@@ -49,6 +49,7 @@ export default {
         { title: 'Uplink', path: '/Uplink' },
         { title: 'Caixas de Emenda', path: '/emendation_boxes' },
         { title: 'Postes', path: '/Posts' },
+        { title: 'NoBreaks', path: '/NoBreaks' },
       ],
       right: null,
     };
