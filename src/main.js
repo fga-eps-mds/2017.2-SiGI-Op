@@ -17,6 +17,7 @@ import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
+import Posts from './components/Posts/Posts';
 import Generator from './components/Generator/Generator';
 import Segment from './components/Segments/Segment';
 import NoBreak from './components/NoBreaks/NoBreak';
@@ -38,6 +39,7 @@ const routes = [
   { name: 'home', path: '/', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
+  { path: '/posts', component: Posts },
   { path: '/generators', component: Generator },
   { path: '/segments', component: Segment, name: 'segments' },
   { path: '/nobreaks', component: NoBreak },
