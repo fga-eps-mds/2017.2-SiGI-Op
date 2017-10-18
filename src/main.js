@@ -16,6 +16,7 @@ import Register from './components/Register';
 import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
+import Switch from './components/Switches/Switch';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
 import Posts from './components/Posts/Posts';
 import Generator from './components/Generator/Generator';
