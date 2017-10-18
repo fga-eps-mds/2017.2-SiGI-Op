@@ -1,23 +1,24 @@
 import moxios from 'moxios';
 import { equal } from 'assert';
 
-import NoBreak from '../../../src/components/NoBreaks/NoBreak';
+import Switch from '../../../src/components/Switches/Switch';
 
-describe('NoBreak', () => {
+describe('Switch', () => {
   it('check default values', () => {
-    expect(typeof NoBreak.data).to.equal('function');
-    const defaultData = NoBreak.data();
+    expect(typeof Switch.data).to.equal('function');
+    const defaultData = Switch.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('Potência do NoBreak');
-    expect(defaultData.headers[2].text).to.equal('Proprietário do NoBreak');
-    expect(defaultData.headers[3].text).to.equal('Número de Patrimônio do NoBreak');
-    expect(defaultData.headers[4].text).to.equal('Site');
+    expect(defaultData.headers[1].text).to.equal('Serial Number');
+    expect(defaultData.headers[2].text).to.equal('Fabricant');
+    expect(defaultData.headers[3].text).to.equal('Quantity of Slots');
+    expect(defaultData.headers[4].text).to.equal('Patrimony Number');
+    expect(defaultData.headers[5].text).to.equal('Site Id');
   });
 
-  it('get request in NoBreak', (done) => {
+  it('get request in Switch', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Switch.methods.get().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -25,9 +26,10 @@ describe('NoBreak', () => {
           status: 200,
           response: {
             id: 1,
-            power: 1,
-            proprietary: 'Proprietary',
-            patrimony_number: 1,
+            serial_number: '1',
+            fabricant: 'fabricant',
+            qtd_slots: 1,
+            patrimony_number: '1',
             site_id: 1,
           },
         }).then(() => {
@@ -38,10 +40,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('bad get request in NoBreak', (done) => {
+  it('bad get request in Switch', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Switch.methods.get().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -56,10 +58,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('getSites request in NoBreak', (done) => {
+  it('getSites request in Switch', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Switch.methods.getSite().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -81,10 +83,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('bad getSites request in NoBreak', (done) => {
+  it('bad getSites request in Switch', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Switch.methods.getSite().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
