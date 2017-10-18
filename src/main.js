@@ -37,7 +37,7 @@ const routes = [
   { path: '/uplink', component: Uplink },
   { path: '/ipas', component: Ipas },
   { name: 'home', path: '/', component: Home },
-  { path: '/undergroundbox', component: UndergroundBox },
+  { path: '/undergroundboxes', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
   { path: '/posts', component: Posts },
   { path: '/generators', component: Generator },

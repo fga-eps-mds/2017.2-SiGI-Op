@@ -24,7 +24,16 @@
                   v-model="head.value" >
                  </v-text-field>
                  <v-select
-                  v-if="head.type === 'select'"
+                  v-if="head.type === 'select' && items.constructor === Array"
+                  :items="items"
+                  v-model="head.value"
+                  :label="head.text"
+                  :item-text="head.itemtext"
+                  :item-value="head.itemvalue"
+                  bottom>
+                </v-select>
+                 <v-select
+                  v-if="head.type === 'select' && items.constructor != Array"
                   :items="items"
                   v-model="head.value"
                   :label="head.text"

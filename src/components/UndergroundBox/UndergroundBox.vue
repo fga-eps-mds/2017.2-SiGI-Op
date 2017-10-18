@@ -1,279 +1,150 @@
 <template>
-  <div id="underground_boxes">
-    <v-alert success dismissible transition="scale-transition" v-model="alert">
-          Caixa Subterrânea deletada com sucesso. Por favor, recarregue a pagina.
-    </v-alert>
-    <v-app id="underground_boxes">
-      <v-container>
-        <v-data-table v-bind:headers="headers" :items="underground_boxes" class="elevation-1">
-          <template  slot="items" scope="undergroundbox">
-            <td class="text-xs-right">{{ undergroundbox.item.id }}</td>
-            <td class="text-xs-right">{{ undergroundbox.item.latitude }}</td>
-            <td class="text-xs-right">{{ undergroundbox.item.longitude }}</td>
-            <td class="text-xs-right">{{ undergroundbox.item.cover_type }}</td>
-            <td class="text-xs-right">{{ undergroundbox.item.created_at }}</td>
-            <td class="text-xs-right">{{ undergroundbox.item.removed_at }}</td>
-            <td class="text-xs-right">{{ undergroundbox.item.draw_number }}</td>
-            <td class="text-xs-right">{{ undergroundbox.item.box_type }}</td>
-            <td class="text-xs-right">
-              <v-layout row justify-center style="position: relative;">
-                <v-dialog v-model="dialog2" lazy absolute>
-                  <v-btn fab dark small primary slot="activator">
-                    <v-icon dark>remove</v-icon>
-                  </v-btn>
-                  <v-card>
-                    <v-card-title>
-                      <div class="headline">Deseja realmente deletar a Caixa Subterrânea?</div>
-                    </v-card-title>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="green--text darken-1" flat="flat" @click.native="dialog2 = false">Cancelar</v-btn>
-                      <v-btn class="green--text darken-1" v-if="!alert" v-on:click="alert = true" v-on:click.prevent="deleteUndergroundBox(undergroundbox.item.id)" flat="flat" @click.native="dialog2 = false">Confirmar
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-layout>
-              <v-icon dark> remove </v-icon>
-              <td class="text-xs-right">
-                <v-dialog v-model="dialog" persistent width="50%">
-                  <v-btn primary dark slot="activator" v-on:click.prevent="getSpecificUndergroundBox(undergroundbox.item.id)">
-                    <v-icon dark> update</v-icon>
-                  </v-btn>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline"> Atualizar Caixa Subterrânea </span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container grid-list-md>
-                        <form>
-                          <v-layout row>
-                            <v-flex xs12>
-                              <v-text-field label="Latitude" v-model="actual_undergroundbox.latitude">
-                              </v-text-field>
-                              <v-text-field label="Longitude" v-model="actual_undergroundbox.longitude">
-                              </v-text-field>
-                              <v-text-field label="Tipo da Tampa" v-model="actual_undergroundbox.cover_type">
-                              </v-text-field>
-                              <v-text-field label="Data Criação" v-model="actual_undergroundbox.created_at">
-                              </v-text-field>
-                              <v-text-field label="Data Remoção" v-model="actual_undergroundbox.removed_at">
-                              </v-text-field>
-                              <v-text-field label="Número Aquitetura" v-model="actual_undergroundbox.draw_number">
-                              </v-text-field>
-
-                              <v-select v-bind:items="underground_box_types" v-model="box_type" label="Tipo da Caixa Subterrânea" item-text="name" bottom></v-select>
-                            </v-flex>
-                          </v-layout>
-                        </form>
-                      </v-container>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog = false">Fechar</v-btn>
-                      <v-btn class="blue--text darken-1" v-on:click.prevent="updateUndergroundBox(actual_undergroundbox)" flat="flat" @click.native="dialog = false" type="submit">Salvar alterações</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </td>
-            </td>
-          </template>
-        </v-data-table>
-      </v-container>
-      <v-dialog v-model="dialog1" persistent width="50%">
-        <v-btn primary dark slot="activator">Cadastrar Caixa Subterrânea</v-btn>
-        <v-card>
-          <v-card-title>
-            <span class="headline"> Cadastrar UndergroundBox </span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <form>
-                <v-layout row>
-                  <v-flex xs12>
-                    <v-text-field label="Latitude " v-model="latitude">
-                    </v-text-field>
-                    <v-text-field label="Longitude " v-model="longitude">
-                    </v-text-field>
-                    <v-text-field label="Timpo da tampa " v-model="cover_type">
-                    </v-text-field>
-                    <v-text-field label="Data crição " v-model="created_at">
-                    </v-text-field>
-                    <v-text-field label="Data remoção " v-model="removed_at">
-                    </v-text-field>
-                    <v-text-field label="Número Arquitetura " v-model="draw_number">
-                    </v-text-field>
-                    <v-select v-bind:items="underground_box_types" v-model="box_type" label="Tipo da Caixa Subterrânea" item-text="name" bottom></v-select>
-                  </v-flex>
-                </v-layout>
-              </form>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog1 = false">Fechar</v-btn>
-                      <v-btn class="blue--text darken-1" v-on:click.prevent="addUndergroundBox" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <router-view></router-view>
-    </v-app>
+  <div class="undergroundbox">
+    <div>
+      <modal 
+      :headers="headers"
+      :name="name" 
+      :alert="alert"
+      :items="[undergroundboxtypes, emendation_boxes,technical_reserves]"
+      :siteid="undergroundboxtype,emendation_box,technical_reserve"
+      v-on:register="post()">
+      </modal>
+    </div>
+    <div>
+      <data-table 
+      :headers="headers"
+      :name="name"
+      :items="[undergroundboxtypes,emendation_boxes,technical_reserves]"
+      :alert="alert"
+      :objects="objects"
+      v-on:update="put"
+      v-on:reload="reload()">
+      </data-table>
+    </div>
+    <v-btn primary dark slot="activator" v-on:click.prevent="get()">
+      <v-icon dark> update</v-icon>
+    </v-btn>
   </div>
 </template>
 
 <script>
-
 import axios from 'axios';
+import Modal from '../Modal';
+import DataTable from '../DataList';
 
 export default {
-  data: () => ({
-    headers: [
-      {
-        text: 'ID da Caixa Subterrânea',
-        align: 'left',
-      },
-      { text: 'Latitude' },
-      { text: 'Longitude' },
-      { text: 'Tipo Tampa' },
-      { text: 'Data Criação' },
-      { text: 'Data Remoção' },
-      { text: 'Número Arquitetura' },
-      { text: 'Tipo Caixa Subterrânea' },
-    ],
-    underground_boxes: [],
-    actual_undergroundbox: '',
-    underground_box_types: [],
-    underground_box_id: '',
-    latitude: '',
-    longitude: '',
-    cover_type: '',
-    created_at: '',
-    removed_at: '',
-    draw_number: '',
-    box_type: '',
-    name: '',
-    name1: '',
-    dialog: false,
-    dialog1: false,
-    dialog2: false,
-    alert: false,
-    errors: [],
-  }),
+  name: 'undergroundboxes',
+  data() {
+    return {
+      name: 'undergroundboxes',
+      headers: [
+        { text: 'ID', type: '', value: '' },
+        { text: 'Code', type: 'text', value: '' },
+        { text: 'Latitude', type: 'number', value: '' },
+        { text: 'Longitude', type: 'number', value: '' },
+        { text: 'Cover Type', type: 'text', value: '' },
+        { text: 'Emendation Box', type: 'select', value: '', itemtext: 'name' },
+        { text: 'Technical Reserve', type: 'select', value: '', itemtext: 'name' },
+        { text: 'Underground box type', type: 'select', value: '', itemtext: 'name' },
+      ],
+      objects: [],
+      undergroundboxtypes: [],
+      technical_reserves: [],
+      emendation_boxes: [],
+      emendation_box: null,
+      technical_reserve: null,
+      box_type: null,
+      errors: [],
+      alert: false,
+    };
+  },
+  components: { Modal, DataTable },
   methods: {
-    post() {
-      axios.post('http://localhost:8000/undergroundbox/', {
-        box_type: this.box_type.id,
-        latitude: this.latitude,
-        cover_type: this.cover_type,
-        longitude: this.longitude,
-        created_at: this.created_at,
-        removed_at: this.removed_at,
-        draw_number: this.draw_number,
-      })
-        .then()
-        .catch((e) => {
-          this.errors.push(e);
-        });
-      axios.get('http://localhost:8000/undergroundbox/')
-        .then((response) => {
-          this.underground_boxes = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-      this.$router.go(this.$router.currentRoute);
-    },
     get() {
-      axios.get('http://localhost:8000/undergroundbox/')
+      const request = axios.get('http://localhost:8000/undergroundboxes/')
         .then((response) => {
-          this.underground_boxes = response.data;
+          this.objects = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     getType() {
-      axios.get('http://localhost:8000/undergroundboxtype/')
+      const request = axios.get('http://localhost:8000/undergroundboxtypes/')
         .then((response) => {
-          this.underground_box_types = response.data;
+          this.undergroundboxtypes = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
-    delete(id) {
-      axios.delete('http://localhost:8000/undergroundbox/'.concat(id).concat('/'))
-      .then()
-      .catch((e) => {
-        this.errors.push(e);
-      });
+    getEmendationBox() {
+      const request = axios.get('http://localhost:8000/emendation_boxes/')
+        .then((response) => {
+          this.emendation_boxes = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
     },
-    put(undergroundbox) {
-      this.lat = undergroundbox.latitude;
-      this.long = undergroundbox.longitude;
-      this.c_type = undergroundbox.cover_type;
-      this.create = undergroundbox.created_at;
-      this.remove = undergroundbox.removed_at;
-      this.btype = undergroundbox.box_type;
-      this.d_number = undergroundbox.draw_number;
-      axios.put('http://localhost:8000/undergroundbox/'.concat(undergroundbox.id).concat('/'), {
-        box_type: this.btype,
-        latitude: this.lat,
-        cover_type: this.c_type,
-        longitude: this.long,
-        created_at: this.creat,
-        removed_at: this.remov,
-        draw_number: this.d_number,
+    getTechnicalReserve() {
+      const request = axios.get('http://localhost:8000/technicalreserves/')
+        .then((response) => {
+          this.technical_reserves = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
+    },
+
+    post() {
+      axios.post('http://localhost:8000/undergroundboxes/', {
+        code: this.headers[1].value,
+        latitude: this.headers[2].value,
+        longitude: this.headers[3].value,
+        cover_type: this.headers[4].value,
+        emendation_box: this.headers[5].value.id,
+        technical_reserve: this.headers[6].value.id,
+        box_type: this.headers[7].value.id,
       })
-      .then()
-      .catch((e) => {
-        this.errors.push(e);
+        .then(this.alert = false)
+        .catch((e) => {
+          this.alert = true;
+          this.errors.push(e);
+        });
+    },
+    put(id) {
+      axios.put('http://localhost:8000/undergroundboxes/'.concat(id).concat('/'), {
+        code: this.headers[1].value,
+        latitude: this.headers[2].value,
+        longitude: this.headers[3].value,
+        cover_type: this.headers[4].value,
+        emendation_box: this.headers[5].value.id,
+        technical_reserve: this.headers[6].value.id,
+        box_type: this.headers[7].value.id,
+      }).then(
+        this.alert = false,
+        this.reload(),
+      ).catch((e) => {
+        this.alert = true;
+        this.erros.push(e);
       });
     },
-    getSpecificUndergroundBox(id) {
-      axios.get('http://localhost:8000/undergroundbox/'.concat(id).concat('/'))
-      .then((response) => {
-        this.actual_undergroundbox = response.data;
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
-    },
-    updateUndergroundBox(id) {
-      this.put(id);
-      this.$router.go(this.$router.currentRoute);
-    },
-    deleteUndergroundBox(id) {
-      this.delete(id);
-    },
-    getUndergroundBox() {
-      this.get();
-    },
-    getUndergroundboxType() {
-      this.getType();
-    },
-    addUndergroundBox() {
-      this.post();
+    reload() {
     },
   },
   created() {
-    this.getUndergroundBox();
-    this.getUndergroundboxType();
+    this.get();
+    this.getType();
+    this.getTechnicalReserve();
+    this.getEmendationBox();
   },
 };
 </script>
 
 <style>
-#underground_boxes {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.underground_boxes {
-  font-size: 18px;
-  color: #FFFFF;
-}
 </style>
