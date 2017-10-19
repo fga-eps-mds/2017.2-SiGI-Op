@@ -1,218 +1,99 @@
 <template>
-  <div id="ipas">
-    <v-alert success dismissible transition="scale-transition" v-model="alert">
-      IPA deletada com sucesso. Por favor, recarregue a pagina.
-    </v-alert>
-    <v-app id="ipas">
-      <v-container>
-        <v-data-table v-bind:headers="headers" :items="ipas" class="elevation-1">
-          <template slot="items" scope="ipa">
-            <td class="text-xs-right">{{ ipa.item.id }}</td>
-            <td class="text-xs-right">{{ ipa.item.name }}</td>
-            <td class="text-xs-right">{{ ipa.item.institution_type }}</td>
-            <td class="text-xs-right">
-              <v-layout row justify-center style="position: relative;">
-                <v-dialog v-model="dialog2" lazy absolute>
-                  <v-btn fab dark small primary slot="activator">
-                    <v-icon dark> remove </v-icon>
-                  </v-btn>
-                  <v-card>
-                    <v-card-title>
-                      <div class="headline">Deseja realmente deletar a IPA?</div>
-                    </v-card-title>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="green--text darken-1" flat="flat" @click.native="dialog2 = false">Cancelar</v-btn>
-                      <v-btn class="green--text darken-1" v-if="!alert" v-on:click="alert = true" v-on:click.prevent="deleteipa(ipa.item.id)" flat="flat" @click.native="dialog2 = false">Confirmar
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-layout>
-
-              </v-btn>
-              <td class="text-xs-right">
-                <v-dialog v-model="dialog" persistent width="50%">
-                  <v-btn primary dark slot="activator" v-on:click.prevent="getSpecificIpa(ipa.item.id)">
-                    <v-icon dark> update</v-icon>
-                  </v-btn>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline"> Atualizar IPA </span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container grid-list-md>
-                        <form>
-                          <v-layout row>
-                            <v-flex xs12>
-                              <v-text-field label="Nome da IPA" v-model="actual_ipa.name">
-                              </v-text-field>
-                              <v-select v-bind:items="types_ipa" v-model="institution_type" label="Tipo da IPA" item-text="description" bottom></v-select>
-                            </v-flex>
-                          </v-layout>
-                        </form>
-                      </v-container>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog = false">Fechar</v-btn>
-                      <v-btn class="blue--text darken-1" v-on:click.prevent="updateipa(actual_ipa)" flat="flat" @click.native="dialog = false" type="submit">Salvar alterações</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </td>
-            </td>
-          </template>
-        </v-data-table>
-      </v-container>
-       <v-dialog v-model="dialog1" persistent width="50%">
-        <v-btn primary dark slot="activator">Cadastrar IPA</v-btn>
-        <v-card>
-          <v-card-title>
-            <span class="headline"> Cadastrar IPA </span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <form>
-                <v-layout row>
-                  <v-flex xs12>
-                    <v-text-field label="Nome da IPA" v-model="name">
-                    </v-text-field>
-                    <v-select v-bind:items="types_ipa" v-model="institution_type" label="Tipo da IPA" item-text="description" bottom></v-select>
-                  </v-flex>
-                </v-layout>
-              </form>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog1 = false">Fechar</v-btn>
-            <v-btn class="blue--text darken-1" v-on:click.prevent="addipa" flat="flat" @click.native="dialog1 = false">Cadastrar</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      </v-container>
-      <router-view></router-view>
-    </v-app>
+  <div class="ipas">
+    <div>
+      <modal :headers="headers" :name="name" :items="selectitems" :alert="alert" :text="text" v-on:register="post()">
+      </modal>
+    </div>
+    <div>
+      <data-table :headers="headers" :name="name" :items="selectitems" :alert="alert" :objects="objects" v-on:update="put" v-on:reload="reload()">
+      </data-table>
+    </div>
   </div>
 </template>
 
 <script>
 
 import axios from 'axios';
+import Modal from '../Modal';
+import DataTable from '../DataList';
 
 export default {
-  data: () => ({
-    headers: [
-      {
-        text: 'ID da IPA',
-        align: 'left',
-      },
-      { text: 'Nome da IPA' },
-      { text: 'Tipo da IPA' },
-      { text: 'Deletar IPA' },
-      { text: 'Atualizar IPA' },
-    ],
-    ipas: [],
-    actual_ipa: '',
-    types_ipa: [],
-    name: '',
-    dialog: false,
-    dialog1: false,
-    dialog2: false,
-    institution_type: '',
-    alert: false,
-    errors: [],
-  }),
+  name: 'ipas',
+
+  data() {
+    return {
+      name: 'ipas',
+      headers: [
+        { text: 'ID', type: '', value: '' },
+        { text: 'Name', type: 'text', value: '' },
+        { text: 'Type', type: 'select', value: '' },
+      ],
+      text: 'description',
+      objects: [],
+      selectitems: [],
+      errors: [],
+      alert: false,
+    };
+  },
+  components: { Modal, DataTable },
   methods: {
     post() {
       axios.post('http://localhost:8000/ipas/', {
-        name: this.name,
-        institution_type: this.institution_type.id,
+        name: this.headers[1].value,
+        institution_type: this.headers[2].value,
       })
-        .then()
+        .then(this.alert = false,
+        this.reload())
         .catch((e) => {
+          this.alert = true;
           this.errors.push(e);
         });
-      axios.get('http://localhost:8000/ipas/')
-        .then((response) => {
-          this.ipas = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-      this.$router.go(this.$router.currentRoute);
     },
     get() {
-      axios.get('http://localhost:8000/ipas/')
+      const request = axios.get('http://localhost:8000/ipas/')
         .then((response) => {
-          this.ipas = response.data;
+          this.objects = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
-    },
-    delete(id) {
-      axios.delete('http://localhost:8000/ipas/'.concat(id))
-        .then()
-        .catch((e) => {
-          this.errors.push(e);
-        });
-      this.getipa();
-    },
-    put(ipa) {
-      this.name = ipa.name;
 
-      axios.put('http://localhost:8000/ipas/'.concat(ipa.id).concat('/'), {
-        name: this.name,
-        institution_type: this.institution_type.id,
-      })
-        .then()
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    },
-    getSpecificIpa(id) {
-      axios.get('http://localhost:8000/ipas/'.concat(id).concat('/'))
-        .then((response) => {
-          this.actual_ipa = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    },
-    getipa() {
-      this.get();
-    },
-    updateipa(ipa) {
-      this.put(ipa);
-      this.getipa();
-      this.$router.go(this.$router.currentRoute);
+      return request;
     },
     getType() {
-      axios.get('http://localhost:8000/ipas-type/')
+      const request = axios.get('http://localhost:8000/ipatypes/')
         .then((response) => {
-          this.types_ipa = response.data;
+          this.selectitems = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+
+      return request;
     },
-    deleteipa(id) {
-      this.delete(id);
+    put(id) {
+      axios.put('http://localhost:8000/ipas/'.concat(id).concat('/'), {
+        power: this.headers[1].value,
+        proprietary: this.headers[2].value,
+        patrimony_number: this.headers[3].value,
+        site_id: this.headers[4].value.id,
+      })
+        .then(this.alert = false,
+        this.reload())
+        .catch((e) => {
+          this.alert = true;
+          this.errors.push(e);
+        });
     },
-    getTypeIpa() {
-      this.getType();
-    },
-    addipa() {
-      this.post();
+    reload() {
+      setTimeout(() => {
+        this.get();
+      }, 1000);
     },
   },
-
-  // Fetches posts when the component is created.
   created() {
-    this.getipa();
-    this.getTypeIpa();
+    this.get();
+    this.getSites();
   },
 };
 </script>
