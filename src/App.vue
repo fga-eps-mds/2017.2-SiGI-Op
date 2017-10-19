@@ -50,6 +50,8 @@ export default {
         { title: 'Caixas de Emenda', path: '/emendation_boxes' },
         { title: 'Segmentos', path: '/segments' },
         { title: 'Jumpers', path: '/jumpers' },
+        { title: 'Postes', path: '/Posts' },
+        { title: 'NoBreaks', path: '/NoBreaks' },
       ],
       right: null,
     };
