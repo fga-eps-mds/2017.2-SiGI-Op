@@ -80,7 +80,7 @@ describe('NoBreak', () => {
       });
     });
   });
-  
+
   it('bad getSites request in NoBreak', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
