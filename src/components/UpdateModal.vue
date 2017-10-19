@@ -1,7 +1,7 @@
 <template>
   <div class="segment">
     <v-dialog v-model="dialog" persistent width="50%">
-     <v-btn primary dark slot="activator">
+     <v-btn primary dark @click="fill()" slot="activator">
        <v-icon dark> update </v-icon>
      </v-btn>
      <v-card>
@@ -27,11 +27,9 @@
                  </v-text-field>
                  <v-select
                   v-if="head.type === 'select'"
-                  :items="items"
+                  :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
-                  :item-text="head.itemtext"
-                  :item-value="head.itemvalue"
                   bottom>
                 </v-select>
                  <v-text-field
@@ -56,35 +54,19 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
-  props: ['headers', 'name', 'alert', 'id', 'items'],
+  props: ['item'],
   data() {
     return {
       dialog: false,
-      item: '',
-      itemlist: [],
-      errors: [],
     };
   },
   methods: {
-    get() {
-      axios.get(('http://localhost:8000/'.concat(this.name, 's', '/', this.id)))
-        .then((response) => {
-          this.item = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-      setTimeout(() => {
-        this.fill();
-      }, 100);
-    },
 
     close() {
       this.dialog = false;
-      this.alert = false;
+      this.$store.dispatch('toggleAlert', false);
       for (let i = 0; i < this.headers.length; i += 1) {
         this.headers[i].value = '';
       }
@@ -97,33 +79,39 @@ export default {
         }
       }
       if (j > 0) {
-        this.alert = true;
+        this.$store.dispatch('toggleAlert', true);
         this.dialog = true;
       } else {
-        this.$emit('update', this.id);
+        this.$store.dispatch('putObject', this.item.id);
         if (this.alert !== true) {
           this.close();
         }
       }
     },
     fill() {
-      let i = 0;
-      if (this.dialog) {
-        for (i = 0; i < Object.values(this.item).length; i += 1) {
-          // Get item's values, and put this into headers values
-          this.headers[i].value = Object.values(this.item)[i];
-        }
-      }
+      this.$store.dispatch('fillUpdateFields', this.item);
+    },
+  },
+  computed: {
+    name() {
+      return this.$store.getters.name;
+    },
+    headers() {
+      return this.$store.getters.headers;
+    },
+    objects() {
+      return this.$store.getters.objects;
+    },
+    selectitems() {
+      return this.$store.getters.selectitems;
+    },
+    alert() {
+      return this.$store.getters.alert;
     },
   },
   filters: {
     capitalize(value) {
       return value.charAt(0).toUpperCase() + value.slice(1);
-    },
-  },
-  watch: {
-    dialog() {
-      this.get();
     },
   },
 };

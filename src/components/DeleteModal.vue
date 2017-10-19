@@ -15,7 +15,7 @@
           <v-spacer></v-spacer>
           <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">No</v-btn>
           <v-btn class="green--text darken-1"
-          v-on:click.prevent="deleteObject"
+          @click="deleteItem"
           flat="flat"
           @click.native="dialog = false">
           Yes
@@ -27,24 +27,26 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 
 export default {
+  props: ['id'],
   name: 'deletemodal',
-  props: ['name', 'id'],
   data() {
     return {
       dialog: false,
     };
   },
   methods: {
-    deleteObject() {
-      axios.delete('http://localhost:8000/'.concat(this.name, 's', '/', this.id))
-        .then(this.$emit('deleted'))
-        .catch((e) => {
-          this.errors.push(e);
-        });
+    deleteItem() {
+      this.$store.dispatch('deleteObject', this.id);
+    },
+  },
+  computed: {
+    name() {
+      return this.$store.getters.name;
+    },
+    activeObject() {
+      return this.$store.getters.activeObject;
     },
   },
 };
