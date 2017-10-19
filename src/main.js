@@ -16,6 +16,7 @@ import Register from './components/Register';
 import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
+import Switch from './components/Switches/Switch';
 import EmendationBox from './components/EmendationBoxes/EmendationBox';
 import Posts from './components/Posts/Posts';
 import Generator from './components/Generator/Generator';
@@ -36,6 +37,7 @@ const routes = [
   { name: 'register', path: '/register', component: Register, title: 'SiGI-Op Registro' },
   { path: '/uplink', component: Uplink },
   { path: '/ipas', component: Ipas },
+  { path: '/switches', component: Switch },
   { name: 'home', path: '/', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
