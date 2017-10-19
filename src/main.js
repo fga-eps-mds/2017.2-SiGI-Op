@@ -37,7 +37,7 @@ const routes = [
   { name: 'register', path: '/register', component: Register, title: 'SiGI-Op Registro' },
   { path: '/uplink', component: Uplink },
   { path: '/ipas', component: Ipas },
-  { path: '/switches', component: Switches},
+  { path: '/switches', component: Switch },
   { name: 'home', path: '/', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
