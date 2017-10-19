@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
+import store from './vuex/store';
 import App from './App';
 import Site from './components/sites/Site';
 import Ipas from './components/Ipas/Ipas';
@@ -15,6 +16,7 @@ import Contact from './components/Contacts';
 import Uplink from './components/Uplink/Uplink';
 import Home from './components/Home';
 import Segment from './components/Segments/Segment';
+import Jumper from './components/Jumper/Jumpers';
 
 
 Vue.use(VueRouter);
@@ -31,6 +33,7 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/undergroundbox', component: UndergroundBox },
   { path: '/segments', component: Segment, name: 'segments' },
+  { path: '/jumpers', component: Jumper, name: 'jumpers' },
 ];
 
 Vue.use(Vuetify);
@@ -49,6 +52,7 @@ const router = new VueRouter({
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   template: '<App/>',
   components: { App },

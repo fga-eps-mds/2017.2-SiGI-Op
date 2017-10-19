@@ -48,6 +48,8 @@ export default {
         { title: 'Segmentos', path: '/segments' },
         { title: 'Uplink', path: '/Uplink' },
         { title: 'Caixas de Emenda', path: '/emendation_boxes' },
+        { title: 'Segmentos', path: '/segments' },
+        { title: 'Jumpers', path: '/jumpers' },
       ],
       right: null,
     };
