@@ -26,7 +26,16 @@
                   v-model="head.value" >
                  </v-text-field>
                  <v-select
-                  v-if="head.type === 'select'"
+                  v-if="head.type === 'select' && items.constructor === Array"
+                  :items="getItems(items,head.text)"
+                  v-model="head.value"
+                  :label="head.text"
+                  :item-text="head.itemtext"
+                  :item-value="head.itemvalue"
+                  bottom>
+                </v-select>
+                 <v-select
+                  v-if="head.type === 'select' && items.constructor != Array"
                   :items="items"
                   v-model="head.value"
                   :label="head.text"
@@ -105,6 +114,15 @@ export default {
           this.close();
         }
       }
+    },
+    getItems(items, headerText) {
+      let i;
+      for (i = 0; i < items.length; i += 1) {
+        if (items[i].text === headerText) {
+          return items[i].value;
+        }
+      }
+      return items;
     },
     fill() {
       let i = 0;

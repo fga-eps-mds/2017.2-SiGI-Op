@@ -5,7 +5,11 @@
       :headers="headers"
       :name="name" 
       :alert="alert"
-      :items="[undergroundboxtypes, emendation_boxes,technical_reserves]"
+      :items="[
+      { text: 'Underground box type',value: undergroundboxtypes },
+      {text: 'Emendation Box',value: emendation_boxes},
+      {text: 'Technical Reserve',value: technical_reserves},
+      ]"
       :siteid="undergroundboxtype,emendation_box,technical_reserve"
       v-on:register="post()">
       </modal>
@@ -14,7 +18,11 @@
       <data-table 
       :headers="headers"
       :name="name"
-      :items="[undergroundboxtypes,emendation_boxes,technical_reserves]"
+      :items="[
+      { text: 'Underground box type',value: undergroundboxtypes },
+      {text: 'Emendation Box',value: emendation_boxes},
+      {text: 'Technical Reserve',value: technical_reserves},
+      ]"
       :alert="alert"
       :objects="objects"
       v-on:update="put"
@@ -43,8 +51,8 @@ export default {
         { text: 'Latitude', type: 'number', value: '' },
         { text: 'Longitude', type: 'number', value: '' },
         { text: 'Cover Type', type: 'text', value: '' },
-        { text: 'Emendation Box', type: 'select', value: '', itemtext: 'name' },
-        { text: 'Technical Reserve', type: 'select', value: '', itemtext: 'name' },
+        { text: 'Emendation Box', type: 'select', value: '', itemtext: 'designNumber' },
+        { text: 'Technical Reserve', type: 'select', value: '', itemtext: 'code' },
         { text: 'Underground box type', type: 'select', value: '', itemtext: 'name' },
       ],
       objects: [],
