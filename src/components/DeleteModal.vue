@@ -8,13 +8,13 @@
         <v-card-title>
           <div class="headline">Delete</div>
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="text">
           Are you sure you want to delete this {{ name }}?
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">No</v-btn>
-          <v-btn class="green--text darken-1"
+          <v-btn id="deleteBTN" class="green--text darken-1"
           @click="deleteItem"
           flat="flat"
           @click.native="dialog = false">
@@ -44,9 +44,6 @@ export default {
   computed: {
     name() {
       return this.$store.getters.name;
-    },
-    activeObject() {
-      return this.$store.getters.activeObject;
     },
   },
 };
