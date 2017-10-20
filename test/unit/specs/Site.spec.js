@@ -1,4 +1,4 @@
-import Site from '../../../src/components/sites/Site';
+import Site from '../../../src/components/Sites/Site';
 
 describe('Site', () => {
   it('check default values', () => {

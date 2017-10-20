@@ -1,7 +1,7 @@
 <template>
   <div class="table">
-    <v-data-table :headers="headers"  :items="objects" class="elevation-1">
-      <template slot="items" scope="props" >
+    <v-data-table :headers="headers" :items="objects" class="elevation-1">
+      <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
             <p v-if="selectitems.hasOwnProperty(key)">
@@ -11,7 +11,7 @@
               {{ item }}
             </p>
           </td>
-          <td class="text-xs-right ">
+          <td class="text-xs-right "> 
             <delete :id="props.item.id"></delete>
           </td>
           <td class="text-xs-right">

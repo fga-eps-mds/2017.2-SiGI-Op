@@ -1,23 +1,13 @@
-import { shallow } from 'vue-test-utils';
-import Vuex from 'vuex';
+import { mount } from 'vue-test-utils';
 import DeleteModal from '@/components/DeleteModal';
 import store from '@/vuex/store';
 
 describe('DeleteModal', () => {
   let wrapper;
   let vm;
-  let Store;
-  let actions;
+
   beforeEach(() => {
-    actions = {
-      actionClick: sinon.stub(),
-      actionInput: sinon.stub(),
-    };
-    Store = new Vuex.Store({
-      state: store.state,
-      actions,
-    });
-    wrapper = shallow(DeleteModal, { store });
+    wrapper = mount(DeleteModal, { store });
     vm = wrapper.vm;
   });
 
@@ -32,12 +22,6 @@ describe('DeleteModal', () => {
     expect(wrapper.contains('.green--text')).to.equal(true);
     expect(wrapper.contains('.text')).to.equal(true);
     expect(wrapper.contains('td')).to.equal(false);
-  });
-
-  it('dispatches action', () => {
-    const btn = wrapper.find('#deleteBTN');
-    btn.trigger('click');
-    expect(actions.deleteObject.calledOnce).to.equal(true);
   });
 
   it('is a function', () => {
