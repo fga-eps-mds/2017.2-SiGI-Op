@@ -1,5 +1,5 @@
 <template>
-  <div class="undergroundbox">
+  <div class="uplink">
       <modal></modal>
       <data-table></data-table>
   </div>
