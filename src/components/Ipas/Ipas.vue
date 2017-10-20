@@ -73,8 +73,8 @@ export default {
     },
     put(id) {
       axios.put('http://localhost:8000/ipas/'.concat(id).concat('/'), {
-           name: this.headers[1].value,
-           institution_type: this.headers[2].value.id,
+        name: this.headers[1].value,
+        institution_type: this.headers[2].value.id,
       })
         .then(this.alert = false,
         this.reload())

@@ -24,21 +24,10 @@
                   v-model="head.value" >
                  </v-text-field>
                  <v-select
-                  v-if="head.type === 'select' && items.constructor === Array"
-                  :items="getItems(items,head.text)"
+                  v-if="head.type === 'select'"
+                  :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
-                  :item-text="head.itemtext"
-                  :item-value="head.itemvalue"
-                  bottom>
-                </v-select>
-                 <v-select
-                  v-if="head.type === 'select' && items.constructor != Array"
-                  :items="items"
-                  v-model="head.value"
-                  :label="head.text"
-                  :item-text="head.itemtext"
-                  :item-value="head.itemvalue"
                   bottom>
                 </v-select>
                  <v-text-field
@@ -64,7 +53,6 @@
 
 <script>
 export default {
-  props: ['headers', 'name', 'alert', 'items'],
   data() {
     return {
       dialog: false,
@@ -74,7 +62,7 @@ export default {
     close() {
       this.clear();
       this.dialog = false;
-      this.alert = false;
+      this.$store.dispatch('toggleAlert', false);
     },
     clear() {
       for (let i = 0; i < this.headers.length; i += 1) {
@@ -89,23 +77,31 @@ export default {
         }
       }
       if (j > 0) {
-        this.alert = true;
+        this.$store.dispatch('toggleAlert', true);
         this.dialog = true;
       } else {
-        this.$emit('register');
+        this.$store.dispatch('postObject');
         if (this.alert !== true) {
           this.close();
         }
       }
     },
-    getItems(items, headerText) {
-      let i;
-      for (i = 0; i < items.length; i += 1) {
-        if (items[i].text === headerText) {
-          return items[i].value;
-        }
-      }
-      return items;
+  },
+  computed: {
+    name() {
+      return this.$store.getters.name;
+    },
+    headers() {
+      return this.$store.getters.headers;
+    },
+    objects() {
+      return this.$store.getters.objects;
+    },
+    selectitems() {
+      return this.$store.getters.selectitems;
+    },
+    alert() {
+      return this.$store.getters.alert;
     },
   },
   filters: {
