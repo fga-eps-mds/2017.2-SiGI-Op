@@ -1,113 +1,38 @@
 <template>
-  <div class="ipas">
-    <div>
-      <modal :headers="headers" :name="name" :items="selectitems" :alert="alert" :text="text" v-on:register="post()">
-      </modal>
-    </div>
-    <div>
-      <data-table :headers="headers" :name="name" :items="selectitems" :alert="alert" :objects="objects" v-on:update="put" v-on:reload="reload()">
-      </data-table>
-    </div>
+  <div class="ipa">
+      <modal></modal>
+      <data-table></data-table>
   </div>
 </template>
 
 <script>
-
-import axios from 'axios';
 import Modal from '../Modal';
 import DataTable from '../DataList';
 
 export default {
-  name: 'ipas',
-
+  name: 'ipa',
   data() {
     return {
-      name: 'ipas',
+      name: 'ipa',
       headers: [
-        { text: 'ID', type: '', value: '' },
-        { text: 'Name', type: 'text', value: '' },
-        { text: 'Type', type: 'select', value: '' },
+        { text: 'ID', type: 'id', value: '' },
+
+        { text: 'IPA name', type: 'text', name: 'name', value: '' },
+        {
+          text: 'IPA type',
+          type: 'select',
+          name: 'institution_type',
+          item_name: 'ipa-type',
+          itemText: 'description',
+        },
       ],
-      text: 'description',
-      objects: [],
-      selectitems: [],
-      errors: [],
-      alert: false,
     };
   },
   components: { Modal, DataTable },
-  methods: {
-    post() {
-      axios.post('http://localhost:8000/ipas/', {
-        name: this.headers[1].value,
-        institution_type: this.headers[2].value,
-      })
-        .then(this.alert = false,
-        this.reload())
-        .catch((e) => {
-          this.alert = true;
-          this.errors.push(e);
-        });
-    },
-    get() {
-      const request = axios.get('http://localhost:8000/ipas/')
-        .then((response) => {
-          this.objects = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-
-      return request;
-    },
-    getType() {
-      const request = axios.get('http://localhost:8000/ipatypes/')
-        .then((response) => {
-          this.selectitems = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-
-      return request;
-    },
-    put(id) {
-      axios.put('http://localhost:8000/ipas/'.concat(id).concat('/'), {
-        name: this.headers[1].value,
-        institution_type: this.headers[2].value.id,
-      })
-        .then(this.alert = false,
-        this.reload())
-        .catch((e) => {
-          this.alert = true;
-          this.errors.push(e);
-        });
-    },
-    reload() {
-      setTimeout(() => {
-        this.get();
-      }, 1000);
-    },
-  },
   created() {
-    this.get();
-    this.getSites();
+    this.$store.dispatch('setNewName', this.name);
+    this.$store.dispatch('setNewHeaders', this.headers);
+    this.$store.dispatch('getObjects');
   },
 };
 </script>
-
-<style>
-#ipas {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-.ipas {
-  font-size: 18px;
-  color: #FFFFF;
-}
-</style>
