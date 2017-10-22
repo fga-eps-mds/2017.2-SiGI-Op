@@ -1,23 +1,23 @@
 import moxios from 'moxios';
 import { equal } from 'assert';
 
-import NoBreak from '../../../src/components/NoBreaks/NoBreak';
+import Posts from '../../../src/components/Posts/Posts';
 
-describe('NoBreak', () => {
+describe('Posts', () => {
   it('check default values', () => {
-    expect(typeof NoBreak.data).to.equal('function');
-    const defaultData = NoBreak.data();
+    expect(typeof Posts.data).to.equal('function');
+    const defaultData = Posts.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('Potência do NoBreak');
-    expect(defaultData.headers[2].text).to.equal('Proprietário do NoBreak');
-    expect(defaultData.headers[3].text).to.equal('Número de Patrimônio do NoBreak');
-    expect(defaultData.headers[4].text).to.equal('Site');
+    expect(defaultData.headers[1].text).to.equal('Cable Length');
+    expect(defaultData.headers[2].text).to.equal('stretch');
+    expect(defaultData.headers[3].text).to.equal('Emendation box');
+    expect(defaultData.headers[4].text).to.equal('GOD');
   });
 
-  it('get request in NoBreak', (done) => {
+  it('get request in Posts', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Posts.methods.get().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -25,10 +25,10 @@ describe('NoBreak', () => {
           status: 200,
           response: {
             id: 1,
-            power: 1,
-            proprietary: 'Proprietary',
-            patrimony_number: 1,
-            site_id: 1,
+            cable_length: 1,
+            stretch: 1,
+            emendation_box: 1,
+            god: 1,
           },
         }).then(() => {
           equal(onFulfilled.called, true);
@@ -38,10 +38,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('bad get request in NoBreak', (done) => {
+  it('bad get request in Posts', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.get().then(onFulfilled);
+      Posts.methods.get().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -56,22 +56,24 @@ describe('NoBreak', () => {
     });
   });
 
-  it('getSites request in NoBreak', (done) => {
+  it('getEmendqationBox request in Posts', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Posts.methods.getEmendationBox().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 200,
           response: {
-            name: 'name',
             lattitude: 1,
-            longitude: 1,
-            bandwith: 1,
-            ipa_code: 1,
-            site_type: 1,
+            longitude: 23,
+            designNumber: 3,
+            access_box: false,
+            creation_date: 20171007,
+            extinction_date: null,
+            emendation_type: 1,
+            emendation_structure: 1,
           },
         }).then(() => {
           equal(onFulfilled.called, true);
@@ -81,10 +83,10 @@ describe('NoBreak', () => {
     });
   });
 
-  it('bad getSites request in NoBreak', (done) => {
+  it('bad getSites request in Posts', (done) => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
-      NoBreak.methods.getSites().then(onFulfilled);
+      Posts.methods.getEmendationBox().then(onFulfilled);
 
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();

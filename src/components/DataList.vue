@@ -3,16 +3,19 @@
     <v-data-table :headers="headers" :items="objects" class="elevation-1">
       <template slot="items" scope="props">
         <tr>
-          <td class="text-xs-right" v-for="item in props.item">
-            {{ item }}
+          <td class="text-xs-right" v-for="(item, key) in props.item">
+            <p v-if="selectitems.hasOwnProperty(key)">
+              {{ item | showText(key, selectitems)}}
+            </p>
+            <p v-if="!selectitems.hasOwnProperty(key)">
+              {{ item }}
+            </p>
           </td>
-          <td class="text-xs-right ">
-            <delete class="" :name="name" :id="props.item.id" v-on:deleted="callreload()">
-            </delete>
+          <td class="text-xs-right "> 
+            <delete :id="props.item.id"></delete>
           </td>
           <td class="text-xs-right">
-            <update class="" :name="name" :headers="headers" :alert="alert" :items="items" :id="props.item.id" v-on:update="callupdate">
-            </update>
+            <update  :item="props.item"></update>
           </td>
         </tr>
       </template>
@@ -24,44 +27,37 @@
 import Delete from './DeleteModal';
 import Update from './UpdateModal';
 
-
 export default {
-  props: ['headers', 'name', 'objects', 'alert', 'items'],
-  data() {
-    return {
-
-    };
-  },
   components: { Delete, Update },
-  methods: {
-    callreload() {
-      this.$emit('reload');
+  computed: {
+    name() {
+      return this.$store.getters.name;
     },
-    callupdate(id) {
-      this.$emit('update', id);
+    headers() {
+      return this.$store.getters.headers;
+    },
+    objects() {
+      return this.$store.getters.objects;
+    },
+    selectitems() {
+      return this.$store.getters.selectitems;
     },
   },
-
+  filters: {
+    showText: (value, key, selectitems) => {
+      let i = 0;
+      console.log(selectitems);
+      for (i = 0; i < selectitems[key].length; i += 1) {
+        if (selectitems[key][i].value === value) {
+          return selectitems[key][i].text;
+        }
+      }
+      return value;
+    },
+  },
 };
 </script>
 
 <style scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>
