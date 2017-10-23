@@ -17,9 +17,9 @@ export default {
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'IPA name', type: 'text', name: 'name', value: '' },
+        { text: 'Name', type: 'text', name: 'name', value: '' },
         {
-          text: 'IPA type',
+          text: 'Type',
           type: 'select',
           name: 'institution_type',
           item_name: 'ipa-type',

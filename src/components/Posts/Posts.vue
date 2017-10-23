@@ -18,9 +18,9 @@ export default {
       headers: [
         { text: 'ID', type: '', value: '' },
         { text: 'Cable Length', type: 'number', value: '' },
-        { text: 'stretch', type: 'number', value: '' },
+        { text: 'Stretch', type: 'number', value: '' },
         {
-          text: 'Emendation box',
+          text: 'Emendation Box',
           type: 'select',
           value: '',
           item_name: 'emendation_box',

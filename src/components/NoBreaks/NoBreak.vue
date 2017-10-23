@@ -19,7 +19,7 @@ export default {
 
         { text: 'Power', type: 'number', name: 'power', value: '' },
         { text: 'Proprietary', type: 'text', name: 'proprietary', value: '' },
-        { text: 'Patrimony number', type: 'text', name: 'patrimony_number', value: '' },
+        { text: 'Patrimony Number', type: 'text', name: 'patrimony_number', value: '' },
         {
           text: 'Site',
           type: 'select',
