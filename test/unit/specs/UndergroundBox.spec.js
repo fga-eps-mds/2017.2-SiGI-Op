@@ -1,5 +1,5 @@
-import moxios from 'moxios';
-import { equal } from 'assert';
+// import moxios from 'moxios';
+// import { equal } from 'assert';
 
 import UndergroundBox from '../../../src/components/UndergroundBox/UndergroundBox';
 

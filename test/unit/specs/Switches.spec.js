@@ -1,5 +1,5 @@
-import moxios from 'moxios';
-import { equal } from 'assert';
+// import moxios from 'moxios';
+// import { equal } from 'assert';
 
 import Switch from '../../../src/components/Switches/Switch';
 

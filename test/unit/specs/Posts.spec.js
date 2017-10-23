@@ -1,5 +1,5 @@
-import moxios from 'moxios';
-import { equal } from 'assert';
+// import moxios from 'moxios';
+// import { equal } from 'assert';
 
 import Posts from '../../../src/components/Posts/Posts';
 
