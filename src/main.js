@@ -42,7 +42,7 @@ const routes = [
   { path: '/ipas', component: Ipas },
   { path: '/switches', component: Switch },
   { name: 'home', path: '/', component: Home },
-  { path: '/undergroundbox', component: UndergroundBox },
+  { path: '/undergroundboxes', component: UndergroundBox },
   { path: '/emendation_boxes', component: EmendationBox },
   { path: '/posts', component: Posts },
   { path: '/generators', component: Generator },
