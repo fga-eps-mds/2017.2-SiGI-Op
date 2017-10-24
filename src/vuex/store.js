@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
+import HTTP from '../http-common';
 
 Vue.use(Vuex);
 
@@ -31,7 +31,7 @@ export const mutations = {
     for (i = 1; i < state.headers.length; i += 1) {
       ObjectToPost[state.headers[i].name] = state.headers[i].value;
     }
-    axios.post('http://localhost:8000/'.concat(state.name, 's', '/'), ObjectToPost)
+    HTTP.post(''.concat(state.name, 's', '/'), ObjectToPost)
       .then(thisState.alert = false)
       .catch((e) => {
         thisState.alert = true;
@@ -46,7 +46,7 @@ export const mutations = {
     for (i = 1; i < state.headers.length; i += 1) {
       ObjectToPut[state.headers[i].name] = state.headers[i].value;
     }
-    axios.put('http://localhost:8000/'.concat(state.name, 's', '/', id, '/'), ObjectToPut)
+    HTTP.put(''.concat(state.name, 's', '/', id, '/'), ObjectToPut)
       .then(thisState.alert = false)
       .catch((e) => {
         thisState.alert = true;
@@ -55,7 +55,7 @@ export const mutations = {
   },
 
   DELETE_OBJECTS(state, id) {
-    axios.delete('http://localhost:8000/'.concat(state.name, 's', '/', id, '/'))
+    HTTP.delete(''.concat(state.name, 's', '/', id, '/'))
     .then(() => {})
     .catch((e) => {
       state.errors.push(e);
@@ -95,7 +95,7 @@ export const state = {
 
 export const actions = {
   getObjects({ commit }) {
-    axios.get('http://localhost:8000/'.concat(state.name, 's', '/'))
+    HTTP.get(''.concat(state.name, 's', '/'))
     .then((response) => {
       commit('GET_OBJECTS', response.data);
     })
@@ -105,7 +105,7 @@ export const actions = {
 
     for (let i = 1; i < state.headers.length; i += 1) {
       if (state.headers[i].type === 'select') {
-        axios.get('http://localhost:8000/'.concat(state.headers[i].item_name, 's', '/'))
+        HTTP.get(''.concat(state.headers[i].item_name, 's', '/'))
         .then((response) => {
           commit({
             type: 'GET_SELECT_ITEMS',
