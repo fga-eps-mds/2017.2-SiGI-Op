@@ -4,7 +4,7 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
-const mutations = {
+export const mutations = {
   GET_OBJECTS(state, data) {
     const thisState = state;
     thisState.objects = data;
@@ -78,15 +78,13 @@ const mutations = {
   FILL_UPDATE_FIELDS(state, object) {
     const thisState = state;
     let i;
-    console.log(object);
-    console.log(state.headers);
     for (i = 0; i < Object.keys(object).length; i += 1) {
       thisState.headers[i].value = Object.values(object)[i];
     }
   },
 };
 
-const state = {
+export const state = {
   name: '',
   headers: [],
   objects: [],
@@ -95,7 +93,7 @@ const state = {
   errors: [],
 };
 
-const actions = {
+export const actions = {
   getObjects({ commit }) {
     axios.get('http://localhost:8000/'.concat(state.name, 's', '/'))
     .then((response) => {
@@ -154,7 +152,7 @@ const actions = {
   },
 };
 
-const getters = {
+export const getters = {
   name: () => state.name,
   headers: () => state.headers,
   objects: () => state.objects,
