@@ -26,4 +26,7 @@ describe('Jumper', () => {
   it('check default Jumper creation', () => {
     expect(typeof Jumper.created).to.equal('function');
   });
+  it('renders a div', () => {
+    expect(wrapper.contains('div')).to.equal(true);
+  });
 });
