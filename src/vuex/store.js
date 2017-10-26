@@ -10,18 +10,18 @@ export const mutations = {
     thisState.objects = data;
   },
 
-  GET_SELECT_ITEMS(state, playload) {
+  GET_SELECT_ITEMS(state, payload) {
     const thisState = state;
     const items = [];
     let obj = {};
     let i = 0;
-    for (i = 0; i < playload.data.length; i += 1) {
-      obj.text = playload.data[i][playload.itemText];
-      obj.value = playload.data[i].id;
+    for (i = 0; i < payload.data.length; i += 1) {
+      obj.text = payload.data[i][payload.itemText];
+      obj.value = payload.data[i].id;
       items[i] = obj;
       obj = {};
     }
-    thisState.selectitems[playload.key] = items;
+    thisState.selectitems[payload.key] = items;
   },
 
   POST_OBJECTS(state) {
@@ -82,6 +82,15 @@ export const mutations = {
       thisState.headers[i].value = Object.values(object)[i];
     }
   },
+};
+
+export const getters = {
+  name: state => state.name,
+  headers: state => state.headers,
+  objects: state => state.objects,
+  selectitems: state => state.selectitems,
+  alert: state => state.alert,
+  errors: state => state.errors,
 };
 
 export const state = {
@@ -151,16 +160,6 @@ export const actions = {
     commit('FILL_UPDATE_FIELDS', object);
   },
 };
-
-export const getters = {
-  name: () => state.name,
-  headers: () => state.headers,
-  objects: () => state.objects,
-  selectitems: () => state.selectitems,
-  alert: () => state.alert,
-  errors: () => state.errors,
-};
-
 
 export default new Vuex.Store({
   state,
