@@ -88,6 +88,15 @@ export default {
         }
       }
     },
+    getItems(items, headerText) {
+      let i;
+      for (i = 0; i < items.length; i += 1) {
+        if (items[i].text === headerText) {
+          return items[i].value;
+        }
+      }
+      return items;
+    },
     fill() {
       this.$store.dispatch('fillUpdateFields', this.item);
     },

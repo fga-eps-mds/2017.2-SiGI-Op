@@ -1,10 +1,14 @@
-import Ipas from '../../../src/components/Ipas/Ipas';
+// import moxios from 'moxios';
+// import { equal } from 'assert';
 
-describe('Ipas', () => {
-  it('sets correct default data', () => {
-    expect(typeof Ipas.data).to.equal('function');
-    const defaultData = Ipas.data();
-    expect(defaultData.name).to.equal('');
-    expect(defaultData.institution_type).to.equal('');
+import Ipa from '../../../src/components/Ipas/Ipas';
+
+describe('Ipa', () => {
+  it('check default values', () => {
+    expect(typeof Ipa.data).to.equal('function');
+    const defaultData = Ipa.data();
+    expect(defaultData.headers[0].text).to.equal('ID');
+    expect(defaultData.headers[1].text).to.equal('Name');
+    expect(defaultData.headers[2].text).to.equal('Type');
   });
 });

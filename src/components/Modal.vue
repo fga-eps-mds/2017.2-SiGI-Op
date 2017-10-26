@@ -17,6 +17,17 @@
            <form>
              <v-layout row v-for="head in headers" :key="head.id">
                <v-flex xs12 v-if="head.text != 'ID'">
+                 <v-checkbox
+                  v-if="head.type === 'boolean'"
+                  :label="head.text"
+                  v-model="head.value">
+                 </v-checkbox>
+                 <v-text-field
+                  v-if="head.type === 'date'"
+                  :label="head.text"
+                  type="date"
+                  v-model="head.value">
+                 </v-text-field>
                  <v-text-field
                   v-if="head.type === 'number'"
                   :label="head.text"
@@ -31,7 +42,11 @@
                   bottom>
                 </v-select>
                  <v-text-field
-                  v-if="head.type != 'number' && head.type != 'select'"
+                  v-if=
+                  "head.type != 'number' &&
+                  head.type != 'select' &&
+                  head.type != 'date' &&
+                  head.type != 'boolean'"
                   :label="head.text"
                   v-model="head.value">
                  </v-text-field>

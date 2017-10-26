@@ -52,6 +52,7 @@ export default {
         { title: 'Jumpers', path: '/jumpers' },
         { title: 'Postes', path: '/Posts' },
         { title: 'NoBreaks', path: '/NoBreaks' },
+        { title: 'Cabos de Acesso', path: '/access_cables' },
       ],
       right: null,
     };
