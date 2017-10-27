@@ -55,7 +55,8 @@
                     <v-text-field
                     label="E-mail"
                     v-model="email"
-                    :rules="emailRules"
+                    :rules="[v => /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(v)
+                     || 'E-mail must be valid',]"
                     required
                     single-line>
                     </v-text-field>
@@ -90,9 +91,6 @@
       password: '',
       password_confirm: '',
       email: '',
-      emailRules: [
-        v => /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid',
-      ],
       alert: false,
     }),
     methods: {
