@@ -18,7 +18,7 @@ export default {
         { text: 'ID', type: 'id', value: '' },
 
         { text: 'Name', type: 'text', name: 'name', value: '' },
-        { text: 'Telphone', type: 'number', name: 'telephone', value: '' },
+        { text: 'Phone Number', type: 'number', name: 'phone_number', value: '' },
         { text: 'Email', type: 'text', name: 'email', value: '' },
         { text: 'Priority', type: 'number', name: 'priority', value: '' },
         {
