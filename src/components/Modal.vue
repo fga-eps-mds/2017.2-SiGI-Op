@@ -20,17 +20,27 @@
                  <v-checkbox
                   v-if="head.type === 'boolean'"
                   :label="head.text"
+                  :rules="[() => !!head.value || 'This field is required.']"
+                  required
                   v-model="head.value">
                  </v-checkbox>
                  <v-text-field
                   v-if="head.type === 'date'"
                   :label="head.text"
                   type="date"
+                  :rules="[() => !!head.value || 'This field is required.']"
+                  required
                   v-model="head.value">
                  </v-text-field>
                  <v-text-field
                   v-if="head.type === 'number'"
                   :label="head.text"
+                  :rules="[
+                   () => !!head.value || 'This field is required.',
+                   () => !!head.value && head.value > 0 ||
+                   'Number must be bigger than 0.',
+                  ]"
+                  required
                   type="number"
                   v-model="head.value" >
                  </v-text-field>
@@ -39,6 +49,8 @@
                   :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
+                  :rules="[() => !!head.value || 'This field is required.']"
+                  required
                   bottom>
                 </v-select>
                  <v-text-field
@@ -48,6 +60,8 @@
                   head.type != 'date' &&
                   head.type != 'boolean'"
                   :label="head.text"
+                  :rules="[() => !!head.value || 'This field is required.']"
+                  required
                   v-model="head.value">
                  </v-text-field>
                </v-flex>
