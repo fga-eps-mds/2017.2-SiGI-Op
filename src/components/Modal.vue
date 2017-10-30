@@ -44,6 +44,14 @@
                   type="number"
                   v-model="head.value" >
                  </v-text-field>
+                 <v-text-field
+                  v-if="head.type === 'int-number'"
+                  :label="head.text"
+                  :rules="[() => !!head.value || 'This field is required.',]"
+                  required
+                  type="int-number"
+                  v-model="head.value" >
+                 </v-text-field>
                  <v-select
                   v-if="head.type === 'select'"
                   :items="selectitems[head.name]"
@@ -58,6 +66,7 @@
                   "head.type != 'number' &&
                   head.type != 'select' &&
                   head.type != 'date' &&
+                  head.type != 'int-number' &&
                   head.type != 'boolean'"
                   :label="head.text"
                   :rules="[() => !!head.value || 'This field is required.']"
