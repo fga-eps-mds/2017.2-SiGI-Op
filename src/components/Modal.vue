@@ -60,6 +60,16 @@
                   :rules="[() => !!head.value || 'This field is required.']"
                   required
                   bottom>
+                </v-select> 
+                <v-select
+                  v-if="head.type === 'checkbox'"
+                  :items="selectitems[head.name]"
+                  v-model="head.value"
+                  :label="head.text"
+                  :rules="[() => !!head.value || 'This field is required.']"
+                  required
+                  multiple
+                  bottom>
                 </v-select>
                  <v-text-field
                   v-if=
@@ -67,7 +77,8 @@
                   head.type != 'select' &&
                   head.type != 'date' &&
                   head.type != 'int-number' &&
-                  head.type != 'boolean'"
+                  head.type != 'boolean' &&
+                  head.type != 'checkbox'"
                   :label="head.text"
                   :rules="[() => !!head.value || 'This field is required.']"
                   required

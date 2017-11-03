@@ -3,13 +3,22 @@
     <v-navigation-drawer permanent clipped light v-if="render_sidebar">
       <v-list class="py-0">
       <v-divider></v-divider>
-        <v-list-tile v-for="item in items" :key="item.title" @click="">
+        <v-list-tile v-if = "show" v-for="item in items" :key="item.title" @click="">
           <router-link :to="item.path" tag="li">
             <v-list-tile-content>
               <v-list-tile-title> {{ item.title }} </v-list-tile-title>
             </v-list-tile-content>
           </router-link>
         </v-list-tile>
+
+        <v-list-tile v-if="!show" v-for="item in admin_items" :key="item.title" @click="">
+          <router-link :to="item.path" tag="li">
+            <v-list-tile-content>
+              <v-list-tile-title> {{ item.title }} </v-list-tile-title>
+            </v-list-tile-content>
+          </router-link>
+        </v-list-tile>
+
         <v-list-tile @click="" v-on:click.prevent="sign_out">
         <v-list-tile-content>
           <v-list-tile-title > Sair ({{ current_username }})</v-list-tile-title>
@@ -19,6 +28,10 @@
     </v-navigation-drawer>
     <v-toolbar dark fixed class="primary">
       <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
+      <v-spacer></v-spacer>
+      <v-btn icon @click.native="show = !show">
+        <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+      </v-btn>
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -36,6 +49,7 @@ export default {
   data() {
     return {
       drawer: null,
+      show: false,
       current_username: localStorage.getItem('username'),
       render_sidebar: localStorage.getItem('Token') !== 'null',
       items: [
@@ -55,6 +69,9 @@ export default {
         { title: 'Cabos de Acesso', path: '/access_cables' },
       ],
       right: null,
+      admin_items: [
+        { title: 'Groups', path: '/groups' },
+      ],
     };
   },
   methods: {
