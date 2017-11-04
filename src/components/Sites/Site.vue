@@ -18,8 +18,8 @@ export default {
         { text: 'ID', type: 'id', value: '' },
 
         { text: 'Name', type: 'text', name: 'name', value: '' },
-        { text: 'Latitude', type: 'number', name: 'lattitude', value: '' },
-        { text: 'Longitude', type: 'number', name: 'longitude', value: '' },
+        { text: 'Latitude', type: 'int-number', name: 'lattitude', value: '' },
+        { text: 'Longitude', type: 'int-number', name: 'longitude', value: '' },
         { text: 'Bandwidth', type: 'number', name: 'bandwidth', value: '' },
         {
           text: 'IPA',
