@@ -69,6 +69,7 @@
                   :rules="[() => !!head.value || 'This field is required.']"
                   required
                   multiple
+                  chips
                   bottom>
                 </v-select>
                  <v-text-field

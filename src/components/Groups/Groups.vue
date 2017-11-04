@@ -7,7 +7,7 @@
 
 <script>
 import Modal from '../Modal';
-import DataTable from '../DataList';
+import DataTable from './DataList';
 
 export default {
   name: 'group',

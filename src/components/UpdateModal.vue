@@ -38,6 +38,7 @@
                   v-model="head.value"
                   :label="head.text"
                   multiple
+                  chips
                   bottom>
                 </v-select>
                  <v-text-field

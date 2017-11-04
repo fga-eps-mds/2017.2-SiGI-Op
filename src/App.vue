@@ -3,7 +3,7 @@
     <v-navigation-drawer permanent clipped light v-if="render_sidebar">
       <v-list class="py-0">
       <v-divider></v-divider>
-        <v-list-tile v-if = "show" v-for="item in items" :key="item.title" @click="">
+        <v-list-tile v-if = "!menuAdmin" v-for="item in items" :key="item.title" @click="">
           <router-link :to="item.path" tag="li">
             <v-list-tile-content>
               <v-list-tile-title> {{ item.title }} </v-list-tile-title>
@@ -11,7 +11,7 @@
           </router-link>
         </v-list-tile>
 
-        <v-list-tile v-if="!show" v-for="item in admin_items" :key="item.title" @click="">
+        <v-list-tile v-if="menuAdmin" v-for="item in admin_items" :key="item.title" @click="">
           <router-link :to="item.path" tag="li">
             <v-list-tile-content>
               <v-list-tile-title> {{ item.title }} </v-list-tile-title>
@@ -29,9 +29,17 @@
     <v-toolbar dark fixed class="primary">
       <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
       <v-spacer></v-spacer>
-      <v-btn icon @click.native="show = !show">
-        <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-      </v-btn>
+      <v-menu offset-y>
+        <v-btn icon @click.native="show = !show" dark slot="activator">
+          <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+        </v-btn>
+         <v-list>
+        <v-list-tile>
+          <v-list-tile-title @click="menuAdmin = !menuAdmin; show = !show" v-if="!menuAdmin">Admin</v-list-tile-title>
+          <v-list-tile-title @click="menuAdmin = !menuAdmin; show = !show" v-if="menuAdmin">Normal Page</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+      </v-menu>
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -50,6 +58,7 @@ export default {
     return {
       drawer: null,
       show: false,
+      menuAdmin: false,
       current_username: localStorage.getItem('username'),
       render_sidebar: localStorage.getItem('Token') !== 'null',
       items: [
@@ -57,7 +66,7 @@ export default {
         { title: 'Sites', path: '/sites' },
         { title: 'Contatos', path: '/contacts' },
         { title: 'Reservas Técnicas', path: '/technical_reserves' },
-        { title: 'Caixas Subterrâneas', path: '/undergroundbox' },
+        { title: 'Caixas Subterrâneas', path: '/undergroundboxes' },
         { title: 'DGOs', path: '/dgos' },
         { title: 'Segmentos', path: '/segments' },
         { title: 'Uplink', path: '/Uplink' },
