@@ -16,14 +16,15 @@ export default {
       name: 'user',
       headers: [
         { text: 'ID', type: 'id', value: '' },
-
         { text: 'Username', type: 'text', name: 'username', value: '' },
+        { text: 'Email', type: 'email', name: 'email', value: '' },
+        { text: 'Password', type: 'password', name: 'password', value: '' },
         {
           text: 'Groups',
           type: 'select',
-          itemText: 'name',
           name: 'groups',
           item_name: 'group',
+          itemText: 'name',
         },
       ],
     };
