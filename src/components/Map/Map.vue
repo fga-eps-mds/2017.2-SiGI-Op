@@ -1,8 +1,14 @@
 <template>
 <div>
    <v-btn class="blue--text darken-1" v-on:click.prevent="addMarkers" flat="flat">Adicionar Marcadores</v-btn>
-  <input type="checkbox" id="checkbox" v-model="checked">
-  <label for="checkbox">{{checked}}</label>
+  <input type="checkbox" id="site_checkbox" v-model="site_checkbox">
+  <label for="site_checkbox">Sites</label>
+  <input type="checkbox" id="technical_reserve_checkbox" v-model="technical_reserve_checkbox">
+  <label for="technical_reserve_checkbox">Reservas Tecnicas</label>
+  <input type="checkbox" id="emendation_box_checkbox" v-model="emendation_box_checkbox">
+  <label for="emendation_box_checkbox">Caixas de Emenda</label>
+  <input type="checkbox" id="underground_box_checkbox" v-model="underground_box_checkbox">
+  <label for="underground_box_checkbox">Caixas Subterranea</label>
   <gmap-map
     :center="center"
     :zoom="7"
@@ -11,7 +17,10 @@
     <gmap-marker
       :key="index"
       v-for="(m, index) in markers"
-      v-if="checked && m.label == 'Site'"
+      v-if="(site_checkbox && m.label == 'site') 
+       || (technical_reserve_checkbox && m.label == 'technical_reserve')
+       || (emendation_box_checkbox && m.label == 'emendation_box')
+       || (underground_box_checkbox && m.label == 'underground_box')"
       :position="m.position"
       :label="m.label"
       :title="m.title"
@@ -25,8 +34,11 @@
       :path="p.path"
     ></gmap-polyline>
   </gmap-map>
-  
-  
+  <ul>
+    <li v-for='item in objects'>
+      {{item}}
+    </li>
+  </ul>
 </div>
 </template>
 
@@ -45,18 +57,21 @@ export default {
   data() {
     return {
       objects: '',
-      checked: false,
+      site_checkbox: false,
+      technical_reserve_checkbox: false,
+      emendation_box_checkbox: false,
+      underground_box_checkbox: false,
       center: { lat: 10.0, lng: 10.0 },
       markers: [
         {
-          title: 'Marcador 1',
+          title: 'Site 1',
           position: { lat: 10.0, lng: 10.0 },
-          label: 'Site',
+          label: 'site',
         },
         {
-          title: 'Marcador 2',
+          title: 'Site 2',
           position: { lat: 11.0, lng: 11.0 },
-          label: 'Site',
+          label: 'site',
         },
       ],
       polylines: [
@@ -79,12 +94,15 @@ export default {
         });
     },
     addMarkers() {
-      for (let i = 0; i < Object.keys(this.objects.site).length; i += 1) {
-        this.markers.push({
-          title: 'Teste'.concat(i),
-          label: 'Site',
-          position: { lat: this.objects.site.lattitude[i], lng: this.objects.site.longitude[i] },
-        });
+      for (let i = 0; i < Object.keys(this.objects).length; i += 1) {
+        for (let j = 0; j < Object.values(this.objects)[i].length; j += 1) {
+          this.markers.push({
+            title: Object.values(this.objects)[i][j].name.toString(),
+            label: Object.keys(this.objects)[i],
+            position: { lat: Object.values(this.objects)[i][j].lattitude,
+              lng: Object.values(this.objects)[i][j].longitude },
+          });
+        }
         // this.polylines.push({
         //   path: Array.push({ lat: this.objects.site.lattitude[i],
         //     lng: this.objects.site.longitude[i] }),
