@@ -1,7 +1,8 @@
 <template>
 <div>
    <v-btn class="blue--text darken-1" v-on:click.prevent="addMarkers" flat="flat">Adicionar Marcadores</v-btn>
-  
+  <input type="checkbox" id="checkbox" v-model="checked">
+  <label for="checkbox">{{checked}}</label>
   <gmap-map
     :center="center"
     :zoom="7"
@@ -10,7 +11,9 @@
     <gmap-marker
       :key="index"
       v-for="(m, index) in markers"
+      v-if="checked && m.label == 'Site'"
       :position="m.position"
+      :label="m.label"
       :title="m.title"
       :clickable="true"
       :draggable="true"
@@ -22,12 +25,8 @@
       :path="p.path"
     ></gmap-polyline>
   </gmap-map>
-  <ul>
-    <li v-for='item in objects'>
-      {{item}}
-    </li>
-    {{Object.keys(this.objects.site).length}}
-  </ul>
+  
+  
 </div>
 </template>
 
@@ -46,15 +45,18 @@ export default {
   data() {
     return {
       objects: '',
+      checked: false,
       center: { lat: 10.0, lng: 10.0 },
       markers: [
         {
           title: 'Marcador 1',
           position: { lat: 10.0, lng: 10.0 },
+          label: 'Site',
         },
         {
           title: 'Marcador 2',
           position: { lat: 11.0, lng: 11.0 },
+          label: 'Site',
         },
       ],
       polylines: [
@@ -80,6 +82,7 @@ export default {
       for (let i = 0; i < Object.keys(this.objects.site).length; i += 1) {
         this.markers.push({
           title: 'Teste'.concat(i),
+          label: 'Site',
           position: { lat: this.objects.site.lattitude[i], lng: this.objects.site.longitude[i] },
         });
         // this.polylines.push({
