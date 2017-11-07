@@ -1,23 +1,16 @@
 <template>
 <div>
-   <v-btn class="blue--text darken-1" v-on:click.prevent="addMarkers" flat="flat">Adicionar Marcadores</v-btn>
-  <input type="checkbox" id="site_checkbox" v-model="site_checkbox">
-  <label for="site_checkbox">Sites</label>
-  <input type="checkbox" id="technical_reserve_checkbox" v-model="technical_reserve_checkbox">
-  <label for="technical_reserve_checkbox">Reservas Tecnicas</label>
-  <input type="checkbox" id="emendation_box_checkbox" v-model="emendation_box_checkbox">
-  <label for="emendation_box_checkbox">Caixas de Emenda</label>
-  <input type="checkbox" id="underground_box_checkbox" v-model="underground_box_checkbox">
-  <label for="underground_box_checkbox">Caixas Subterranea</label>
+  <h4>Mapa da Rede</h4>
+  <v-card id="cardMap">
   <gmap-map
     :center="center"
-    :zoom="7"
-    style="width: 500px; height: 300px"
+    :zoom="10"
+    style="width: 700px; height: 500px"
   >
     <gmap-marker
       :key="index"
       v-for="(m, index) in markers"
-      v-if="(site_checkbox && m.label == 'site') 
+      v-if="(site_checkbox && m.label == 'site')
        || (technical_reserve_checkbox && m.label == 'technical_reserve')
        || (emendation_box_checkbox && m.label == 'emendation_box')
        || (underground_box_checkbox && m.label == 'underground_box')"
@@ -25,7 +18,7 @@
       :label="m.label"
       :title="m.title"
       :clickable="true"
-      :draggable="true"
+      :draggable="false"
       @click="center=m.position"
     ></gmap-marker>
     <gmap-polyline
@@ -34,11 +27,17 @@
       :path="p.path"
     ></gmap-polyline>
   </gmap-map>
-  <ul>
-    <li v-for='item in objects'>
-      {{item}}
-    </li>
-  </ul>
+  </v-card>
+  <v-card flat id="checklistMenu">
+    <v-card-text>
+      <subheader>Selecione para mostrar</subheader>
+      <v-checkbox color="primary" label="Sites" v-model="site_checkbox" light></v-checkbox>
+      <v-checkbox color="primary" label="Reservas Tecnicas" v-model="technical_reserve_checkbox" light></v-checkbox>
+      <v-checkbox color="primary" label="Caixas de Emenda" v-model="emendation_box_checkbox" light></v-checkbox>
+      <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox>
+      <v-checkbox color="primary" label="Sites" v-model="site_checkbox" light></v-checkbox>
+    </v-card-text>
+  </v-card>
 </div>
 </template>
 
@@ -56,24 +55,14 @@ Vue.use(VueGoogleMaps, {
 export default {
   data() {
     return {
-      objects: '',
+      objects: [],
       site_checkbox: false,
       technical_reserve_checkbox: false,
       emendation_box_checkbox: false,
       underground_box_checkbox: false,
-      center: { lat: 10.0, lng: 10.0 },
-      markers: [
-        {
-          title: 'Site 1',
-          position: { lat: 10.0, lng: 10.0 },
-          label: 'site',
-        },
-        {
-          title: 'Site 2',
-          position: { lat: 11.0, lng: 11.0 },
-          label: 'site',
-        },
-      ],
+      center: { lat: -15.780, lng: -47.820 },
+      markers: [],
+      errors: [],
       polylines: [
         {
           path: [{ lat: 10.0, lng: 10.0 }, { lat: 11.0, lng: 11.0 }],
@@ -88,6 +77,7 @@ export default {
         .then((response) => {
           // JSON responses are automatically parsed.
           this.objects = response.data;
+          this.addMarkers();
         })
         .catch((e) => {
           this.errors.push(e);
@@ -115,3 +105,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#cardMap {
+  width: 700px;
+  float:left;
+}
+
+#checklistMenu {
+  width: 250px;
+    float:right;
+}
+
+
+
+</style>
