@@ -2,10 +2,11 @@
     <v-data-table 
     :headers="headers" 
     :items="objects" 
+    hide-actions
     class="elevation-1"
     >
       <template slot="items" scope="props">
-        <tr @click="props.expanded = !props.expanded">
+        <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item" :key="i">
             <p v-if="selectitems.hasOwnProperty(key)" v-for="i in item">
               {{ i | showText(key, selectitems)}}
@@ -22,14 +23,6 @@
           </td>
         </tr>
       </template>
-
-      <template slot="expand" scope="props">
-      <v-card flat>
-        <v-card-text>
-          çlsakdjflkadsjfçadlsk
-        </v-card-text>
-      </v-card>
-    </template>
     </v-data-table>
 </template>
 
