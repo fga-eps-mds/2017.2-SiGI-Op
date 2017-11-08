@@ -35,7 +35,6 @@
       <v-checkbox color="primary" label="Reservas Tecnicas" v-model="technical_reserve_checkbox" light></v-checkbox>
       <v-checkbox color="primary" label="Caixas de Emenda" v-model="emendation_box_checkbox" light></v-checkbox>
       <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox>
-      <v-checkbox color="primary" label="Sites" v-model="site_checkbox" light></v-checkbox>
     </v-card-text>
   </v-card>
 </div>
