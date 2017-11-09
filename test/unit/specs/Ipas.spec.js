@@ -1,8 +1,8 @@
 // import moxios from 'moxios';
 // import { equal } from 'assert';
 import { mount } from 'vue-test-utils';
-import Ipa from '../../../src/components/Ipas/Ipas';
 import store from '@/vuex/store';
+import Ipa from '../../../src/components/Ipas/Ipas';
 
 describe('Ipa', () => {
   let wrapper;

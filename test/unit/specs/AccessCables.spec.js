@@ -1,6 +1,6 @@
 import { mount } from 'vue-test-utils';
-import AccessCables from '@/components/AccessCables/AccessCables';
 import store from '@/vuex/store';
+import AccessCables from '../../../src/components/AccessCables/AccessCables';
 
 describe('AccessCables', () => {
   let wrapper;
