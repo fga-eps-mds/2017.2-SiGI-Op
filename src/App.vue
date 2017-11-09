@@ -80,7 +80,6 @@ export default {
       right: null,
       admin_items: [
         { title: 'Groups', path: '/groups' },
-        { title: 'Users', path: '/users' },
       ],
     };
   },
