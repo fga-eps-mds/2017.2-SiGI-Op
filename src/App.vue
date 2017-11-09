@@ -76,6 +76,7 @@ export default {
         { title: 'Postes', path: '/Posts' },
         { title: 'NoBreaks', path: '/NoBreaks' },
         { title: 'Cabos de Acesso', path: '/access_cables' },
+        { title: 'Mapa da Rede', path: '/map' },
       ],
       right: null,
       admin_items: [
