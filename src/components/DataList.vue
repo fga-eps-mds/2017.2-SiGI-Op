@@ -4,12 +4,12 @@
       <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
-            <h4 v-if="selectitems.hasOwnProperty(key)">
+            <p v-if="selectitems.hasOwnProperty(key)">
               {{ item | showText(key, selectitems)}}
-            </h4>
-            <h4 v-if="!selectitems.hasOwnProperty(key)">
+            </p>
+            <p v-if="!selectitems.hasOwnProperty(key)">
               {{ item }}
-            </h4>
+            </p>
           </td>
           <td class="text-xs-right "> 
             <delete :id="props.item.id"></delete>
@@ -57,3 +57,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+p{
+  font-size: 26px;
+}
+
+</style>

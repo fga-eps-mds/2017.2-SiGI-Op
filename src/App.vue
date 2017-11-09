@@ -6,13 +6,13 @@
         <v-list-tile v-for="item in items" :key="item.title" @click="">
           <router-link :to="item.path" tag="li">
             <v-list-tile-content>
-              <v-list-tile-title> {{ item.title }} </v-list-tile-title>
+              <v-list-tile-title> <h6> {{ item.title }} </h6> </v-list-tile-title>
             </v-list-tile-content>
           </router-link>
         </v-list-tile>
         <v-list-tile @click="" v-on:click.prevent="sign_out">
         <v-list-tile-content>
-          <v-list-tile-title > Sair ({{ current_username }})</v-list-tile-title>
+          <v-list-tile-title > <h6> Sair ({{ current_username }}) </h6> </v-list-tile-title>
         </v-list-tile-content>
         </v-list-tile>
       </v-list>
