@@ -1,6 +1,16 @@
 <template>
   <div class="table">
-    <v-data-table :headers="headers" :items="objects" class="elevation-1">
+     <v-flex xs5  offset-xs7>
+       <v-text-field
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+          v-model="search"
+       ></v-text-field>
+     </v-flex>
+    <v-data-table :headers="headers" :items="objects" class="elevation-1"
+                  v-bind:search="search">
       <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
@@ -11,7 +21,7 @@
               {{ item }}
             </p>
           </td>
-          <td class="text-xs-right "> 
+          <td class="text-xs-right ">
             <delete :id="props.item.id"></delete>
           </td>
           <td class="text-xs-right">
@@ -29,6 +39,11 @@ import Update from './UpdateModal';
 
 export default {
   components: { Delete, Update },
+  data() {
+    return {
+      search: '',
+    };
+  },
   computed: {
     name() {
       return this.$store.getters.name;
