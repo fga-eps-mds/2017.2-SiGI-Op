@@ -60,4 +60,8 @@ export default {
 
 <style scoped>
 
+p{
+  font-size: 26px;
+}
+
 </style>
