@@ -1,12 +1,14 @@
 <template>
   <div class="table">
-    <v-text-field
-      append-icon="search"
-      label="Search"
-      single-line
-      hide-details
-      v-model="search"
-    ></v-text-field>
+     <v-flex xs5  offset-xs7>
+       <v-text-field
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+          v-model="search"
+       ></v-text-field>
+     </v-flex>
     <v-data-table :headers="headers" :items="objects" class="elevation-1"
                   v-bind:search="search">
       <template slot="items" scope="props">
