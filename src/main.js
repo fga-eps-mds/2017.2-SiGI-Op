@@ -27,6 +27,7 @@ import NoBreak from './components/NoBreaks/NoBreak';
 import GBIC from './components/GBIC/GBIC';
 import AccessCables from './components/AccessCables/AccessCables';
 import Map from './components/Map/Map';
+import SwitchSlots from './components/SwitchSlot/SwitchSlot';
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,7 @@ const routes = [
   { path: '/gbics', component: GBIC },
   { path: '/access_cables', component: AccessCables, name: 'access-cables' },
   { path: '/map', component: Map, name: 'map' },
+  { path: '/switchslots', component: SwitchSlots, name: 'slots' },
 ];
 
 Vue.use(Vuetify);

@@ -54,6 +54,7 @@ export default {
         { title: 'NoBreaks', path: '/NoBreaks' },
         { title: 'Cabos de Acesso', path: '/access_cables' },
         { title: 'Mapa da Rede', path: '/map' },
+        { title: 'Switch Slot', path: '/switchslots' },
       ],
       right: null,
     };
