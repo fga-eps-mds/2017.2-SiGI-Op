@@ -16,3 +16,4 @@ test/unit/coverage
 # Vim
 *.swo
 *.swp
+package-lock.json
