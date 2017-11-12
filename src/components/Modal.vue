@@ -24,6 +24,16 @@
                   required
                   v-model="head.value">
                  </v-checkbox>
+                 <v-slider
+                  v-if="head.type === 'slider'"
+                  color="blue"
+                  label="Cable Strecth Quantity"
+                  min="1"
+                  max="100"
+                  thumb-label
+                  v-model="head.value"
+                  :rules="[() => !!head.value || 'This field is required.']"
+                  ></v-slider>
                  <v-text-field
                   v-if="head.type === 'date'"
                   :label="head.text"
@@ -60,7 +70,7 @@
                   :rules="[() => !!head.value || 'This field is required.']"
                   required
                   bottom>
-                </v-select> 
+                </v-select>
                 <v-select
                   v-if="head.type === 'checkbox'"
                   :items="selectitems[head.name]"
@@ -79,7 +89,8 @@
                   head.type != 'date' &&
                   head.type != 'int-number' &&
                   head.type != 'boolean' &&
-                  head.type != 'checkbox'"
+                  head.type != 'checkbox' &&
+                  head.type != 'slider'"
                   :label="head.text"
                   :rules="[() => !!head.value || 'This field is required.']"
                   required
