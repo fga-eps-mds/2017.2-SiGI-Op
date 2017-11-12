@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const HTTP = axios.create({
-  baseURL: 'http://0.0.0.0:8000',
+  baseURL: process.env.NODE_ENV === 'development' ? 'localhost:8000' : 'https://obscure-escarpment-75407.herokuapp.com',
 });
 
 export { HTTP as default };

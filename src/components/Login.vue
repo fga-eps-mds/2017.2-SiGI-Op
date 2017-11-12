@@ -59,7 +59,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import HTTP from '../http-common';
 
   export default {
     data() {
@@ -71,7 +71,7 @@
     },
     methods: {
       post() {
-        axios.post('http://localhost:8000/login', {
+        HTTP.post('login', {
           username: this.name,
           password: this.password,
         })
