@@ -1,5 +1,5 @@
 <template>
-  <div class="segment">
+  <div class="jumper">
       <modal></modal>
       <data-table></data-table>
   </div>

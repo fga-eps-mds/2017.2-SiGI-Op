@@ -26,6 +26,8 @@ import Jumper from './components/Jumper/Jumpers';
 import NoBreak from './components/NoBreaks/NoBreak';
 import GBIC from './components/GBIC/GBIC';
 import AccessCables from './components/AccessCables/AccessCables';
+import Map from './components/Map/Map';
+import Groups from './components/Groups/Groups';
 
 Vue.use(VueRouter);
 
@@ -55,6 +57,8 @@ const routes = [
   { path: '/nobreaks', component: NoBreak },
   { path: '/gbics', component: GBIC },
   { path: '/access_cables', component: AccessCables, name: 'access-cables' },
+  { path: '/map', component: Map, name: 'map' },
+  { path: '/groups', component: Groups, name: 'groups' },
 ];
 
 Vue.use(Vuetify);

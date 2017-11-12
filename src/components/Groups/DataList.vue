@@ -1,27 +1,21 @@
 <template>
-  <div class="table">
-     <v-flex xs5  offset-xs7>
-       <v-text-field
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details
-          v-model="search"
-       ></v-text-field>
-     </v-flex>
-    <v-data-table :headers="headers" :items="objects" class="elevation-1"
-                  v-bind:search="search">
+    <v-data-table 
+    :headers="headers" 
+    :items="objects" 
+    hide-actions
+    class="elevation-1"
+    >
       <template slot="items" scope="props">
         <tr>
-          <td class="text-xs-right" v-for="(item, key) in props.item">
-            <p v-if="selectitems.hasOwnProperty(key)">
-              {{ item | showText(key, selectitems)}}
+          <td class="text-xs-right" v-for="(item, key) in props.item" :key="i">
+            <p v-if="selectitems.hasOwnProperty(key)" v-for="i in item">
+              {{ i | showText(key, selectitems)}}
             </p>
             <p v-if="!selectitems.hasOwnProperty(key)">
               {{ item }}
             </p>
           </td>
-          <td class="text-xs-right ">
+          <td class="text-xs-right "> 
             <delete :id="props.item.id"></delete>
           </td>
           <td class="text-xs-right">
@@ -30,20 +24,14 @@
         </tr>
       </template>
     </v-data-table>
-  </div>
 </template>
 
 <script>
-import Delete from './DeleteModal';
-import Update from './UpdateModal';
+import Delete from '../DeleteModal';
+import Update from '../UpdateModal';
 
 export default {
   components: { Delete, Update },
-  data() {
-    return {
-      search: '',
-    };
-  },
   computed: {
     name() {
       return this.$store.getters.name;
@@ -74,9 +62,5 @@ export default {
 </script>
 
 <style scoped>
-
-p{
-  font-size: 26px;
-}
 
 </style>

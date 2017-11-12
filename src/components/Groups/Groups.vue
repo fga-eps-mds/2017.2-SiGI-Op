@@ -1,5 +1,5 @@
 <template>
-  <div class="uplink">
+  <div class="group">
       <modal></modal>
       <data-table></data-table>
   </div>
@@ -7,19 +7,25 @@
 
 <script>
 import Modal from '../Modal';
-import DataTable from '../DataList';
+import DataTable from './DataList';
 
 export default {
-  name: 'uplinks',
+  name: 'group',
   data() {
     return {
-      name: 'uplink',
+      name: 'group',
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'Name VLan', type: 'text', name: 'name_vlan', value: '' },
-        { text: 'Band', type: 'number', name: 'band', value: '' },
-        { text: 'Code', type: 'number', name: 'code', value: '' },
+        { text: 'Name', type: 'text', name: 'name', value: '' },
+        {
+          text: 'Permissions',
+          type: 'checkbox',
+          value: '',
+          itemText: 'name',
+          name: 'permissions',
+          item_name: 'permission',
+        },
       ],
     };
   },

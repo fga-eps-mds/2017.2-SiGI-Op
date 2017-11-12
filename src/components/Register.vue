@@ -16,6 +16,7 @@
                     <v-text-field
                     label="Usuario"
                     v-model="name"
+                    :rules="[() => !!name || 'This field is required.']"
                     required
                     single-line>
                     </v-text-field>
@@ -27,6 +28,7 @@
                     label="Senha"
                     v-model="password"
                     type="password"
+                    :rules="[() => !!password || 'This field is required.']"
                     required
                     single-line>
                     </v-text-field>
@@ -38,6 +40,11 @@
                     label="Confirmar senha"
                     v-model="password_confirm"
                     type="password"
+                    :rules="[
+                      () => !!password_confirm || 'This field is required.',
+                      () => password_confirm === password ||
+                      'This field must be equal to password.',
+                    ]"
                     required
                     single-line>
                     </v-text-field>
@@ -48,6 +55,8 @@
                     <v-text-field
                     label="E-mail"
                     v-model="email"
+                    :rules="[v => /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(v)
+                     || 'E-mail must be valid',]"
                     required
                     single-line>
                     </v-text-field>
@@ -73,7 +82,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import HTTP from '../http-common';
 
   export default {
 
@@ -86,7 +95,7 @@
     }),
     methods: {
       post() {
-        axios.post('http://localhost:8000/users/register', {
+        HTTP.post('users/register', {
           username: this.name,
           password: this.password,
           email: this.email,
