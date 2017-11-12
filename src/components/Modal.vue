@@ -90,7 +90,8 @@
                   head.type != 'int-number' &&
                   head.type != 'boolean' &&
                   head.type != 'checkbox' &&
-                  head.type != 'slider'"
+                  head.type != 'slider' &&
+                  head.type != 'notappears'"
                   :label="head.text"
                   :rules="[() => !!head.value || 'This field is required.']"
                   required

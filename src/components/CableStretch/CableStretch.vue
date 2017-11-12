@@ -28,6 +28,9 @@ export default {
           itemText: 'description',
           value: '' },
         { text: 'Access', name: 'access', type: 'boolean', value: '' },
+        { text: 'Created at', name: 'creation_date', type: 'notappears', value: '' },
+        { text: 'Updated at', name: 'updated_date', type: 'notappears', value: '' },
+
       ],
     };
   },

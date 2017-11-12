@@ -13,7 +13,6 @@ describe('DeleteModal', () => {
 
   it('sets correct default value', () => {
     expect(vm.dialog).to.equal(false);
-    expect(vm.name).to.equal('access-cable');
   });
 
   it('has correct elements', () => {
