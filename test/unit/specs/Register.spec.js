@@ -19,10 +19,6 @@ describe('Register', () => {
     expect(clearedData.password).to.equal('');
   });
 
-  it('check signup function', () => {
-    expect(typeof Register.methods.signup).to.equal('function');
-  });
-
   it('post signup data', () => {
     expect(typeof Register.methods.post).to.equal('function');
   });
