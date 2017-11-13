@@ -60,7 +60,7 @@ export default {
       show: false,
       menuAdmin: false,
       current_username: localStorage.getItem('username'),
-      render_sidebar: localStorage.getItem('Token') !== 'null',
+      render_sidebar: localStorage.getItem('Token') !== 'null' && localStorage.getItem('Token') !== null,
       items: [
         { title: 'IPAs', path: '/ipas' },
         { title: 'Sites', path: '/sites' },
