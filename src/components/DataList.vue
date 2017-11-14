@@ -30,19 +30,40 @@
         </tr>
       </template>
     </v-data-table>
+    <v-btn @click="previousPage()" > Previous </v-btn>
+    <v-btn @click="nextPage()" > Neeext </v-btn>
+    <div class="text-center">
+      <vc-Pagination></vc-Pagination>
+      </div>
   </div>
 </template>
 
 <script>
+import VcPagination from './Pagination';
 import Delete from './DeleteModal';
 import Update from './UpdateModal';
 
 export default {
-  components: { Delete, Update },
+  components: { Delete, Update, VcPagination },
   data() {
     return {
       search: '',
+      totalItems: 0,
+      disabled: false,
+      disabled1: true,
     };
+  },
+  methods: {
+    previousPage() {
+      if (this.$store.getters.currentPage > 1) { /* Foi alterado de !== 1 para > 1 CONFERIR */
+        this.$store.dispatch('changePage', this.$store.getters.currentPage - 1);
+      }
+    },
+    nextPage() {
+      if (this.$store.getters.currentPage !== Math.ceil(this.$store.getters.objects.count / 2)) {
+        this.$store.dispatch('changePage', this.$store.getters.currentPage + 1);
+      }
+    },
   },
   computed: {
     name() {
@@ -52,7 +73,11 @@ export default {
       return this.$store.getters.headers;
     },
     objects() {
-      return this.$store.getters.objects;
+      return this.$store.getters.objects.results;
+    },
+    totalItems() {
+      this.totalItems = this.$store.getters.objects.count;
+      return this.totalItems;
     },
     selectitems() {
       return this.$store.getters.selectitems;
