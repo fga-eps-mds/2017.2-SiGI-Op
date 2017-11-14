@@ -17,7 +17,8 @@ export default {
       headers: [
         { text: 'ID', name: 'id', type: 'id', value: '' },
         { text: 'Code', name: 'cod', type: 'number', value: '', required: '' },
-        { text: 'Length', name: 'lenght', type: 'number', value: '' },
+        { text: 'Length', name: 'length', type: 'number', value: '' },
+        { text: 'Manufacturing Year', name: 'manufacturing_year', type: 'number', value: '' },
         { text: 'Infrastructure', name: 'infrastructure', type: 'text', value: '' },
         { text: 'Owner', name: 'owner', type: 'text', value: '' },
         { text: 'Fabricant', name: 'fabricant', type: 'text', value: '' },
@@ -48,7 +49,6 @@ export default {
         { text: 'Access', name: 'access', type: 'boolean', value: '' },
         { text: 'Created at', name: 'creation_date', type: 'notappears', value: '' },
         { text: 'Updated at', name: 'updated_date', type: 'notappears', value: '' },
-
       ],
     };
   },

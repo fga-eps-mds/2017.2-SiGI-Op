@@ -20,7 +20,7 @@
                  <v-checkbox
                   v-if="head.type === 'boolean'"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This.']"
+                  :rules="[() => !!head.value || 'This field is required.']"
                   v-model="head.value">
                  </v-checkbox>
                  <v-slider
@@ -31,20 +31,20 @@
                   max="100"
                   thumb-label
                   v-model="head.value"
-                  :rules="[() => !!head.value || 'This.']"
+                  :rules="[() => !!head.value || 'This field is required.']"
                   ></v-slider>
                  <v-text-field
                   v-if="head.type === 'date'"
                   :label="head.text"
                   type="date"
-                  :rules="[() => !!head.value || 'This.']"
+                  :rules="[() => !!head.value || 'This field is required.']"
                   v-model="head.value">
                  </v-text-field>
                  <v-text-field
                   v-if="head.type === 'number'"
                   :label="head.text"
                   :rules="[
-                   () => !!head.value || 'This.',
+                   () => !!head.value || 'This field is required.',
                    () => !!head.value && head.value > 0 ||
                    'Number must be bigger than 0.',
                   ]"
@@ -54,7 +54,7 @@
                  <v-text-field
                   v-if="head.type === 'int-number'"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This.',]"
+                  :rules="[() => !!head.value || 'This field is required.',]"
                   type="int-number"
                   v-model="head.value" >
                  </v-text-field>
@@ -63,7 +63,7 @@
                   :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This.']"
+                  :rules="[() => !!head.value || 'This field is required.']"
                   bottom>
                 </v-select>
                 <v-select
@@ -71,7 +71,7 @@
                   :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This.']"
+                  :rules="[() => !!head.value || 'This field is required.']"
                   multiple
                   chips
                   bottom>
@@ -87,7 +87,7 @@
                   head.type != 'slider' &&
                   head.type != 'notappears'"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This.']"
+                  :rules="[() => !!head.value || 'This field is required.']"
                   v-model="head.value">
                  </v-text-field>
                </v-flex>
