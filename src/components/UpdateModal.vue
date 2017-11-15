@@ -25,6 +25,11 @@
                   type="number"
                   v-model="head.value" >
                  </v-text-field>
+                 <v-checkbox
+                  v-if="head.type === 'boolean'"
+                  :label="head.text"
+                  v-model="head.value">
+                 </v-checkbox>
                  <v-select
                   v-if="head.type === 'select'"
                   :items="selectitems[head.name]"
@@ -32,8 +37,17 @@
                   :label="head.text"
                   bottom>
                 </v-select>
+                <v-select
+                  v-if="head.type === 'checkbox'"
+                  :items="selectitems[head.name]"
+                  v-model="head.value"
+                  :label="head.text"
+                  multiple
+                  chips
+                  bottom>
+                </v-select>
                  <v-text-field
-                  v-if="head.type != 'number' && head.type != 'select'"
+                  v-if="head.type != 'number' && head.type != 'select' && head.type != 'checkbox'"
                   :label="head.text"
                   v-model="head.value">
                  </v-text-field>
@@ -74,7 +88,7 @@ export default {
     update() {
       let j = 0;
       for (let i = 1; i < this.headers.length; i += 1) {
-        if (this.headers[i].value === '') {
+        if (this.headers[i].value === '' && this.headers[i].required) {
           j += j + 1;
         }
       }

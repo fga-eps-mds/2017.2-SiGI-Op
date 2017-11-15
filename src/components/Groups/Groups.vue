@@ -1,5 +1,5 @@
 <template>
-  <div class="segment">
+  <div class="group">
       <modal></modal>
       <data-table></data-table>
   </div>
@@ -7,18 +7,25 @@
 
 <script>
 import Modal from '../Modal';
-import DataTable from '../DataList';
+import DataTable from './DataList';
 
 export default {
-  name: 'segment',
+  name: 'group',
   data() {
     return {
-      name: 'segment',
+      name: 'group',
       headers: [
-        { text: 'ID', name: 'id', type: 'id', value: '' },
-        { text: 'Cable Length', name: 'length', type: 'number', value: '' },
-        { text: 'Segment Number', name: 'number', type: 'number', value: '' },
-        { text: 'Cable Stretch Quantity', name: 'cable_stretch_quantity', type: 'slider', value: '' },
+        { text: 'ID', type: 'id', value: '' },
+
+        { text: 'Name', type: 'text', name: 'name', value: '' },
+        {
+          text: 'Permissions',
+          type: 'checkbox',
+          value: '',
+          itemText: 'name',
+          name: 'permissions',
+          item_name: 'permission',
+        },
       ],
     };
   },

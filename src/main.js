@@ -28,6 +28,9 @@ import GBIC from './components/GBIC/GBIC';
 import AccessCables from './components/AccessCables/AccessCables';
 import Map from './components/Map/Map';
 import SwitchSlots from './components/SwitchSlot/SwitchSlot';
+import Groups from './components/Groups/Groups';
+import CableStretch from './components/CableStretch/CableStretch';
+
 
 Vue.use(VueRouter);
 
@@ -59,6 +62,8 @@ const routes = [
   { path: '/access_cables', component: AccessCables, name: 'access-cables' },
   { path: '/map', component: Map, name: 'map' },
   { path: '/switchslots', component: SwitchSlots, name: 'slots' },
+  { path: '/groups', component: Groups, name: 'groups' },
+  { path: '/cable_stretch', component: CableStretch, name: '' },
 ];
 
 Vue.use(Vuetify);

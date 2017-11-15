@@ -20,7 +20,6 @@ export default {
         { text: 'Series', type: 'text', name: 'serie', value: '' },
         { text: 'Number', type: 'number', name: 'number', value: '' },
         { text: 'Patrimony', type: 'text', name: 'patrimony', value: '' },
-        { text: 'Quantity of Ports', type: 'number', name: 'port_quantity', value: '' },
         { text: 'Band', type: 'text', name: 'band', value: '' },
         {
           text: 'Switch',
@@ -29,6 +28,7 @@ export default {
           item_name: 'switche',
           itemText: 'serial_number',
         },
+        { text: 'Quantity of Ports', type: 'slider', name: 'slot_port_quantity', value: '' },
       ],
     };
   },
