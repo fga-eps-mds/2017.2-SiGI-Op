@@ -31,7 +31,7 @@ export const mutations = {
     for (i = 1; i < state.headers.length; i += 1) {
       ObjectToPost[state.headers[i].name] = state.headers[i].value;
     }
-    axios.post('http://localhost:8000/'.concat(state.name, 's', '/'), ObjectToPost)
+    axios.post('http://localhost:8000/'.concat(state.name, 's', '/', '?all=1'), ObjectToPost)
       .then(thisState.alert = false)
       .catch((e) => {
         thisState.alert = true;
@@ -104,7 +104,7 @@ export const state = {
 
 export const actions = {
   getObjects({ commit }) {
-    axios.get('http://localhost:8000/'.concat(state.name, 's', '/'))
+    axios.get('http://localhost:8000/'.concat(state.name, 's', '/', '?all=1'))
     .then((response) => {
       commit('GET_OBJECTS', response.data);
     })
@@ -114,7 +114,7 @@ export const actions = {
 
     for (let i = 1; i < state.headers.length; i += 1) {
       if (state.headers[i].type === 'select' || state.headers[i].type === 'checkbox') {
-        axios.get('http://localhost:8000/'.concat(state.headers[i].item_name, 's', '/'))
+        axios.get('http://localhost:8000/'.concat(state.headers[i].item_name, 's', '/', '?all=1'))
         .then((response) => {
           commit({
             type: 'GET_SELECT_ITEMS',
