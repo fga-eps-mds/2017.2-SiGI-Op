@@ -16,8 +16,9 @@ export default {
       name: 'segment',
       headers: [
         { text: 'ID', name: 'id', type: 'id', value: '' },
-        { text: 'Cable Length', name: 'cable_length', type: 'number', value: '' },
-        { text: 'Segment Number', name: 'segment_number', type: 'number', value: '' },
+        { text: 'Cable Length', name: 'length', type: 'number', value: '' },
+        { text: 'Segment Number', name: 'number', type: 'number', value: '' },
+        { text: 'Cable Stretch Quantity', name: 'cable_stretch_quantity', type: 'slider', value: '' },
       ],
     };
   },
