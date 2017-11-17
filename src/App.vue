@@ -29,11 +29,13 @@
     <v-toolbar dark fixed class="primary">
       <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
       <v-spacer></v-spacer>
+      <v-btn flat>Perfil</v-btn>
+      <v-btn flat>Sair ({{ current_username }})</v-btn>
       <v-menu offset-y>
         <v-btn icon @click.native="show = !show" dark slot="activator">
           <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
         </v-btn>
-         <v-list>
+      <v-list>
         <v-list-tile>
           <v-list-tile-title @click="menuAdmin = !menuAdmin; show = !show" v-if="!menuAdmin">Admin</v-list-tile-title>
           <v-list-tile-title @click="menuAdmin = !menuAdmin; show = !show" v-if="menuAdmin">Normal Page</v-list-tile-title>
@@ -77,7 +79,6 @@ export default {
         { title: 'NoBreaks', path: '/NoBreaks' },
         { title: 'Cabos de Acesso', path: '/access_cables' },
         { title: 'Mapa da Rede', path: '/map' },
-        { title: 'Trechos de Cabo', path: '/cable_stretch' },
       ],
       right: null,
       admin_items: [
