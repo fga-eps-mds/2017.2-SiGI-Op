@@ -28,8 +28,35 @@ export const mutations = {
     let i = 1;
     const thisState = state;
     const ObjectToPost = {};
+    const dgos = [];
+    console.log(dgos);
+    const emendationBoxes = [];
     for (i = 1; i < state.headers.length; i += 1) {
-      ObjectToPost[state.headers[i].name] = state.headers[i].value;
+      if (state.headers[i].name === 'dgos') {
+        if (state.headers[i].value !== undefined) {
+          dgos.push(state.headers[i].value);
+          ObjectToPost[state.headers[i].name] = dgos;
+        }
+      } else if (state.headers[i].name === 'emendation_boxes') {
+        if (state.headers[i].value !== undefined) {
+          console.log(state.headers[i].value);
+          emendationBoxes.push(state.headers[i].value);
+          ObjectToPost[state.headers[i].name] = emendationBoxes;
+        }
+      } else {
+        ObjectToPost[state.headers[i].name] = state.headers[i].value;
+        if (dgos.length === 0) {
+          ObjectToPost.dgos = [];
+        }
+        if (emendationBoxes.length === 0) {
+          ObjectToPost.emendation_boxes = [];
+        }
+      }
+    }
+
+    for (i = 1; i < state.headers.length; i += 1) {
+      console.log(state.headers[i].name);
+      console.log(state.headers[i].value);
     }
     axios.post('http://localhost:8000/'.concat(state.name, 's', '/', '?all=1'), ObjectToPost)
       .then(thisState.alert = false)
@@ -56,10 +83,10 @@ export const mutations = {
 
   DELETE_OBJECTS(state, id) {
     axios.delete('http://localhost:8000/'.concat(state.name, 's', '/', id, '/'))
-    .then(() => {})
-    .catch((e) => {
-      state.errors.push(e);
-    });
+      .then(() => { })
+      .catch((e) => {
+        state.errors.push(e);
+      });
   },
 
   SET_NEW_HEADERS(state, head) {
@@ -105,27 +132,27 @@ export const state = {
 export const actions = {
   getObjects({ commit }) {
     axios.get('http://localhost:8000/'.concat(state.name, 's', '/', '?all=1'))
-    .then((response) => {
-      commit('GET_OBJECTS', response.data);
-    })
-    .catch((e) => {
-      state.errors.push(e);
-    });
+      .then((response) => {
+        commit('GET_OBJECTS', response.data);
+      })
+      .catch((e) => {
+        state.errors.push(e);
+      });
 
     for (let i = 1; i < state.headers.length; i += 1) {
       if (state.headers[i].type === 'select' || state.headers[i].type === 'checkbox') {
         axios.get('http://localhost:8000/'.concat(state.headers[i].item_name, 's', '/', '?all=1'))
-        .then((response) => {
-          commit({
-            type: 'GET_SELECT_ITEMS',
-            key: state.headers[i].name,
-            itemText: state.headers[i].itemText,
-            data: response.data,
+          .then((response) => {
+            commit({
+              type: 'GET_SELECT_ITEMS',
+              key: state.headers[i].name,
+              itemText: state.headers[i].itemText,
+              data: response.data,
+            });
+          })
+          .catch((e) => {
+            state.errors.push(e);
           });
-        })
-        .catch((e) => {
-          state.errors.push(e);
-        });
       }
     }
   },
