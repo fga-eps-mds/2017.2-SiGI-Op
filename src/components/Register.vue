@@ -94,7 +94,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import HTTP from '../http-common';
 
   export default {
 
@@ -108,7 +108,7 @@
     }),
     methods: {
       post() {
-        axios.post('http://localhost:8000/users/register', {
+        HTTP.post('users/register', {
           username: this.name,
           password: this.password,
           email: this.email,
