@@ -41,10 +41,7 @@
                                       v-on:click.prevent="login"
                                       type="submit">
                                         Login
-                                      </v-btn> ou 
-                                        <router-link :to="'register'">
-                                            Registre-se
-                                        </router-link>
+                                      </v-btn>
                                       </center>
                                     </v-flex>
                                   </v-layout row>
