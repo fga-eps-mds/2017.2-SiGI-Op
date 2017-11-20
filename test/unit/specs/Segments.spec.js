@@ -14,11 +14,10 @@ describe('Segment', () => {
     expect(defaultData.headers[0].text).to.equal('ID');
     expect(defaultData.headers[0].name).to.equal('id');
     expect(defaultData.headers[1].text).to.equal('Cable Length');
-    expect(defaultData.headers[1].name).to.equal('cable_length');
+    expect(defaultData.headers[1].name).to.equal('length');
     expect(defaultData.headers[1].type).to.equal('number');
     expect(defaultData.headers[2].text).to.equal('Segment Number');
-    expect(defaultData.headers[2].name).to.equal('segment_number');
-    expect(defaultData.headers[1].type).to.equal('number');
+    expect(defaultData.headers[2].name).to.equal('number');
   });
 
   it('check default Segment components', () => {

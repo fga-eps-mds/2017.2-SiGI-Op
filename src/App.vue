@@ -77,6 +77,8 @@ export default {
         { title: 'NoBreaks', path: '/NoBreaks' },
         { title: 'Cabos de Acesso', path: '/access_cables' },
         { title: 'Mapa da Rede', path: '/map' },
+        { title: 'Trechos de Cabo', path: '/cable_stretch' },
+        { title: 'Registrar Usuário', path: '/register' },
       ],
       right: null,
       admin_items: [

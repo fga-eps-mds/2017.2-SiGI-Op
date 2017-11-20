@@ -1,5 +1,17 @@
 <template>
   <div id="register">
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+          <v-card-title class="headline">Registro</v-card-title>
+          <v-card-text>Usuário registrado com sucesso!</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" flat @click.native="dialog = false">Sair</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
     <v-container>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
@@ -65,7 +77,7 @@
                   <v-layout row>
                   <v-flex xs12>
                     <v-btn primary dark
-                    v-on:click.prevent="signup"
+                    v-on:click.prevent="post"
                     type="submit">
                     Registrar
                     </v-btn>
@@ -92,6 +104,7 @@
       password_confirm: '',
       email: '',
       alert: false,
+      dialog: false,
     }),
     methods: {
       post() {
@@ -102,20 +115,15 @@
         })
           .then((response) => {
             console.log(response);
-            this.$router.push('/login');
-            this.$router.go(this.$router.currentRoute);
-          })
-          .catch(() => {
-            this.alert = true;
+            this.dialog = true;
+            this.clear();
           });
       },
       clear() {
         this.name = '';
         this.email = '';
         this.password = '';
-      },
-      signup() {
-        this.post();
+        this.password_confirm = '';
       },
     },
   };
