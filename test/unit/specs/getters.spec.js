@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import { getters } from '@/vuex/store';
 
-const { name, headers, objects, selectitems, alert, errors } = getters;
+const { name, headers, objects, selectitems,
+    alert, errors, currentPage } = getters;
 
 describe('Getters', () => {
   it('gets correct name', () => {
@@ -44,5 +45,12 @@ describe('Getters', () => {
     expect(errors(state)).to.deep.equal([]);
     state.errors = ['a', 'b'];
     expect(errors(state)).to.deep.equal(['a', 'b']);
+  });
+
+  it('gets correct page', () => {
+    const state = { currentPage: 1 };
+    expect(currentPage(state)).to.deep.equal(1);
+    state.currentPage = 2;
+    expect(currentPage(state)).to.deep.equal(2);
   });
 });
