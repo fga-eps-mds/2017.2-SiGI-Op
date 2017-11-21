@@ -10,7 +10,7 @@
        ></v-text-field>
      </v-flex>
     <v-data-table :headers="headers" :items="objects" class="elevation-1"
-                  v-bind:search="search">
+                  v-bind:search="search" hide-actions>
       <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
@@ -44,12 +44,11 @@
 </template>
 
 <script>
-import VcPagination from './Pagination';
 import Delete from './DeleteModal';
 import Update from './UpdateModal';
 
 export default {
-  components: { Delete, Update, VcPagination },
+  components: { Delete, Update },
   data() {
     return {
       search: '',
