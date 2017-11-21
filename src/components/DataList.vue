@@ -30,11 +30,16 @@
         </tr>
       </template>
     </v-data-table>
-    <v-btn @click="previousPage()" > Previous </v-btn>
-    <v-btn @click="nextPage()" > Neeext </v-btn>
     <div class="text-center">
-      <vc-Pagination></vc-Pagination>
-      </div>
+      <v-pagination
+        :length=totalPages
+        v-model="page"
+        :total-visible="7"
+        v-on:next.preventDefault="nextPage"
+        v-on:previous.preventDefault="previousPage"
+        v-on:input="inputPage">
+        </v-pagination>
+    </div>
   </div>
 </template>
 
@@ -64,6 +69,9 @@ export default {
         this.$store.dispatch('changePage', this.$store.getters.currentPage + 1);
       }
     },
+    inputPage(i) {
+      this.$store.dispatch('changePage', i);
+    },
   },
   computed: {
     name() {
@@ -81,6 +89,12 @@ export default {
     },
     selectitems() {
       return this.$store.getters.selectitems;
+    },
+    totalPages() {
+      return Math.ceil(this.$store.getters.objects.count / 2);
+    },
+    page() {
+      return this.$store.getters.currentPage;
     },
   },
   filters: {
