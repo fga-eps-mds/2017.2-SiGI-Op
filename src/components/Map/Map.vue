@@ -21,11 +21,15 @@
       :draggable="false"
       @click="center=m.position"
     ></gmap-marker>
-    <gmap-polyline
-      :key="index"
-      v-for="(p, index) in polylines"
-      :path="p.path"
-    ></gmap-polyline>
+    <div v-for="item in polylines" :key="item">
+        <div v-for="a in item" :key="a">
+          <div v-for="b in a" :key="b">
+            <gmap-polyline
+            :path="b">
+          </gmap-polyline>
+          </div>
+        </div>
+    </div>        
   </gmap-map>
   </v-card>
   <v-card flat id="checklistMenu">
@@ -37,6 +41,17 @@
       <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox>
     </v-card-text>
   </v-card>
+
+  <v-btn class="blue--text darken-1" v-on:click.prevent="addPolylines" flat="flat">Adicionar Polylines</v-btn>
+
+  <ul>
+    {{Object.keys(this.objects.segment).length}}
+  </ul>
+
+  <ul>
+    {{Object.values(this.objects.segment)[0].dgos[0]}}
+  </ul>
+
 </div>
 </template>
 
@@ -62,9 +77,13 @@ export default {
       center: { lat: -15.780, lng: -47.820 },
       markers: [],
       errors: [],
+      teste: [],
       polylines: [
         {
-          path: [{ lat: 10.0, lng: 10.0 }, { lat: 11.0, lng: 11.0 }],
+          path: [
+            [{ lat: 10.0, lng: 10.0 }, { lat: 11.0, lng: 11.0 }],
+            [{ lat: -13.0, lng: -12.0 }, { lat: -11.0, lng: -11.0 }],
+          ],
         },
       ],
     };
@@ -85,18 +104,32 @@ export default {
     addMarkers() {
       for (let i = 0; i < Object.keys(this.objects).length; i += 1) {
         for (let j = 0; j < Object.values(this.objects)[i].length; j += 1) {
-          this.markers.push({
-            title: Object.values(this.objects)[i][j].name.toString(),
-            label: Object.keys(this.objects)[i],
-            position: { lat: Object.values(this.objects)[i][j].lattitude,
-              lng: Object.values(this.objects)[i][j].longitude },
-          });
+          if (Object.values(this.objects)[i] !== 'segments') {
+            this.markers.push({
+              title: Object.values(this.objects)[i][j].name.toString(),
+              label: Object.keys(this.objects)[i],
+              position: { lat: Object.values(this.objects)[i][j].lattitude,
+                lng: Object.values(this.objects)[i][j].longitude },
+            });
+          }
         }
         // this.polylines.push({
         //   path: Array.push({ lat: this.objects.site.lattitude[i],
         //     lng: this.objects.site.longitude[i] }),
         // });
       }
+    },
+    addPolylines() {
+      for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
+        this.polylines.push({
+          path: Array.push({ lat: Object.values(this.objects.segment)[i].dgos[0],
+            lng: Object.values(this.objects.segment)[0].dgos[1] }),
+        });
+      }
+        // this.polylines.push({
+        //   path: Array.push({ lat: this.objects.site.lattitude[i],
+        //     lng: this.objects.site.longitude[i] }),
+        // });
     },
   },
   created() {
@@ -108,14 +141,11 @@ export default {
 <style scoped>
 #cardMap {
   width: 700px;
-  float:left;
+  float: left;
 }
 
 #checklistMenu {
   width: 250px;
-    float:right;
+  float: right;
 }
-
-
-
 </style>
