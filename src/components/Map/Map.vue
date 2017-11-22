@@ -39,6 +39,7 @@
       <v-checkbox color="primary" label="Reservas Tecnicas" v-model="technical_reserve_checkbox" light></v-checkbox>
       <v-checkbox color="primary" label="Caixas de Emenda" v-model="emendation_box_checkbox" light></v-checkbox>
       <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox>
+      <v-checkbox color="primary" label="Segmentos" v-model="segment_box_checkbox" @click="getSitesIds()" light></v-checkbox>
     </v-card-text>
   </v-card>
 
@@ -52,7 +53,7 @@
     {{Object.values(this.dgo_sites).length}}
   </ul>
   <ul>
-    {{Object.values(this.sites_dgo)}}
+    {{Object.values(this.sites_dgo).length}}
   </ul>
 
 </div>
@@ -80,6 +81,7 @@ export default {
       technical_reserve_checkbox: false,
       emendation_box_checkbox: false,
       underground_box_checkbox: false,
+      segment_box_checkbox: false,
       center: { lat: -15.780, lng: -47.820 },
       markers: [],
       errors: [],
@@ -127,18 +129,25 @@ export default {
       }
     },
     getSitesIds() {
-      for (let i = 0; i < 3; i += 1) {
-        const siteID = Object.values(this.dgo_sites)[i];
-        if (siteID > 0) {
-          axios
-            .get('http://localhost:8000/sites/'.concat(siteID))
-            .then((response) => {
-              // JSON responses are automatically parsed.
-              this.sites_dgo.push(response.data);
-            })
-            .catch((e) => {
-              this.errors.push(e);
-            });
+      if (this.segment_box_checkbox === false) {
+        this.segment_box_checkbox = true;
+      } else {
+        this.segment_box_checkbox = false;
+      }
+      if (Object.values(this.sites_dgo).length === 0) {
+        for (let i = 0; i < Object.values(this.dgo_sites).length; i += 1) {
+          const siteID = Object.values(this.dgo_sites)[i];
+          if (siteID > 0) {
+            axios
+              .get('http://localhost:8000/sites/'.concat(siteID))
+              .then((response) => {
+                // JSON responses are automatically parsed.
+                this.sites_dgo.push(response.data);
+              })
+              .catch((e) => {
+                this.errors.push(e);
+              });
+          }
         }
       }
     },
