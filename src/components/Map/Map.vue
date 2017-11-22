@@ -47,9 +47,12 @@
   <ul>
     {{Object.keys(this.objects.segment).length}}
   </ul>
-
   <ul>
     {{Object.values(this.dgo_sites)}}
+    {{Object.values(this.dgo_sites).length}}
+  </ul>
+  <ul>
+    {{Object.values(this.sites_dgo)}}
   </ul>
 
 </div>
@@ -71,6 +74,7 @@ export default {
     return {
       objects: [],
       dgo_sites: [],
+      sites_dgo: [],
       emendation_boxes: [],
       site_checkbox: false,
       technical_reserve_checkbox: false,
@@ -119,6 +123,22 @@ export default {
                 this.errors.push(e);
               });
           }
+        }
+      }
+    },
+    getSitesIds() {
+      for (let i = 0; i < 3; i += 1) {
+        const siteID = Object.values(this.dgo_sites)[i];
+        if (siteID > 0) {
+          axios
+            .get('http://localhost:8000/sites/'.concat(siteID))
+            .then((response) => {
+              // JSON responses are automatically parsed.
+              this.sites_dgo.push(response.data);
+            })
+            .catch((e) => {
+              this.errors.push(e);
+            });
         }
       }
     },
