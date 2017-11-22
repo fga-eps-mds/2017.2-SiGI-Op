@@ -21,11 +21,11 @@
       :draggable="false"
       @click="center=m.position"
     ></gmap-marker>
-    <div v-for="item in polylines" :key="item">
-        <div v-for="a in item" :key="a">
-          <div v-for="b in a" :key="b">
+    <div v-for="polyline in polylines" :key="polyline">
+        <div v-for="item in polyline" :key="item">
+          <div v-for="path in item" :key="path">
             <gmap-polyline
-            :path="b">
+            :path="path">
           </gmap-polyline>
           </div>
         </div>
@@ -49,7 +49,7 @@
   </ul>
 
   <ul>
-    {{Object.values(this.objects.segment)[0].dgos[0]}}
+    {{Object.values(this.dgo_sites)}}
   </ul>
 
 </div>
@@ -70,6 +70,8 @@ export default {
   data() {
     return {
       objects: [],
+      dgo_sites: [],
+      emendation_boxes: [],
       site_checkbox: false,
       technical_reserve_checkbox: false,
       emendation_box_checkbox: false,
@@ -96,10 +98,29 @@ export default {
           // JSON responses are automatically parsed.
           this.objects = response.data;
           this.addMarkers();
+          this.getDgosAttr();
         })
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+    getDgosAttr() {
+      for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
+        for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
+          const dgoID = Object.values(this.objects.segment)[i].dgos[j];
+          if (dgoID > 0) {
+            axios
+              .get('http://localhost:8000/dgos/'.concat(dgoID))
+              .then((response) => {
+                // JSON responses are automatically parsed.
+                this.dgo_sites.push(response.data.site_id);
+              })
+              .catch((e) => {
+                this.errors.push(e);
+              });
+          }
+        }
+      }
     },
     addMarkers() {
       for (let i = 0; i < Object.keys(this.objects).length; i += 1) {
@@ -113,18 +134,16 @@ export default {
             });
           }
         }
-        // this.polylines.push({
-        //   path: Array.push({ lat: this.objects.site.lattitude[i],
-        //     lng: this.objects.site.longitude[i] }),
-        // });
       }
     },
     addPolylines() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
-        this.polylines.push({
-          path: Array.push({ lat: Object.values(this.objects.segment)[i].dgos[0],
-            lng: Object.values(this.objects.segment)[0].dgos[1] }),
-        });
+        for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
+          this.polylines.push({
+            path: Array.push({ lat: Object.values(this.objects.segment)[i].dgos[0],
+              lng: Object.values(this.objects.segment)[0].dgos[1] }),
+          });
+        }
       }
         // this.polylines.push({
         //   path: Array.push({ lat: this.objects.site.lattitude[i],
