@@ -90,9 +90,18 @@ export default {
       return this.$store.getters.selectitems;
     },
     totalPages() {
+      if (Math.ceil(this.$store.getters.objects.count / 2) <= 0) {
+        return 1;
+      }
       return Math.ceil(this.$store.getters.objects.count / 2);
     },
     page() {
+      if (this.totalPages < this.$store.getters.currentPage) {
+        this.$store.dispatch('changePage', (Math.ceil(this.$store.getters.objects.count / 2)));
+      }
+      if (this.$store.getters.currentPage <= 0) {
+        this.$store.dispatch('changePage', 1);
+      }
       return this.$store.getters.currentPage;
     },
   },
@@ -108,7 +117,11 @@ export default {
       return value;
     },
   },
+  created() {
+    this.$store.dispatch('changePage', 1);
+  },
 };
+
 </script>
 
 <style scoped>

@@ -1,9 +1,6 @@
 import { mount } from 'vue-test-utils';
 import DataList from '@/components/DataList';
-import { store, getters, mutations, state } from '@/vuex/store';
-
-const { currentPage } = getters;
-const { CHANGE_PAGE } = mutations;
+import { store } from '@/vuex/store';
 
 describe('DataList', () => {
   let wrapper;
