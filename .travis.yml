@@ -11,3 +11,9 @@ script:
 
 after_success:
   - ./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info
+
+deploy:
+  provider: heroku
+  api_key: cf4b601d-e8a0-436f-9b5c-1bfb70edb15f
+  on:
+    tags: true

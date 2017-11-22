@@ -41,10 +41,7 @@
                                       v-on:click.prevent="login"
                                       type="submit">
                                         Login
-                                      </v-btn> ou 
-                                        <router-link :to="'register'">
-                                            Registre-se
-                                        </router-link>
+                                      </v-btn>
                                       </center>
                                     </v-flex>
                                   </v-layout row>
@@ -59,7 +56,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import HTTP from '../http-common';
 
   export default {
     data() {
@@ -71,7 +68,7 @@
     },
     methods: {
       post() {
-        axios.post('http://localhost:8000/login', {
+        HTTP.post('login', {
           username: this.name,
           password: this.password,
         })

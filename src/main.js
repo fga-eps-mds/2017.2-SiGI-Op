@@ -27,36 +27,37 @@ import NoBreak from './components/NoBreaks/NoBreak';
 import GBIC from './components/GBIC/GBIC';
 import AccessCables from './components/AccessCables/AccessCables';
 import Map from './components/Map/Map';
+import Groups from './components/Groups/Groups';
+import CableStretch from './components/CableStretch/CableStretch';
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/dgos', component: Dgo },
-  { path: '/godports', component: GODPort },
-  { path: '/sites', component: Site },
-  { path: '/contacts', component: Contact },
-  { name: 'login', path: '/login', component: Login, title: 'SiGI-Op Login' },
-  { path: '/technical_reserves', component: Reserve },
-  { path: '/', component: Login, title: 'SiGI-Op Login' },
-  { name: 'register', path: '/register', component: Register, title: 'SiGI-Op Registro' },
-  { path: '/uplink', component: Uplink },
-  { path: '/ipas', component: Ipas },
-  { path: '/switches', component: Switch },
-  { name: 'home', path: '/', component: Home },
-  { path: '/undergroundboxes', component: UndergroundBox },
-  { path: '/emendation_boxes', component: EmendationBox },
-  { path: '/posts', component: Posts },
-  { path: '/generators', component: Generator },
+  { path: '/dgos', component: Dgo, name: 'dgo' },
+  { path: '/godports', component: GODPort, name: 'godports' },
+  { path: '/sites', component: Site, name: 'sites' },
+  { path: '/contacts', component: Contact, name: 'contacts' },
+  { path: '/login', component: Login, name: 'login' },
+  { path: '/technical_reserves', component: Reserve, name: 'techinical_reserves' },
+  { path: '/register', component: Register, name: 'register' },
+  { path: '/uplink', component: Uplink, name: 'uplink' },
+  { path: '/ipas', component: Ipas, name: 'ipa' },
+  { path: '/switches', component: Switch, name: 'switches' },
+  { path: '/', component: Home, name: 'home' },
+  { path: '/undergroundboxes', component: UndergroundBox, name: 'underground_boxes' },
+  { path: '/emendation_boxes', component: EmendationBox, name: 'emendation_boxes' },
+  { path: '/posts', component: Posts, name: 'posts' },
+  { path: '/generators', component: Generator, name: 'generators' },
   { path: '/segments', component: Segment, name: 'segments' },
   { path: '/jumpers', component: Jumper, name: 'jumpers' },
-  { path: '/nobreaks', component: NoBreak },
-  { path: '/gbics', component: GBIC },
+  { path: '/nobreaks', component: NoBreak, name: 'nobreaks' },
+  { path: '/gbics', component: GBIC, name: 'gbics' },
   { path: '/segments', component: Segment, name: 'segments' },
   { path: '/jumpers', component: Jumper, name: 'jumpers' },
-  { path: '/nobreaks', component: NoBreak },
-  { path: '/gbics', component: GBIC },
   { path: '/access_cables', component: AccessCables, name: 'access-cables' },
   { path: '/map', component: Map, name: 'map' },
+  { path: '/groups', component: Groups, name: 'groups' },
+  { path: '/cable_stretch', component: CableStretch, name: 'cable_stretch' },
 ];
 
 Vue.use(Vuetify);
@@ -75,9 +76,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const isAuth = localStorage.getItem('Token') !== 'null';
 
-  if ((to.name !== 'login' && to.name !== 'register') && !isAuth) {
+  if (to.name !== 'login' && !isAuth) {
     next({ name: 'login' });
-  } else if ((to.name === 'register' || to.name === 'login') && isAuth) {
+  } else if (to.name === 'login' && isAuth) {
     next({ name: 'home' });
   } else {
     next();
