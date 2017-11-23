@@ -22,6 +22,7 @@
       @click="center=m.position"
     ></gmap-marker>
     <div v-for="polyline in polylines" :key="polyline">
+      {{polyline}}
         <div v-for="item in polyline" :key="item">
           <div v-for="path in item" :key="path">
             <gmap-polyline
@@ -46,14 +47,7 @@
   <v-btn class="blue--text darken-1" v-on:click.prevent="addPolylines" flat="flat">Adicionar Polylines</v-btn>
 
   <ul>
-    {{Object.keys(this.objects.segment).length}}
-  </ul>
-  <ul>
-    {{Object.values(this.dgo_sites)}}
-    {{Object.values(this.dgo_sites).length}}
-  </ul>
-  <ul>
-    {{Object.values(this.sites_dgo).length}}
+    {{Object.values(this.objects.segment)[6].dgos.length}}
   </ul>
 
 </div>
@@ -89,8 +83,6 @@ export default {
       polylines: [
         {
           path: [
-            [{ lat: 10.0, lng: 10.0 }, { lat: 11.0, lng: 11.0 }],
-            [{ lat: -13.0, lng: -12.0 }, { lat: -11.0, lng: -11.0 }],
           ],
         },
       ],
@@ -119,7 +111,9 @@ export default {
               .get('http://localhost:8000/dgos/'.concat(dgoID))
               .then((response) => {
                 // JSON responses are automatically parsed.
-                this.dgo_sites.push(response.data.site_id);
+                if (!this.dgo_sites.includes(response.data)) {
+                  this.dgo_sites.push(response.data);
+                }
               })
               .catch((e) => {
                 this.errors.push(e);
@@ -136,7 +130,7 @@ export default {
       }
       if (Object.values(this.sites_dgo).length === 0) {
         for (let i = 0; i < Object.values(this.dgo_sites).length; i += 1) {
-          const siteID = Object.values(this.dgo_sites)[i];
+          const siteID = Object.values(this.dgo_sites)[i].site_id;
           if (siteID > 0) {
             axios
               .get('http://localhost:8000/sites/'.concat(siteID))
@@ -168,9 +162,13 @@ export default {
     addPolylines() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
         for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
+          const dgo = Object.values(this.dgo_sites)[Object.values(this.objects.segment)[i].dgos[j]];
+          const site = (Object.values(this.sites_dgo)[dgo.site_id]);
+          console.log(site.lattitude);
+          console.log(site.longitude);
           this.polylines.push({
-            path: Array.push({ lat: Object.values(this.objects.segment)[i].dgos[0],
-              lng: Object.values(this.objects.segment)[0].dgos[1] }),
+            path: Array.push({ lat: site.lattitude,
+              lng: site.longitude }),
           });
         }
       }

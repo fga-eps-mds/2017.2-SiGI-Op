@@ -70,8 +70,28 @@ export const mutations = {
     let i = 1;
     const thisState = state;
     const ObjectToPut = {};
+    const dgos = [];
+    const emendationBoxes = [];
     for (i = 1; i < state.headers.length; i += 1) {
-      ObjectToPut[state.headers[i].name] = state.headers[i].value;
+      if (state.headers[i].name === 'dgos') {
+        if (state.headers[i].value !== undefined) {
+          dgos.push(state.headers[i].value);
+          ObjectToPut[state.headers[i].name] = dgos;
+        }
+      } else if (state.headers[i].name === 'emendation_boxes') {
+        if (state.headers[i].value !== undefined) {
+          emendationBoxes.push(state.headers[i].value);
+          ObjectToPut[state.headers[i].name] = emendationBoxes;
+        }
+      } else {
+        ObjectToPut[state.headers[i].name] = state.headers[i].value;
+        if (dgos.length === 0) {
+          ObjectToPut.dgos = [];
+        }
+        if (emendationBoxes.length === 0) {
+          ObjectToPut.emendation_boxes = [];
+        }
+      }
     }
     axios.put('http://localhost:8000/'.concat(state.name, 's', '/', id, '/'), ObjectToPut)
       .then(thisState.alert = false)
