@@ -1,11 +1,12 @@
 <template>
   <div id="profile">
+    <h4> User profile </h4>
     <div id="editprofile" v-if="edit">
         <v-container>
           <v-layout row>
             <v-flex xs12 sm12 offset-sm>
               <v-card>
-                <v-card-text>
+                <v-card-text class="profile">
                   <v-flex xs6 offset-sm1>
                   <v-container>
                     <v-form v-model="valid">
@@ -46,14 +47,14 @@
         <v-layout row>
           <v-flex xs12 sm12>
             <v-card>
-              <v-card-text>
+              <v-card-text class="profile">
                 <v-flex xs6 >
                 <v-container>
-                  Nome: {{ name }}
+                  <p class="text-lg-left"> Nome: {{ name }} </p>
                   <br />
-                  Email: {{ email }}
+                  <p class="text-lg-left">Email: {{ email }} </p>
                   <br />
-                  Senha: {{ password }}
+                  <p class="text-lg-left">Senha: {{ password }} </p>
                   <br />
                 </v-container>
                 </v-flex>
@@ -86,5 +87,7 @@ export default {
 </script>
 
 <style scoped>
-
+.profile {
+  height: 400.3px;
+}
 </style>
