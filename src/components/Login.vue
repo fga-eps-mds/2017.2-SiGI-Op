@@ -75,6 +75,8 @@
           .then((response) => {
             localStorage.setItem('Token', response.data.token);
             localStorage.setItem('username', response.data.username);
+            localStorage.setItem('email', response.data.email);
+            localStorage.setItem('pk', response.data.pk);
             this.alert = false;
             this.$router.push('/home');
             this.$router.go(this.$router.currentRoute);

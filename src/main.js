@@ -29,6 +29,7 @@ import AccessCables from './components/AccessCables/AccessCables';
 import Map from './components/Map/Map';
 import Groups from './components/Groups/Groups';
 import CableStretch from './components/CableStretch/CableStretch';
+import Profile from './components/Profile/Profile';
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,7 @@ const routes = [
   { path: '/map', component: Map, name: 'map' },
   { path: '/groups', component: Groups, name: 'groups' },
   { path: '/cable_stretch', component: CableStretch, name: 'cable_stretch' },
+  { path: '/profiles', component: Profile, name: 'profiles' },
 ];
 
 Vue.use(Vuetify);
