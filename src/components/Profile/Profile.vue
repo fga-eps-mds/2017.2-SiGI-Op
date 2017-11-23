@@ -7,7 +7,7 @@
             <v-flex xs12 sm12 offset-sm>
               <v-card>
                 <v-card-text class="profile">
-                  <v-flex xs6 offset-sm1>
+                  <v-flex xs6>
                   <v-container>
                     <v-form v-model="valid">
                     <v-text-field
@@ -22,11 +22,25 @@
                       required
                     ></v-text-field>
                     <v-text-field
+                      label="Current Password"
+                      v-model="currentpassword"
+                      :append-icon="e3 ? 'visibility' : 'visibility_off'"
+                      :append-icon-cb="() => (e3 = !e3)"
+                      :type="e3 ? 'password' : 'text'"
+                    ></v-text-field>
+                    <v-text-field
                       label="Password"
                       v-model="password"
                       :append-icon="e1 ? 'visibility' : 'visibility_off'"
                       :append-icon-cb="() => (e1 = !e1)"
                       :type="e1 ? 'password' : 'text'"
+                    ></v-text-field>
+                    <v-text-field
+                      label="Confirm Password"
+                      v-model="confirmpassword"
+                      :append-icon="e2 ? 'visibility' : 'visibility_off'"
+                      :append-icon-cb="() => (e2 = !e2)"
+                      :type="e2 ? 'password' : 'text'"
                     ></v-text-field>
                   </v-form>
                   </v-container>
@@ -54,8 +68,6 @@
                   <br />
                   <p class="text-lg-left">Email: {{ email }} </p>
                   <br />
-                  <p class="text-lg-left">Senha: {{ password }} </p>
-                  <br />
                 </v-container>
                 </v-flex>
                </v-card-text>
@@ -78,9 +90,13 @@ export default {
     return {
       name: localStorage.getItem('username'),
       email: localStorage.getItem('email'),
+      currentpassword: '',
+      confirmpassword: '',
       password: '',
       e1: false,
+      e2: false,
       edit: false,
+      e3: false,
     };
   },
 };
