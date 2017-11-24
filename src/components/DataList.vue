@@ -64,7 +64,7 @@ export default {
       }
     },
     nextPage() {
-      if (this.$store.getters.currentPage !== Math.ceil(this.$store.getters.objects.count / 2)) {
+      if (this.$store.getters.currentPage !== Math.ceil(this.$store.getters.objects.count / 10)) {
         this.$store.dispatch('changePage', this.$store.getters.currentPage + 1);
       }
     },
@@ -90,10 +90,10 @@ export default {
       return this.$store.getters.selectitems;
     },
     totalPages() {
-      if (Math.ceil(this.$store.getters.objects.count / 2) <= 0) {
+      if (Math.ceil(this.$store.getters.objects.count / 10) <= 0) {
         return 1;
       }
-      return Math.ceil(this.$store.getters.objects.count / 2);
+      return Math.ceil(this.$store.getters.objects.count / 10);
     },
     page() {
       if (this.totalPages < this.$store.getters.currentPage) {
