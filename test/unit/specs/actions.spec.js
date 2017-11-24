@@ -69,4 +69,10 @@ describe('Actions', () => {
       { type: 'DELETE_OBJECTS', payload: 1 },
     ], done);
   });
+
+  it('changePage', (done) => {
+    testAction(actions.changePage, [], state, [
+      { type: 'CHANGE_PAGE', payload: 1 },
+    ], done);
+  });
 });

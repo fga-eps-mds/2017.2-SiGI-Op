@@ -3,7 +3,7 @@ import { mutations } from '@/vuex/store';
 
 
 const { GET_OBJECTS, GET_SELECT_ITEMS, SET_NEW_HEADERS, SET_NEW_NAME,
-  TOGGLE_ALERT, FILL_UPDATE_FIELDS } = mutations;
+  TOGGLE_ALERT, FILL_UPDATE_FIELDS, CHANGE_PAGE } = mutations;
 
 describe('Mutations', () => {
   it('GET_OBJECTS', () => {
@@ -65,5 +65,14 @@ describe('Mutations', () => {
     FILL_UPDATE_FIELDS(state, { id: 1, name: 'test 1' });
     expect(state.headers[0].value).to.equal(1);
     expect(state.headers[1].value).to.deep.equal('test 1');
+  });
+
+  it('CHANGE_PAGE', () => {
+    const state = { currentPage: 3 };
+    expect(state.currentPage).to.equal(3);
+    CHANGE_PAGE(state, 1);
+    expect(state.currentPage).to.equal(1);
+    CHANGE_PAGE(state, 2);
+    expect(state.currentPage).to.equal(2);
   });
 });
