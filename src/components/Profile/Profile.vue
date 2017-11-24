@@ -84,6 +84,9 @@
 </template>
 
 <script>
+import HTTP from '../../http-common';
+
+
 export default {
   name: 'profile',
   data() {
@@ -98,6 +101,30 @@ export default {
       edit: false,
       e3: false,
     };
+  },
+  methods: {
+    post() {
+      HTTP.post('users/update', {
+        pk: localStorage.getItem('pk', null),
+        username: this.name,
+        email: this.email,
+        currentpassword: this.currentpassword,
+        password: this.password,
+      })
+        .then((response) => {
+          localStorage.setItem('username', response.data.username);
+          localStorage.setItem('email', response.data.email);
+        });
+    },
+    save() {
+      if (this.password === this.confirmpassword) {
+        this.post();
+        this.edit = false;
+        this.e1 = false;
+        this.e2 = false;
+        this.e3 = false;
+      }
+    },
   },
 };
 </script>
