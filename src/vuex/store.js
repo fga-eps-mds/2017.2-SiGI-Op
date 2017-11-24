@@ -82,12 +82,17 @@ export const mutations = {
       thisState.headers[i].value = Object.values(object)[i];
     }
   },
+  CHANGE_PAGE(state, pageNumber) {
+    const thisState = state;
+    thisState.currentPage = pageNumber;
+  },
 };
 
 export const getters = {
   name: state => state.name,
   headers: state => state.headers,
   objects: state => state.objects,
+  currentPage: state => state.currentPage,
   selectitems: state => state.selectitems,
   alert: state => state.alert,
   errors: state => state.errors,
@@ -97,6 +102,7 @@ export const state = {
   name: '',
   headers: [],
   objects: [],
+  currentPage: 1,
   selectitems: {},
   alert: false,
   errors: [],
@@ -104,7 +110,7 @@ export const state = {
 
 export const actions = {
   getObjects({ commit }) {
-    HTTP.get(''.concat(state.name, 's', '/?all=1'))
+    HTTP.get(''.concat(state.name, 's/?page=', state.currentPage))
     .then((response) => {
       commit('GET_OBJECTS', response.data);
     })
@@ -158,6 +164,12 @@ export const actions = {
   },
   fillUpdateFields({ commit }, object) {
     commit('FILL_UPDATE_FIELDS', object);
+  },
+  changePage({ commit, dispatch }, pageNumber) {
+    commit('CHANGE_PAGE', pageNumber);
+    setTimeout(() => {
+      dispatch('getObjects');
+    }, 500);
   },
 };
 

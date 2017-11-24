@@ -1,7 +1,7 @@
 <template>
   <div class="segment">
     <v-dialog v-model="dialog" persistent width="50%">
-     <v-btn primary dark @click="fill()" slot="activator">
+     <v-btn id="ativador" primary dark @click="fill()" slot="activator">
        <v-icon dark> update </v-icon>
      </v-btn>
      <v-card>
@@ -139,3 +139,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+#ativador {
+  margin: 0px;
+}
+</style>
