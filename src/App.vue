@@ -20,9 +20,6 @@
         </v-list-tile>
 
         <v-list-tile @click="" v-on:click.prevent="sign_out">
-        <v-list-tile-content>
-          <v-list-tile-title > <h6> Sair ({{ current_username }}) </h6> </v-list-tile-title>
-        </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
