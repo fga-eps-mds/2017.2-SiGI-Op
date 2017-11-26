@@ -45,10 +45,7 @@
   </v-card>
 
   <v-btn class="blue--text darken-1" v-on:click.prevent="addPolylines" flat="flat">Adicionar Polylines</v-btn>
-
-  <ul>
-    {{Object.values(this.objects.segment)[6].dgos.length}}
-  </ul>
+  <v-btn class="blue--text darken-1" v-on:click.prevent="getSitesIds" flat="flat">Adicionar Sites</v-btn>
 
 </div>
 </template>
@@ -83,6 +80,8 @@ export default {
       polylines: [
         {
           path: [
+            [{ lat: 10.0, lng: 10.0 }, { lat: 11.0, lng: 11.0 }],
+            [{ lat: -13.0, lng: -12.0 }, { lat: -11.0, lng: -11.0 }],
           ],
         },
       ],
@@ -162,20 +161,22 @@ export default {
     addPolylines() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
         for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
-          const dgo = Object.values(this.dgo_sites)[Object.values(this.objects.segment)[i].dgos[j]];
-          const site = (Object.values(this.sites_dgo)[dgo.site_id]);
-          console.log(site.lattitude);
-          console.log(site.longitude);
-          this.polylines.push({
-            path: Array.push({ lat: site.lattitude,
-              lng: site.longitude }),
-          });
+          let dgo = '';
+          const currDgoId = Object.values(this.objects.segment)[i].dgos[j];
+          if (Object.values(this.dgo_sites)[j].id === currDgoId) {
+            dgo = Object.values(this.dgo_sites)[j];
+            let site = '';
+            if ((Object.values(this.sites_dgo)[j].id === dgo.site_id)) {
+              site = (Object.values(this.sites_dgo))[j];
+            }
+            console.log(dgo.site_id);
+            console.log(site);
+            const a = [{ lat: site.lattitude, lng: site.longitude },
+              { lat: -14, lng: -41 }];
+            this.polylines[0].path.push(a);
+          }
         }
       }
-        // this.polylines.push({
-        //   path: Array.push({ lat: this.objects.site.lattitude[i],
-        //     lng: this.objects.site.longitude[i] }),
-        // });
     },
   },
   created() {
@@ -195,3 +196,4 @@ export default {
   float: right;
 }
 </style>
+  
