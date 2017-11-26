@@ -160,6 +160,7 @@ export default {
     },
     addPolylines() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
+        const a = [];
         for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
           let dgo = '';
           const currDgoId = Object.values(this.objects.segment)[i].dgos[j];
@@ -170,12 +171,12 @@ export default {
               site = (Object.values(this.sites_dgo))[j];
             }
             console.log(dgo.site_id);
-            console.log(site);
-            const a = [{ lat: site.lattitude, lng: site.longitude },
-              { lat: -14, lng: -41 }];
-            this.polylines[0].path.push(a);
+            console.log(site.id);
+            a.push({ lat: site.lattitude, lng: site.longitude });
           }
         }
+        console.log(a);
+        this.polylines[0].path.push(a);
       }
     },
   },
