@@ -25,6 +25,28 @@
                   </router-link>
                 </v-list-tile>
               </v-list-group>
+              <!--  -->
+              <v-list-group v-for="item in other_items" :value="item.active" v-bind:key="item.title">
+                <v-list-tile slot="item" @click="">
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-icon>keyboard_arrow_down</v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+                  <router-link :to="subItem.path" tag="li">
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <v-icon>{{ subItem.action }}</v-icon>
+                    </v-list-tile-action>
+                  </router-link>
+                </v-list-tile>
+              </v-list-group>
+              <!--  -->
               <v-list-group v-for="item in admin_items" :value="item.active" v-bind:key="item.title">
                 <v-list-tile slot="item" @click="">
                   <v-list-tile-content>
@@ -88,27 +110,35 @@ export default {
       menuAdmin: false,
       current_username: localStorage.getItem('username'),
       render_sidebar: localStorage.getItem('Token') !== 'null' && localStorage.getItem('Token') !== null,
+      other_items: [
+        { action: 'other_menu_action',
+          title: 'Outros',
+          active: true,
+          items: [
+            { title: 'Caixas Subterrâneas', path: '/undergroundboxes' },
+            { title: 'Caixas de Emenda', path: '/emendation_boxes' },
+            { title: 'Jumpers', path: '/jumpers' },
+            { title: 'Postes', path: '/Posts' },
+            { title: 'NoBreaks', path: '/NoBreaks' },
+            { title: 'Cabos de Acesso', path: '/access_cables' },
+            { title: 'Trechos de Cabo', path: '/cable_stretch' },
+          ],
+        },
+      ],
       items: [
         { action: 'menu_action',
-          title: 'Menu',
+          title: 'Área Técnica',
           active: true,
           items: [
             { title: 'IPAs', path: '/ipas' },
             { title: 'Sites', path: '/sites' },
             { title: 'Contatos', path: '/contacts' },
             { title: 'Reservas Técnicas', path: '/technical_reserves' },
-            { title: 'Caixas Subterrâneas', path: '/undergroundboxes' },
             { title: 'DGOs', path: '/dgos' },
             { title: 'Segmentos', path: '/segments' },
             { title: 'Uplink', path: '/Uplink' },
-            { title: 'Caixas de Emenda', path: '/emendation_boxes' },
             { title: 'Segmentos', path: '/segments' },
-            { title: 'Jumpers', path: '/jumpers' },
-            { title: 'Postes', path: '/Posts' },
-            { title: 'NoBreaks', path: '/NoBreaks' },
-            { title: 'Cabos de Acesso', path: '/access_cables' },
             { title: 'Mapa da Rede', path: '/map' },
-            { title: 'Trechos de Cabo', path: '/cable_stretch' },
           ],
         },
       ],
