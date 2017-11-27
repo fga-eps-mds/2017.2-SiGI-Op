@@ -26,6 +26,7 @@
         <div v-for="item in polyline" :key="item">
           <div v-for="path in item" :key="path">
             <gmap-polyline
+            v-if="(segment_box_checkbox)"
             :path="path">
           </gmap-polyline>
           </div>
@@ -171,8 +172,8 @@ export default {
     isDuplicateKey(id, arr) {
       let isDupl = false;
       for (let i = 0; i < arr.length; i += 1) {
-        const a = arr[i];
-        if (a.id === id) {
+        const obj = arr[i];
+        if (obj.id === id) {
           isDupl = true;
           break;
         }
@@ -195,10 +196,9 @@ export default {
     },
     addPolylines() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
-        const a = [];
+        const segment = [];
         if (Object.values(this.objects.segment)[i].dgos.length === 2) {
-          console.log('sites');
-          console.log(Object.values(this.sites_dgo));
+          // segment connected by two dgos
           for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
             let dgo = '';
             const currDgoId = Object.values(this.objects.segment)[i].dgos[j];
@@ -211,17 +211,18 @@ export default {
                   break;
                 }
               }
-              a.push({ lat: site.lattitude, lng: site.longitude });
+              segment.push({ lat: site.lattitude, lng: site.longitude });
             }
           }
         } else if (Object.values(this.objects.segment)[i].dgos.length === 1
           && Object.values(this.objects.segment)[i].emendation_boxes
           .length === 1) {
-          // pega emendation e site
+          // segment between a dgo and a emendation box
           let dgo = '';
           let box = '';
           const currDgoId = Object.values(this.objects.segment)[i].dgos[0];
           for (let j = 0; j < this.dgo_sites.length; j += 1) {
+            // find site coordinates and push into the list
             if (Object.values(this.dgo_sites)[j].id === currDgoId) {
               dgo = Object.values(this.dgo_sites)[j];
               let site = '';
@@ -231,20 +232,22 @@ export default {
                   break;
                 }
               }
-              a.push({ lat: site.lattitude, lng: site.longitude });
+              segment.push({ lat: site.lattitude, lng: site.longitude });
               break;
             }
           }
           const currBoxId = Object.values(this.objects.segment)[i]
             .emendation_boxes[0];
           for (let j = 0; j < this.emendation_boxes.length; j += 1) {
+            // find dgo coordinate and push into the list
             if (Object.values(this.emendation_boxes)[j].id === currBoxId) {
               box = Object.values(this.emendation_boxes)[j];
-              a.push({ lat: box.lattitude, lng: box.longitude });
+              segment.push({ lat: box.lattitude, lng: box.longitude });
               break;
             }
           }
         } else if (Object.values(this.objects.segment)[i].emendation_boxes.length === 2) {
+          // segment between 2 emendation boxes
           for (let j = 0; j < Object.values(this.objects.segment)[i]
             .emendation_boxes.length; j += 1) {
             let box = '';
@@ -252,12 +255,11 @@ export default {
               .emendation_boxes[j];
             if (Object.values(this.emendation_boxes)[j].id === currBoxId) {
               box = Object.values(this.emendation_boxes)[j];
-              a.push({ lat: box.lattitude, lng: box.longitude });
+              segment.push({ lat: box.lattitude, lng: box.longitude });
             }
           }
         }
-        console.log(a);
-        this.polylines[0].path.push(a);
+        this.polylines[0].path.push(segment);
       }
     },
   },
