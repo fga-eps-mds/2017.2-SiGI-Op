@@ -46,7 +46,7 @@
 
   <v-btn class="blue--text darken-1" v-on:click.prevent="addPolylines" flat="flat">Adicionar Polylines</v-btn>
   <v-btn class="blue--text darken-1" v-on:click.prevent="getSitesIds" flat="flat">Adicionar Sites</v-btn>
-
+  {{emendation_boxes}}
 </div>
 </template>
 
@@ -96,10 +96,32 @@ export default {
           this.objects = response.data;
           this.addMarkers();
           this.getDgosAttr();
+          this.getEmendationBoxesAttr();
         })
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+    getEmendationBoxesAttr() {
+      for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
+        for (let j = 0; j < Object.values(this.objects.segment)[i]
+          .emendation_boxes.length; j += 1) {
+          const boxID = Object.values(this.objects.segment)[i].emendation_boxes[j];
+          if (boxID > 0) {
+            axios
+              .get('http://localhost:8000/emendation_boxes/'.concat(boxID))
+              .then((response) => {
+                // JSON responses are automatically parsed.
+                if (!this.emendation_boxes.includes(response.data)) {
+                  this.emendation_boxes.push(response.data);
+                }
+              })
+              .catch((e) => {
+                this.errors.push(e);
+              });
+          }
+        }
+      }
     },
     getDgosAttr() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
@@ -161,18 +183,33 @@ export default {
     addPolylines() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
         const a = [];
-        for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
-          let dgo = '';
-          const currDgoId = Object.values(this.objects.segment)[i].dgos[j];
-          if (Object.values(this.dgo_sites)[j].id === currDgoId) {
-            dgo = Object.values(this.dgo_sites)[j];
-            let site = '';
-            if ((Object.values(this.sites_dgo)[j].id === dgo.site_id)) {
-              site = (Object.values(this.sites_dgo))[j];
+        if (Object.values(this.objects.segment)[i].dgos.length === 2) {
+          for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
+            let dgo = '';
+            const currDgoId = Object.values(this.objects.segment)[i].dgos[j];
+            if (Object.values(this.dgo_sites)[j].id === currDgoId) {
+              dgo = Object.values(this.dgo_sites)[j];
+              let site = '';
+              if ((Object.values(this.sites_dgo)[j].id === dgo.site_id)) {
+                site = (Object.values(this.sites_dgo))[j];
+              }
+              console.log(dgo.site_id);
+              console.log(site.id);
+              a.push({ lat: site.lattitude, lng: site.longitude });
             }
-            console.log(dgo.site_id);
-            console.log(site.id);
-            a.push({ lat: site.lattitude, lng: site.longitude });
+          }
+        } else if (Object.values(this.objects.segment)[i].dgos.length === 1) {
+          // pega emendation e site
+        } else {
+          for (let j = 0; j < Object.values(this.objects.segment)[i]
+            .emendation_boxes.length; j += 1) {
+            let box = '';
+            const currBoxId = Object.values(this.objects.segment)[i]
+              .emendation_boxes[j];
+            if (Object.values(this.emendation_boxes)[j].id === currBoxId) {
+              box = Object.values(this.emendation_boxes)[j];
+              a.push({ lat: box.lattitude, lng: box.longitude });
+            }
           }
         }
         console.log(a);
