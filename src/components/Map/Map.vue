@@ -110,7 +110,7 @@ export default {
               .get('http://localhost:8000/emendation_boxes/'.concat(boxID))
               .then((response) => {
                 // JSON responses are automatically parsed.
-                if (!this.isDuplicateKey(response.data.id)) {
+                if (!this.isDuplicateKey(response.data.id, this.emendation_boxes)) {
                   this.emendation_boxes.push(response.data);
                 }
               })
@@ -121,16 +121,6 @@ export default {
         }
       }
     },
-    isDuplicateKey(id) {
-      let isDupl = false;
-      for (let i = 0; i < this.emendation_boxes.length; i += 1) {
-        if (this.emendation_boxes[i].id === id) {
-          isDupl = true;
-          break;
-        }
-      }
-      return isDupl;
-    },
     getDgosAttr() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
         for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
@@ -140,7 +130,7 @@ export default {
               .get('http://localhost:8000/dgos/'.concat(dgoID))
               .then((response) => {
                 // JSON responses are automatically parsed.
-                if (!this.dgo_sites.includes(response.data)) {
+                if (!this.isDuplicateKey(response.data.id, this.dgo_sites)) {
                   this.dgo_sites.push(response.data);
                 }
               })
@@ -165,7 +155,11 @@ export default {
               .get('http://localhost:8000/sites/'.concat(siteID))
               .then((response) => {
                 // JSON responses are automatically parsed.
-                this.sites_dgo.push(response.data);
+                console.log(response.data);
+                if (!this.isDuplicateKey(response.data.id, this.sites_dgo)) {
+                  this.sites_dgo.push(response.data);
+                  console.log('asdasd');
+                }
               })
               .catch((e) => {
                 this.errors.push(e);
@@ -173,6 +167,17 @@ export default {
           }
         }
       }
+    },
+    isDuplicateKey(id, arr) {
+      let isDupl = false;
+      for (let i = 0; i < arr.length; i += 1) {
+        const a = arr[i];
+        if (a.id === id) {
+          isDupl = true;
+          break;
+        }
+      }
+      return isDupl;
     },
     addMarkers() {
       for (let i = 0; i < Object.keys(this.objects).length; i += 1) {
@@ -192,6 +197,8 @@ export default {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
         const a = [];
         if (Object.values(this.objects.segment)[i].dgos.length === 2) {
+          console.log('sites');
+          console.log(Object.values(this.sites_dgo));
           for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
             let dgo = '';
             const currDgoId = Object.values(this.objects.segment)[i].dgos[j];
