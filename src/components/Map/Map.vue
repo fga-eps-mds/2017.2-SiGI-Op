@@ -46,7 +46,7 @@
 
   <v-btn class="blue--text darken-1" v-on:click.prevent="addPolylines" flat="flat">Adicionar Polylines</v-btn>
   <v-btn class="blue--text darken-1" v-on:click.prevent="getSitesIds" flat="flat">Adicionar Sites</v-btn>
-  {{emendation_boxes}}
+
 </div>
 </template>
 
@@ -80,8 +80,6 @@ export default {
       polylines: [
         {
           path: [
-            [{ lat: 10.0, lng: 10.0 }, { lat: 11.0, lng: 11.0 }],
-            [{ lat: -13.0, lng: -12.0 }, { lat: -11.0, lng: -11.0 }],
           ],
         },
       ],
@@ -113,9 +111,6 @@ export default {
               .then((response) => {
                 // JSON responses are automatically parsed.
                 if (!this.isDuplicateKey(response.data.id)) {
-                  console.log(Object.values(this.objects.segment)[i].name);
-                  console.log(Object.values(this.objects.segment)[i].emendation_boxes[j]);
-                  console.log(response.data);
                   this.emendation_boxes.push(response.data);
                 }
               })
@@ -203,34 +198,44 @@ export default {
             if (Object.values(this.dgo_sites)[j].id === currDgoId) {
               dgo = Object.values(this.dgo_sites)[j];
               let site = '';
-              if ((Object.values(this.sites_dgo)[j].id === dgo.site_id)) {
-                site = (Object.values(this.sites_dgo))[j];
+              for (let k = 0; k < this.sites_dgo.length; k += 1) {
+                if ((Object.values(this.sites_dgo)[k].id === dgo.site_id)) {
+                  site = (Object.values(this.sites_dgo))[k];
+                  break;
+                }
               }
-              console.log(dgo.site_id);
-              console.log(site.id);
               a.push({ lat: site.lattitude, lng: site.longitude });
             }
           }
-        } else if (Object.values(this.objects.segment)[i].dgos.length === 1) {
+        } else if (Object.values(this.objects.segment)[i].dgos.length === 1
+          && Object.values(this.objects.segment)[i].emendation_boxes
+          .length === 1) {
           // pega emendation e site
           let dgo = '';
           let box = '';
           const currDgoId = Object.values(this.objects.segment)[i].dgos[0];
-          console.log('dgo_curr_id');
-          console.log(currDgoId);
-          if (Object.values(this.dgo_sites)[0].id === currDgoId) {
-            dgo = Object.values(this.dgo_sites)[0];
-            let site = '';
-            if ((Object.values(this.sites_dgo)[0].id === dgo.site_id)) {
-              site = (Object.values(this.sites_dgo))[0];
+          for (let j = 0; j < this.dgo_sites.length; j += 1) {
+            if (Object.values(this.dgo_sites)[j].id === currDgoId) {
+              dgo = Object.values(this.dgo_sites)[j];
+              let site = '';
+              for (let k = 0; k < this.sites_dgo.length; k += 1) {
+                if ((Object.values(this.sites_dgo)[k].id === dgo.site_id)) {
+                  site = (Object.values(this.sites_dgo))[k];
+                  break;
+                }
+              }
+              a.push({ lat: site.lattitude, lng: site.longitude });
+              break;
             }
-            a.push({ lat: site.lattitude, lng: site.longitude });
           }
           const currBoxId = Object.values(this.objects.segment)[i]
             .emendation_boxes[0];
-          if (Object.values(this.emendation_boxes)[0].id === currBoxId) {
-            box = Object.values(this.emendation_boxes)[0];
-            a.push({ lat: box.lattitude, lng: box.longitude });
+          for (let j = 0; j < this.emendation_boxes.length; j += 1) {
+            if (Object.values(this.emendation_boxes)[j].id === currBoxId) {
+              box = Object.values(this.emendation_boxes)[j];
+              a.push({ lat: box.lattitude, lng: box.longitude });
+              break;
+            }
           }
         } else if (Object.values(this.objects.segment)[i].emendation_boxes.length === 2) {
           for (let j = 0; j < Object.values(this.objects.segment)[i]
