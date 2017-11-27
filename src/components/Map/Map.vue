@@ -200,6 +200,27 @@ export default {
           }
         } else if (Object.values(this.objects.segment)[i].dgos.length === 1) {
           // pega emendation e site
+          let dgo = '';
+          let box = '';
+          const currDgoId = Object.values(this.objects.segment)[i].dgos[0];
+          console.log('dgo_curr_id');
+          console.log(currDgoId);
+          if (Object.values(this.dgo_sites)[0].id === currDgoId) {
+            dgo = Object.values(this.dgo_sites)[0];
+            let site = '';
+            if ((Object.values(this.sites_dgo)[0].id === dgo.site_id)) {
+              site = (Object.values(this.sites_dgo))[0];
+            }
+            console.log('site_dgo_');
+            console.log(site);
+            a.push({ lat: site.lattitude, lng: site.longitude });
+          }
+          const currBoxId = Object.values(this.objects.segment)[i]
+            .emendation_boxes[0];
+          if (Object.values(this.emendation_boxes)[0].id === currBoxId) {
+            box = Object.values(this.emendation_boxes)[0];
+            a.push({ lat: box.lattitude, lng: box.longitude });
+          }
         } else {
           for (let j = 0; j < Object.values(this.objects.segment)[i]
             .emendation_boxes.length; j += 1) {
