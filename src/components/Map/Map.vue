@@ -112,7 +112,10 @@ export default {
               .get('http://localhost:8000/emendation_boxes/'.concat(boxID))
               .then((response) => {
                 // JSON responses are automatically parsed.
-                if (!this.emendation_boxes.includes(response.data)) {
+                if (!this.isDuplicateKey(response.data.id)) {
+                  console.log(Object.values(this.objects.segment)[i].name);
+                  console.log(Object.values(this.objects.segment)[i].emendation_boxes[j]);
+                  console.log(response.data);
                   this.emendation_boxes.push(response.data);
                 }
               })
@@ -122,6 +125,16 @@ export default {
           }
         }
       }
+    },
+    isDuplicateKey(id) {
+      let isDupl = false;
+      for (let i = 0; i < this.emendation_boxes.length; i += 1) {
+        if (this.emendation_boxes[i].id === id) {
+          isDupl = true;
+          break;
+        }
+      }
+      return isDupl;
     },
     getDgosAttr() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
@@ -211,8 +224,6 @@ export default {
             if ((Object.values(this.sites_dgo)[0].id === dgo.site_id)) {
               site = (Object.values(this.sites_dgo))[0];
             }
-            console.log('site_dgo_');
-            console.log(site);
             a.push({ lat: site.lattitude, lng: site.longitude });
           }
           const currBoxId = Object.values(this.objects.segment)[i]
@@ -221,7 +232,7 @@ export default {
             box = Object.values(this.emendation_boxes)[0];
             a.push({ lat: box.lattitude, lng: box.longitude });
           }
-        } else {
+        } else if (Object.values(this.objects.segment)[i].emendation_boxes.length === 2) {
           for (let j = 0; j < Object.values(this.objects.segment)[i]
             .emendation_boxes.length; j += 1) {
             let box = '';
