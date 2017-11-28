@@ -1,6 +1,6 @@
 <template>
   <v-app toolbar id="app">
-    <v-navigation-drawer permanent clipped dark v-if="render_sidebar">
+    <v-navigation-drawer temporary v-model="drawer" dark v-if="render_sidebar">
       <v-layout row>
         <v-flex xs12 sm12>
           <v-card>
@@ -29,6 +29,7 @@
       </v-layout>
     </v-navigation-drawer>
     <v-toolbar dark fixed class="primary">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
       <v-spacer></v-spacer>
       <v-if></v-if>
