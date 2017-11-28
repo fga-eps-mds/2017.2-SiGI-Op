@@ -34,14 +34,12 @@
                   </v-list-tile-action>
                 </v-list-tile>
                 <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="" router-link :to="subItem.path">
-                  <router-link :to="subItem.path" tag="li">
                     <v-list-tile-content>
                       <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
                     </v-list-tile-content>
                     <v-list-tile-action>
                       <v-icon>{{ subItem.action }}</v-icon>
                     </v-list-tile-action>
-                  </router-link>
                 </v-list-tile>
               </v-list-group>
               <v-list-group v-for="item in admin_items" :value="item.active" v-bind:key="item.title">
@@ -54,14 +52,12 @@
                   </v-list-tile-action>
                 </v-list-tile>
                 <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="" router-link :to="subItem.path">
-                  <router-link :to="subItem.path" tag="li">
                     <v-list-tile-content>
                       <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
                     </v-list-tile-content>
                     <v-list-tile-action>
                       <v-icon>{{ subItem.action }}</v-icon>
                     </v-list-tile-action>
-                  </router-link>
                 </v-list-tile>
               </v-list-group>
             </v-list>
@@ -132,7 +128,6 @@ export default {
             { title: 'Contatos', path: '/contacts' },
             { title: 'Reservas Técnicas', path: '/technical_reserves' },
             { title: 'DGOs', path: '/dgos' },
-            { title: 'Segmentos', path: '/segments' },
             { title: 'Uplink', path: '/Uplink' },
             { title: 'Segmentos', path: '/segments' },
             { title: 'Mapa da Rede', path: '/map' },
