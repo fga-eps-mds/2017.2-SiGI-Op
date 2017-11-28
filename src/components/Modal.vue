@@ -26,7 +26,7 @@
                  <v-slider
                   v-if="head.type === 'slider'"
                   color="blue"
-                  label="Cable Strecth Quantity"
+                  :label="head.text"
                   min="1"
                   max="100"
                   thumb-label
