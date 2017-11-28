@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
+import HTTP from '../http-common';
 
 Vue.use(Vuex);
 
@@ -58,7 +58,7 @@ export const mutations = {
       console.log(state.headers[i].name);
       console.log(state.headers[i].value);
     }
-    axios.post('http://localhost:8000/'.concat(state.name, 's', '/', '?all=1'), ObjectToPost)
+    HTTP.post(''.concat(state.name, 's', '/'), ObjectToPost)
       .then(thisState.alert = false)
       .catch((e) => {
         thisState.alert = true;
@@ -93,7 +93,7 @@ export const mutations = {
         }
       }
     }
-    axios.put('http://localhost:8000/'.concat(state.name, 's', '/', id, '/'), ObjectToPut)
+    HTTP.put(''.concat(state.name, 's', '/', id, '/'), ObjectToPut)
       .then(thisState.alert = false)
       .catch((e) => {
         thisState.alert = true;
@@ -102,11 +102,11 @@ export const mutations = {
   },
 
   DELETE_OBJECTS(state, id) {
-    axios.delete('http://localhost:8000/'.concat(state.name, 's', '/', id, '/'))
-      .then(() => { })
-      .catch((e) => {
-        state.errors.push(e);
-      });
+    HTTP.delete(''.concat(state.name, 's', '/', id, '/'))
+    .then(() => {})
+    .catch((e) => {
+      state.errors.push(e);
+    });
   },
 
   SET_NEW_HEADERS(state, head) {
@@ -129,12 +129,17 @@ export const mutations = {
       thisState.headers[i].value = Object.values(object)[i];
     }
   },
+  CHANGE_PAGE(state, pageNumber) {
+    const thisState = state;
+    thisState.currentPage = pageNumber;
+  },
 };
 
 export const getters = {
   name: state => state.name,
   headers: state => state.headers,
   objects: state => state.objects,
+  currentPage: state => state.currentPage,
   selectitems: state => state.selectitems,
   alert: state => state.alert,
   errors: state => state.errors,
@@ -144,6 +149,7 @@ export const state = {
   name: '',
   headers: [],
   objects: [],
+  currentPage: 1,
   selectitems: {},
   alert: false,
   errors: [],
@@ -151,28 +157,28 @@ export const state = {
 
 export const actions = {
   getObjects({ commit }) {
-    axios.get('http://localhost:8000/'.concat(state.name, 's', '/', '?all=1'))
-      .then((response) => {
-        commit('GET_OBJECTS', response.data);
-      })
-      .catch((e) => {
-        state.errors.push(e);
-      });
+    HTTP.get(''.concat(state.name, 's/?page=', state.currentPage))
+    .then((response) => {
+      commit('GET_OBJECTS', response.data);
+    })
+    .catch((e) => {
+      state.errors.push(e);
+    });
 
     for (let i = 1; i < state.headers.length; i += 1) {
       if (state.headers[i].type === 'select' || state.headers[i].type === 'checkbox') {
-        axios.get('http://localhost:8000/'.concat(state.headers[i].item_name, 's', '/', '?all=1'))
-          .then((response) => {
-            commit({
-              type: 'GET_SELECT_ITEMS',
-              key: state.headers[i].name,
-              itemText: state.headers[i].itemText,
-              data: response.data,
-            });
-          })
-          .catch((e) => {
-            state.errors.push(e);
+        HTTP.get(''.concat(state.headers[i].item_name, 's', '/?all=1'))
+        .then((response) => {
+          commit({
+            type: 'GET_SELECT_ITEMS',
+            key: state.headers[i].name,
+            itemText: state.headers[i].itemText,
+            data: response.data,
           });
+        })
+        .catch((e) => {
+          state.errors.push(e);
+        });
       }
     }
   },
@@ -205,6 +211,12 @@ export const actions = {
   },
   fillUpdateFields({ commit }, object) {
     commit('FILL_UPDATE_FIELDS', object);
+  },
+  changePage({ commit, dispatch }, pageNumber) {
+    commit('CHANGE_PAGE', pageNumber);
+    setTimeout(() => {
+      dispatch('getObjects');
+    }, 500);
   },
 };
 

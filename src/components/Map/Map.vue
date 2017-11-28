@@ -54,7 +54,7 @@
 <script>
 import * as VueGoogleMaps from 'vue2-google-maps';
 import Vue from 'vue';
-import axios from 'axios';
+import HTTP from '../../http-common';
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -88,8 +88,7 @@ export default {
   },
   methods: {
     getObjects() {
-      axios
-        .get('http://localhost:8000/networkmap/')
+      HTTP.get('/networkmap/')
         .then((response) => {
           // JSON responses are automatically parsed.
           this.objects = response.data;
@@ -107,8 +106,7 @@ export default {
           .emendation_boxes.length; j += 1) {
           const boxID = Object.values(this.objects.segment)[i].emendation_boxes[j];
           if (boxID > 0) {
-            axios
-              .get('http://localhost:8000/emendation_boxes/'.concat(boxID))
+            HTTP.get('/emendation_boxes/'.concat(boxID, '/'))
               .then((response) => {
                 // JSON responses are automatically parsed.
                 if (!this.isDuplicateKey(response.data.id, this.emendation_boxes)) {
@@ -127,8 +125,8 @@ export default {
         for (let j = 0; j < Object.values(this.objects.segment)[i].dgos.length; j += 1) {
           const dgoID = Object.values(this.objects.segment)[i].dgos[j];
           if (dgoID > 0) {
-            axios
-              .get('http://localhost:8000/dgos/'.concat(dgoID))
+            HTTP
+              .get('/dgos/'.concat(dgoID, '/'))
               .then((response) => {
                 // JSON responses are automatically parsed.
                 if (!this.isDuplicateKey(response.data.id, this.dgo_sites)) {
@@ -152,14 +150,13 @@ export default {
         for (let i = 0; i < Object.values(this.dgo_sites).length; i += 1) {
           const siteID = Object.values(this.dgo_sites)[i].site_id;
           if (siteID > 0) {
-            axios
-              .get('http://localhost:8000/sites/'.concat(siteID))
+            HTTP
+              .get('sites/'.concat(siteID, '/'))
               .then((response) => {
                 // JSON responses are automatically parsed.
                 console.log(response.data);
                 if (!this.isDuplicateKey(response.data.id, this.sites_dgo)) {
                   this.sites_dgo.push(response.data);
-                  console.log('asdasd');
                 }
               })
               .catch((e) => {

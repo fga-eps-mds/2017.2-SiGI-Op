@@ -41,4 +41,3 @@ describe('CableStretch', () => {
     expect(wrapper.contains('div')).to.equal(true);
   });
 });
-

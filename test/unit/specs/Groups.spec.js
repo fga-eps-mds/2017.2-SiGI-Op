@@ -3,13 +3,13 @@ import store from '@/vuex/store';
 import Groups from '../../../src/components/Groups/Groups';
 
 describe('Groups', () => {
-let wrapper;
+  let wrapper;
 
-beforeEach(() => {
+  beforeEach(() => {
     wrapper = mount(Groups, { store });
-});
+  });
 
-it('check default Groups values', () => {
+  it('check default Groups values', () => {
     expect(typeof Groups.data).to.equal('function');
     const defaultData = Groups.data();
     expect(defaultData.headers[0].text).to.equal('ID');
