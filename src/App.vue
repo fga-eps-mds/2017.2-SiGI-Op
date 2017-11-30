@@ -1,32 +1,35 @@
 <template>
   <v-app toolbar id="app">
-    <v-navigation-drawer permanent clipped light v-if="render_sidebar">
-      <v-list class="py-0">
-      <v-divider></v-divider>
-        <v-list-tile v-if = "!menuAdmin" v-for="item in items" :key="item.title" @click="">
-          <router-link :to="item.path" tag="li">
-            <v-list-tile-content>
-              <v-list-tile-title> <h6> {{ item.title }} </h6> </v-list-tile-title>
-            </v-list-tile-content>
-          </router-link>
-        </v-list-tile>
-
-        <v-list-tile v-if="menuAdmin" v-for="item in admin_items" :key="item.title" @click="">
-          <router-link :to="item.path" tag="li">
-            <v-list-tile-content>
-              <v-list-tile-title> {{ item.title }} </v-list-tile-title>
-            </v-list-tile-content>
-          </router-link>
-        </v-list-tile>
-
-        <v-list-tile @click="" v-on:click.prevent="sign_out">
-        <v-list-tile-content>
-          <v-list-tile-title > <h6> Sair ({{ current_username }}) </h6> </v-list-tile-title>
-        </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+    <v-navigation-drawer temporary v-model="drawer" dark v-if="render_sidebar">
+      <v-layout row>
+        <v-flex xs12 sm12>
+          <v-card>
+            <v-list v-for="category in categories">
+              <v-list-group :value="category.active" v-bind:key="category.title">
+                <v-list-tile slot="item" @click="">
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ category.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-icon>keyboard_arrow_down</v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-list-tile v-for="subItem in category.items" v-bind:key="subItem.title" @click="" router-link :to="subItem.path">
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <v-icon>{{ subItem.action }}</v-icon>
+                    </v-list-tile-action>
+                </v-list-tile>
+              </v-list-group>
+            </v-list>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-navigation-drawer>
     <v-toolbar dark fixed class="primary">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
       <v-spacer></v-spacer>
       <v-if></v-if>
@@ -64,29 +67,43 @@ export default {
       menuAdmin: false,
       current_username: localStorage.getItem('username'),
       render_sidebar: localStorage.getItem('Token') !== 'null' && localStorage.getItem('Token') !== null,
-      items: [
-        { title: 'IPAs', path: '/ipas' },
-        { title: 'Sites', path: '/sites' },
-        { title: 'Contatos', path: '/contacts' },
-        { title: 'Reservas Técnicas', path: '/technical_reserves' },
-        { title: 'Caixas Subterrâneas', path: '/undergroundboxes' },
-        { title: 'DGOs', path: '/dgos' },
-        { title: 'Segmentos', path: '/segments' },
-        { title: 'Uplink', path: '/Uplink' },
-        { title: 'Caixas de Emenda', path: '/emendation_boxes' },
-        { title: 'Jumpers', path: '/jumpers' },
-        { title: 'Postes', path: '/Posts' },
-        { title: 'NoBreaks', path: '/NoBreaks' },
-        { title: 'Cabos de Acesso', path: '/access_cables' },
-        { title: 'Mapa da Rede', path: '/map' },
-        { title: 'Switch', path: '/switches' },
-        { title: 'Switch Slot', path: '/switchslots' },
-        { title: 'Trechos de Cabo', path: '/cable_stretch' },
-        { title: 'Registrar Usuário', path: '/register' },
-      ],
       right: null,
-      admin_items: [
-        { title: 'Groups', path: '/groups' },
+      categories: [
+        { action: 'menu_action',
+          title: 'Área Técnica',
+          active: true,
+          items: [
+            { title: 'IPAs', path: '/ipas' },
+            { title: 'Sites', path: '/sites' },
+            { title: 'Contatos', path: '/contacts' },
+            { title: 'Reservas Técnicas', path: '/technical_reserves' },
+            { title: 'DGOs', path: '/dgos' },
+            { title: 'Uplink', path: '/Uplink' },
+            { title: 'Segmentos', path: '/segments' },
+            { title: 'Mapa da Rede', path: '/map' },
+          ],
+        },
+        { action: 'other_menu_action',
+          title: 'Outros',
+          active: true,
+          items: [
+            { title: 'Caixas Subterrâneas', path: '/undergroundboxes' },
+            { title: 'Caixas de Emenda', path: '/emendation_boxes' },
+            { title: 'Jumpers', path: '/jumpers' },
+            { title: 'Postes', path: '/Posts' },
+            { title: 'NoBreaks', path: '/NoBreaks' },
+            { title: 'Cabos de Acesso', path: '/access_cables' },
+            { title: 'Trechos de Cabo', path: '/cable_stretch' },
+          ],
+        },
+        { action: 'admin_menu_action',
+          title: 'Admin',
+          active: true,
+          items: [
+            { title: 'Registrar Usuário', path: '/register' },
+            { title: 'Groups', path: '/groups' },
+          ],
+        },
       ],
     };
   },
