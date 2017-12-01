@@ -128,6 +128,7 @@ export default {
   },
   created() {
     this.$store.dispatch('changePage', 1);
+    this.$store.dispatch('setSearch', '');
   },
 };
 
