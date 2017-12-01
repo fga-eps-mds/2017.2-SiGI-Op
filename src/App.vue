@@ -33,7 +33,9 @@
       <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
       <v-spacer></v-spacer>
       <v-if></v-if>
+      <router-link to="/profiles">
       <v-btn flat v-if="current_username !== 'null'">Perfil ({{ current_username }})</v-btn>
+      </router-link>
       <v-btn flat v-if="current_username !== 'null'"@click="sign_out">Sair ({{ current_username }})</v-btn>
       <v-menu offset-y>
         <v-btn icon @click.native="show = !show" dark slot="activator">
