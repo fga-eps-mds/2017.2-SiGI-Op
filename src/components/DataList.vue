@@ -6,11 +6,12 @@
           label="Search"
           single-line
           hide-details
-          v-model="search"
+          v-model="NewSearch"
+          @keyup.enter="InputSearch"
        ></v-text-field>
      </v-flex>
     <v-data-table :headers="headers" :items="objects" class="elevation-1"
-                  v-bind:search="search" hide-actions>
+                   hide-actions>
       <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
@@ -48,7 +49,7 @@ export default {
   components: { Delete, Update },
   data() {
     return {
-      search: '',
+      NewSearch: this.search,
       totalItems: 0,
       disabled: false,
       disabled1: true,
@@ -61,12 +62,17 @@ export default {
       }
     },
     nextPage() {
-      if (this.$store.getters.currentPage !== Math.ceil(this.$store.getters.objects.count / 2)) {
+      if (this.$store.getters.currentPage !== Math.ceil(this.$store.getters.objects.count / 10)) {
         this.$store.dispatch('changePage', this.$store.getters.currentPage + 1);
       }
     },
     inputPage(i) {
       this.$store.dispatch('changePage', i);
+    },
+    InputSearch() {
+      this.$store.dispatch('setSearch', this.NewSearch);
+      this.$store.dispatch('changePage', 1);
+      this.$store.dispatch('getObjects');
     },
   },
   computed: {
@@ -86,11 +92,14 @@ export default {
     selectitems() {
       return this.$store.getters.selectitems;
     },
+    search() {
+      return this.$store.getters.search;
+    },
     totalPages() {
-      if (Math.ceil(this.$store.getters.objects.count / 2) <= 0) {
+      if (Math.ceil(this.$store.getters.objects.count / 10) <= 0) {
         return 1;
       }
-      return Math.ceil(this.$store.getters.objects.count / 2);
+      return Math.ceil(this.$store.getters.objects.count / 10);
     },
     page() {
       if (this.totalPages < this.$store.getters.currentPage) {
@@ -116,6 +125,7 @@ export default {
   },
   created() {
     this.$store.dispatch('changePage', 1);
+    this.$store.dispatch('setSearch', '');
   },
 };
 

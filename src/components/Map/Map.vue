@@ -15,10 +15,10 @@
        || (emendation_box_checkbox && m.label == 'emendation_box')
        || (underground_box_checkbox && m.label == 'underground_box')"
       :position="m.position"
-      :label="m.label"
       :title="m.title"
       :clickable="true"
       :draggable="false"
+      :icon="m.icon"
       @click="center=m.position"
     ></gmap-marker>
     <div v-for="polyline in polylines" :key="polyline">
@@ -31,16 +31,21 @@
           </gmap-polyline>
           </div>
         </div>
-    </div>        
+    </div>
   </gmap-map>
   </v-card>
   <v-card flat id="checklistMenu">
     <v-card-text>
       <subheader>Selecione para mostrar</subheader>
-      <v-checkbox color="primary" label="Sites" v-model="site_checkbox" light></v-checkbox>
-      <v-checkbox color="primary" label="Reservas Tecnicas" v-model="technical_reserve_checkbox" light></v-checkbox>
+      <v-checkbox color="primary" label="Sites" v-model="site_checkbox" light></v-checkbox><img src="https://i.imgur.com/WPTh4cI.png"/>
+      
+      <v-checkbox color="primary" label="Reservas Tecnicas" v-model="technical_reserve_checkbox" light></v-checkbox><img src="https://i.imgur.com/hzgQpkB.png">
+      
       <v-checkbox color="primary" label="Caixas de Emenda" v-model="emendation_box_checkbox" light></v-checkbox>
-      <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox>
+      <img src="https://i.imgur.com/xx2pMQT.png">
+      
+      <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox><img src="https://i.imgur.com/aR2HQNS.png">     
+  
       <v-checkbox color="primary" label="Segmentos" v-model="segment_box_checkbox" @click="getSitesIds()" light></v-checkbox>
     </v-card-text>
   </v-card>
@@ -180,12 +185,33 @@ export default {
     addMarkers() {
       for (let i = 0; i < Object.keys(this.objects).length; i += 1) {
         for (let j = 0; j < Object.values(this.objects)[i].length; j += 1) {
+          const label = Object.keys(this.objects)[i];
+          let image;
+          switch (label) {
+            case 'site':
+              image = 'https://i.imgur.com/WPTh4cI.png';
+              break;
+            case 'emendation_box':
+              image = 'https://i.imgur.com/xx2pMQT.png';
+              break;
+            case 'technical_reserve':
+              image = 'https://i.imgur.com/hzgQpkB.png';
+              break;
+            case 'underground_box':
+              image = 'https://i.imgur.com/aR2HQNS.png';
+              break;
+            default:
+              break;
+          }
           if (Object.values(this.objects)[i] !== 'segments') {
             this.markers.push({
               title: Object.values(this.objects)[i][j].name.toString(),
               label: Object.keys(this.objects)[i],
               position: { lat: Object.values(this.objects)[i][j].lattitude,
                 lng: Object.values(this.objects)[i][j].longitude },
+              icon: {
+                url: image,
+              },
             });
           }
         }

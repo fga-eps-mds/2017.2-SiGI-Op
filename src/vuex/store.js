@@ -133,6 +133,10 @@ export const mutations = {
     const thisState = state;
     thisState.currentPage = pageNumber;
   },
+  SET_SEARCH(state, search) {
+    const thisState = state;
+    thisState.search = search;
+  },
 };
 
 export const getters = {
@@ -140,6 +144,7 @@ export const getters = {
   headers: state => state.headers,
   objects: state => state.objects,
   currentPage: state => state.currentPage,
+  search: state => state.search,
   selectitems: state => state.selectitems,
   alert: state => state.alert,
   errors: state => state.errors,
@@ -150,6 +155,7 @@ export const state = {
   headers: [],
   objects: [],
   currentPage: 1,
+  search: '',
   selectitems: {},
   alert: false,
   errors: [],
@@ -157,7 +163,7 @@ export const state = {
 
 export const actions = {
   getObjects({ commit }) {
-    HTTP.get(''.concat(state.name, 's/?page=', state.currentPage))
+    HTTP.get(''.concat(state.name, 's/?search=', state.search, '&page=', state.currentPage))
     .then((response) => {
       commit('GET_OBJECTS', response.data);
     })
@@ -217,6 +223,9 @@ export const actions = {
     setTimeout(() => {
       dispatch('getObjects');
     }, 500);
+  },
+  setSearch({ commit }, search) {
+    commit('SET_SEARCH', search);
   },
 };
 
