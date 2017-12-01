@@ -125,6 +125,8 @@ export default {
         });
     },
     clear() {
+      this.name = localStorage.getItem('username');
+      this.email = localStorage.getItem('email');
       this.edit = false;
       this.e1 = true;
       this.e2 = true;
@@ -143,7 +145,6 @@ export default {
       }
     },
     cancel() {
-      this.post();
       this.clear();
     },
   },
