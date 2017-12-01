@@ -27,9 +27,11 @@ import NoBreak from './components/NoBreaks/NoBreak';
 import GBIC from './components/GBIC/GBIC';
 import AccessCables from './components/AccessCables/AccessCables';
 import Map from './components/Map/Map';
+import SwitchSlots from './components/SwitchSlot/SwitchSlot';
 import Groups from './components/Groups/Groups';
 import CableStretch from './components/CableStretch/CableStretch';
 import Profile from './components/Profile/Profile';
+
 
 Vue.use(VueRouter);
 
@@ -57,6 +59,7 @@ const routes = [
   { path: '/jumpers', component: Jumper, name: 'jumpers' },
   { path: '/access_cables', component: AccessCables, name: 'access-cables' },
   { path: '/map', component: Map, name: 'map' },
+  { path: '/switchslots', component: SwitchSlots, name: 'slots' },
   { path: '/groups', component: Groups, name: 'groups' },
   { path: '/cable_stretch', component: CableStretch, name: 'cable_stretch' },
   { path: '/profiles', component: Profile, name: 'profiles' },
@@ -76,7 +79,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuth = localStorage.getItem('Token') !== 'null';
+  const isAuth = localStorage.getItem('Token') !== 'null' && localStorage.getItem('Token') !== null;
 
   if (to.name !== 'login' && !isAuth) {
     next({ name: 'login' });
