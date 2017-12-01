@@ -6,11 +6,12 @@
           label="Search"
           single-line
           hide-details
-          v-model="search"
+          v-model="NewSearch"
+          @keyup.enter="InputSearch"
        ></v-text-field>
      </v-flex>
     <v-data-table :headers="headers" :items="objects" class="elevation-1"
-                  v-bind:search="search" hide-actions>
+                   hide-actions>
       <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
@@ -51,7 +52,7 @@ export default {
   components: { Delete, Update },
   data() {
     return {
-      search: '',
+      NewSearch: this.search,
       totalItems: 0,
       disabled: false,
       disabled1: true,
@@ -71,6 +72,11 @@ export default {
     inputPage(i) {
       this.$store.dispatch('changePage', i);
     },
+    InputSearch() {
+      this.$store.dispatch('setSearch', this.NewSearch);
+      this.$store.dispatch('changePage', 1);
+      this.$store.dispatch('getObjects');
+    },
   },
   computed: {
     name() {
@@ -88,6 +94,9 @@ export default {
     },
     selectitems() {
       return this.$store.getters.selectitems;
+    },
+    search() {
+      return this.$store.getters.search;
     },
     totalPages() {
       if (Math.ceil(this.$store.getters.objects.count / 10) <= 0) {
@@ -119,6 +128,7 @@ export default {
   },
   created() {
     this.$store.dispatch('changePage', 1);
+    this.$store.dispatch('setSearch', '');
   },
 };
 
