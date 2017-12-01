@@ -3,9 +3,16 @@
     <h4> User profile </h4>
     <div id="editprofile" v-if="edit">
         <v-container>
+          <v-alert error
+          :value="alert"
+          hide-icon
+          transition="scale-transition">
+            Falha ao alterar dados do usuário: {{name}}. É necessário que a senha atual seja inserida.
+          </v-alert>
           <v-layout row>
             <v-flex xs12 sm12 offset-sm>
               <v-card>
+
                 <v-card-text class="profile">
                   <v-flex xs6>
                   <v-container>
@@ -14,12 +21,10 @@
                       label="Name"
                       v-model="name"
                       :counter="30"
-                      required
                     ></v-text-field>
                     <v-text-field
                       label="E-mail"
                       v-model="email"
-                      required
                     ></v-text-field>
                     <v-text-field
                       label="Current Password"
@@ -48,7 +53,7 @@
                  </v-card-text>
                  <v-card-actions>
                    <v-spacer></v-spacer>
-                   <v-btn class="blue--text darken-1" flat="flat" @click="edit=false">Cancel</v-btn>
+                   <v-btn class="blue--text darken-1" flat="flat" @click="cancel()">Cancel</v-btn>
                    <v-btn class="blue--text darken-1" @click.prevent="save()" flat="flat" >Save</v-btn>
                  </v-card-actions>
               </v-card>
@@ -91,21 +96,23 @@ export default {
   name: 'profile',
   data() {
     return {
+      pk: localStorage.getItem('pk'),
       name: localStorage.getItem('username'),
       email: localStorage.getItem('email'),
       currentpassword: '',
-      confirmpassword: '',
       password: '',
-      e1: false,
-      e2: false,
+      confirmpassword: '',
+      alert: false,
+      e1: true,
+      e2: true,
+      e3: true,
       edit: false,
-      e3: false,
     };
   },
   methods: {
     post() {
       HTTP.post('users/update', {
-        pk: localStorage.getItem('pk', null),
+        pk: this.pk,
         username: this.name,
         email: this.email,
         currentpassword: this.currentpassword,
@@ -114,16 +121,30 @@ export default {
         .then((response) => {
           localStorage.setItem('username', response.data.username);
           localStorage.setItem('email', response.data.email);
+          this.$router.go(this.$router.currentRoute);
         });
     },
+    clear() {
+      this.edit = false;
+      this.e1 = true;
+      this.e2 = true;
+      this.e3 = true;
+      this.alert = false;
+      this.currentpassword = '';
+      this.password = '';
+      this.confirmpassword = '';
+    },
     save() {
-      if (this.password === this.confirmpassword) {
+      if (this.password === this.confirmpassword && this.currentpassword !== '') {
         this.post();
-        this.edit = false;
-        this.e1 = false;
-        this.e2 = false;
-        this.e3 = false;
+        this.clear();
+      } else {
+        this.alert = true;
       }
+    },
+    cancel() {
+      this.post();
+      this.clear();
     },
   },
 };
