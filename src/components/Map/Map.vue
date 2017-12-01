@@ -85,8 +85,7 @@ export default {
       teste: [],
       polylines: [
         {
-          path: [
-          ],
+          path: [],
         },
       ],
     };
