@@ -1,4 +1,5 @@
 <template>
+
   <div id="gods">
     <modal></modal>
     <data-table></data-table>
@@ -6,10 +7,12 @@
 </template>
 
 <script>
+
 import Modal from '../Modal';
 import DataTable from '../DataList';
 
 export default {
+
   name: 'dgo',
   data() {
     return {
