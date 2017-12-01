@@ -82,7 +82,7 @@ export default {
       this.dialog = false;
       this.$store.dispatch('toggleAlert', false);
       for (let i = 0; i < this.headers.length; i += 1) {
-        this.headers[i].value = '';
+        this.headers[i].value = undefined;
       }
     },
     update() {

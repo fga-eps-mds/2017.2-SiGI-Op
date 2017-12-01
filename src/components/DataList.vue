@@ -15,9 +15,6 @@
       <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
-            <p v-if="selectitems.hasOwnProperty(key)">
-              {{ item | showText(key, selectitems)}}
-            </p>
             <p v-if="!selectitems.hasOwnProperty(key)">
               {{ item }}
             </p>

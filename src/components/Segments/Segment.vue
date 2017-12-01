@@ -15,10 +15,14 @@ export default {
     return {
       name: 'segment',
       headers: [
-        { text: 'ID', name: 'id', type: 'id', value: '' },
-        { text: 'Cable Length', name: 'length', type: 'number', value: '' },
-        { text: 'Segment Number', name: 'number', type: 'number', value: '' },
-        { text: 'Cable Stretch Quantity', name: 'cable_stretch_quantity', type: 'slider', value: '' },
+        { text: 'ID', name: 'id', type: 'id', value: undefined },
+        { text: 'Cable Length', name: 'length', type: 'number', value: undefined },
+        { text: 'Segment Number', name: 'number', type: 'number', value: undefined },
+        { text: 'Cable Stretch Quantity', name: 'cable_stretch_quantity', type: 'slider', value: undefined },
+        { text: 'DGO - Begin', name: 'dgos', type: 'select', value: undefined, item_name: 'dgo', itemText: 'code' },
+        { text: 'Emendation Box - Begin', name: 'emendation_boxes', type: 'select', value: undefined, item_name: 'emendation_boxe', itemText: 'designNumber' },
+        { text: 'DGO - End', name: 'dgos', type: 'select', value: undefined, item_name: 'dgo', itemText: 'code' },
+        { text: 'Emendation Box - End', name: 'emendation_boxes', type: 'select', value: undefined, item_name: 'emendation_boxe', itemText: 'designNumber' },
       ],
     };
   },
