@@ -118,6 +118,7 @@ export default {
     return {
       dialog: false,
       postObject: {},
+      ipaPk: '',
     };
   },
   methods: {
@@ -132,17 +133,13 @@ export default {
       }
     },
     register() {
-      let j = 0;
-
-      j = this.verifyCamps(0, 5);
-      this.sendObjects(1, 4, 'ipas', j);
-
-      j = 0;
-      j = this.verifyCamps(5, this.headers.length);
-      this.sendObjects(5, 11, 'contacts', j);
-
-      if (this.alert !== true) {
-        this.close();
+      let blankCamps = 0;
+      blankCamps = this.verifyCamps(0, 5);
+      this.sendObjects(1, 5, 'ipas', blankCamps);
+      if (this.headers[5].value !== '') {
+        blankCamps = 0;
+        blankCamps = this.verifyCamps(5, this.headers.length);
+        this.sendObjects(5, this.headers.length, 'contacts', blankCamps);
       }
     },
     verifyCamps(begin, end) {
@@ -155,10 +152,8 @@ export default {
       return blankCamps;
     },
     visibilityInverter() {
-      for (let i = 5; i <= this.headers.length; i += 1) {
-        if (this.headers[i].name !== 'ipa_code') {
-          this.headers[i].visibility = !(this.headers[i].visibility);
-        }
+      for (let i = 5; i <= this.headers.length - 2; i += 1) {
+        this.headers[i].visibility = !(this.headers[i].visibility);
       }
     },
     sendObjects(begin, end, modelURL, blankCamps) {
@@ -167,15 +162,20 @@ export default {
         this.dialog = true;
       } else {
         this.postObject = {};
-        for (let i = begin; i <= end; i += 1) {
+        for (let i = begin; i < end; i += 1) {
           if (this.headers[i].name !== 'ipa_code') {
             this.postObject[this.headers[i].name] = this.headers[i].value;
           } else {
-            this.postObject[this.headers[i].name] = this.headers[0].value;
+            this.postObject[this.headers[i].name] = this.ipaPk.id;
           }
         }
         HTTP.post(''.concat(modelURL, '/'), this.postObject)
-          .then()
+          .then((response) => {
+            setTimeout(console.log('ipaPk'), 5000);
+            this.ipaPk = response.data;
+            console.log('ipaPk');
+            console.log(this.ipaPk.id);
+          })
           .catch(() => {
           });
       }
