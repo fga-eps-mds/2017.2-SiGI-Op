@@ -1,6 +1,7 @@
 <template>
   <div id="gods">
     <modal></modal>
+    <fabricant></fabricant>
     <data-table></data-table>
   </div>
 </template>
@@ -8,6 +9,7 @@
 <script>
 import Modal from '../Modal';
 import DataTable from '../DataList';
+import Fabricant from './Fabricant';
 
 export default {
   name: 'dgo',
@@ -30,7 +32,7 @@ export default {
       ],
     };
   },
-  components: { Modal, DataTable },
+  components: { Modal, DataTable, Fabricant },
   created() {
     this.$store.dispatch('setNewName', this.name);
     this.$store.dispatch('setNewHeaders', this.headers);
