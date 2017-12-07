@@ -18,7 +18,7 @@
          <v-container grid-list-md>
            <form>
              <v-layout row v-for="head in headers" :key="head.id">
-               <v-flex xs12 v-if="head.text != 'ID'">
+               <v-flex xs12 v-if="head.text != 'ID' && head.visibility != false">
                  <v-text-field
                   v-if="head.type === 'number'"
                   :label="head.text"
@@ -68,12 +68,14 @@
 </template>
 
 <script>
+import HTTP from '../http-common';
 
 export default {
   props: ['item'],
   data() {
     return {
       dialog: false,
+      updatedObject: {},
     };
   },
   methods: {
@@ -86,6 +88,24 @@ export default {
       }
     },
     update() {
+      if (this.headers[2].name === 'institution_type') {
+        const blankCamps = this.verifyCamps(0, 5);
+        if (blankCamps > 0) {
+          this.$store.dispatch('toggleAlert', true);
+          this.dialog = true;
+        } else {
+          for (let i = 1; i < 5; i += 1) {
+            this.updatedObject[this.headers[i].name] = this.headers[i].value;
+          }
+          HTTP.put(''.concat('ipas', '/', this.item.id, '/'), this.updatedObject)
+            .then()
+            .catch(() => {
+            });
+          if (this.alert !== true) {
+            this.close();
+          }
+        }
+      }
       let j = 0;
       for (let i = 1; i < this.headers.length; i += 1) {
         if (this.headers[i].value === '' && this.headers[i].required) {
@@ -113,6 +133,15 @@ export default {
     },
     fill() {
       this.$store.dispatch('fillUpdateFields', this.item);
+    },
+    verifyCamps(begin, end) {
+      let blankCamps = 0;
+      for (let i = begin; i < end; i += 1) {
+        if (this.headers[i].value === '' && this.headers[i].required) {
+          blankCamps += 1;
+        }
+      }
+      return blankCamps;
     },
   },
   computed: {
