@@ -7,7 +7,7 @@
        :value="alert"
        hide-icon
        transition="scale-transition">
-         Failed to regiter the {{name}}. Please, verify if you filled correctly the fields.
+         Failed to regiter the Fabricant. Please, verify if you filled correctly the fields.
        </v-alert>
        <v-card-title>
          <span class="headline"> Register {{ 'Fabricant' | capitalize }} </span>
@@ -19,7 +19,8 @@
                 <v-flex xs12>
                   <v-text-field
                     label="Name"
-                    v-model="description">
+                    v-model="description"
+                    :rules="[() => !!description || 'This field is required.']">
                   </v-text-field>
                 </v-flex>
               </v-layout>
@@ -40,11 +41,9 @@
 import HTTP from '../../http-common';
 
 export default {
-  name: 'god_fabricant',
   description: '',
   data() {
     return {
-      name: 'god_fabricant',
       description: '',
       dialog: false,
     };

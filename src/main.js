@@ -8,6 +8,7 @@ import store from './vuex/store';
 import App from './App';
 import Dgo from './components/Dgo/Dgo';
 import FabricantList from './components/Dgo/FabricantList';
+import DGOModelList from './components/Dgo/DGOModelList';
 import GODPort from './components/GODPort/GODPort';
 import Site from './components/Sites/Site';
 import Ipas from './components/Ipas/Ipas';
@@ -64,7 +65,8 @@ const routes = [
   { path: '/groups', component: Groups, name: 'groups' },
   { path: '/cable_stretch', component: CableStretch, name: 'cable_stretch' },
   { path: '/profiles', component: Profile, name: 'profiles' },
-  { path: '/god_fabricants', component: FabricantList, name: 'god-fabricants' },
+  { path: '/god_fabricants', component: FabricantList, name: 'god_fabricants' },
+  { path: '/god_fabricant_models', component: DGOModelList, name: 'god_fabricant_models' },
 ];
 
 Vue.use(Vuetify);
