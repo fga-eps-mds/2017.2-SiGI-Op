@@ -132,14 +132,14 @@ export default {
         this.headers[i].value = '';
       }
     },
-    register() {
+    async register() {
       let blankCamps = 0;
       blankCamps = this.verifyCamps(0, 5);
-      this.sendObjects(1, 5, 'ipas', blankCamps);
+      await this.sendObjects(1, 5, 'ipas', blankCamps);
       if (this.headers[5].value !== '') {
         blankCamps = 0;
         blankCamps = this.verifyCamps(5, this.headers.length);
-        this.sendObjects(5, this.headers.length, 'contacts', blankCamps);
+        await this.sendObjects(5, this.headers.length, 'contacts', blankCamps);
       }
     },
     verifyCamps(begin, end) {
@@ -156,7 +156,8 @@ export default {
         this.headers[i].visibility = !(this.headers[i].visibility);
       }
     },
-    sendObjects(begin, end, modelURL, blankCamps) {
+    async sendObjects(begin, end, modelURL, blankCamps) {
+      console.log('vem vem vem neguin');
       if (blankCamps > 0) {
         this.$store.dispatch('toggleAlert', true);
         this.dialog = true;
@@ -169,15 +170,15 @@ export default {
             this.postObject[this.headers[i].name] = this.ipaPk.id;
           }
         }
-        HTTP.post(''.concat(modelURL, '/'), this.postObject)
-          .then((response) => {
-            setTimeout(console.log('ipaPk'), 5000);
-            this.ipaPk = response.data;
-            console.log('ipaPk');
-            console.log(this.ipaPk.id);
-          })
-          .catch(() => {
-          });
+        try {
+          if (modelURL === 'contacts') {
+            this.postObject.ipa_code = this.ipaPk.id;
+          }
+          const data = await HTTP.post(''.concat(modelURL, '/'), this.postObject);
+          this.ipaPk = data.data;
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
   },
