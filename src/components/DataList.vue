@@ -80,7 +80,14 @@ export default {
       return this.$store.getters.name;
     },
     headers() {
-      return this.$store.getters.headers;
+      const headersList = this.$store.getters.headers;
+      const visibleHeaders = [];
+      for (let i = 0; i < headersList.length; i += 1) {
+        if (headersList[i].visibility !== false) {
+          visibleHeaders.push(headersList[i]);
+        }
+      }
+      return visibleHeaders;
     },
     objects() {
       return this.$store.getters.objects.results;

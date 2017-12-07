@@ -30,7 +30,7 @@ export default {
         { text: 'Contact Name', type: 'text', name: 'name', value: '', visibility: false },
         { text: 'Contact Phone', type: 'text', name: 'phone_number', value: '', visibility: false },
         { text: 'Contact Email', type: 'text', name: 'email', value: '', visibility: false },
-        { text: 'Contact Priority', type: 'text', name: 'priority', value: '', visibility: false },
+        { text: 'Contact Priority', type: 'number', name: 'priority', value: '', visibility: false },
         {
           text: 'Contact Type',
           type: 'select',

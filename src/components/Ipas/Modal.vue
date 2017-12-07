@@ -141,6 +141,10 @@ export default {
         blankCamps = this.verifyCamps(5, this.headers.length);
         await this.sendObjects(5, this.headers.length, 'contacts', blankCamps);
       }
+      if (this.alert !== true) {
+        this.close();
+      }
+      this.$store.dispatch('getObjects');
     },
     verifyCamps(begin, end) {
       let blankCamps = 0;
