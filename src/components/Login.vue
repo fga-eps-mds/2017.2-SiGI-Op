@@ -18,6 +18,7 @@
                                       <v-flex xs12>
                                         </v-alert>
                                         <v-text-field
+                                        name="user-login"
                                         label="Usuario"
                                         v-model="name"
                                         single-line>
@@ -27,6 +28,7 @@
                                   <v-layout row>
                                     <v-flex xs12>
                                       <v-text-field
+                                      name="user-password"
                                       label="Senha"
                                       v-model="password"
                                       type="password"
