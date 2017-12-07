@@ -15,6 +15,7 @@ export default {
     return {
       name: 'god_fabricant',
       headers: [
+        { text: 'ID', type: 'id', value: '' },
         { text: 'Nome', type: 'text', name: 'description', value: '' },
       ],
     };

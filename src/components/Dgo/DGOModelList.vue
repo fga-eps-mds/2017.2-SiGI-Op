@@ -15,15 +15,10 @@ export default {
     return {
       name: 'god_fabricant_model',
       headers: [
-        {
-          text: 'Fabricant',
-          type: 'select',
-          name: 'fabricant_id',
-          item_name: 'god_fabricant',
-          itemText: 'description',
-        },
-        { text: 'Name', type: 'text', name: 'name', value: '' },
-        { text: 'Number of ports', type: 'int-num', name: 'port_quantity', value: '' },
+        { text: 'ID', type: 'id', value: '' },
+        { text: 'Fabricant', name: 'fabricant_id', type: 'select', value: undefined, item_name: 'god_fabricant', itemText: 'description' },
+        { text: 'Name', type: 'text', name: 'name', value: undefined },
+        { text: 'Number of ports', type: 'int-num', name: 'port_quantity', value: undefined },
       ],
     };
   },

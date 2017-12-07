@@ -64,6 +64,9 @@ export default {
       .catch((e) => {
         this.errors.push(e);
       });
+      setTimeout(() => {
+        this.close();
+      }, 500);
     },
   },
   created() {

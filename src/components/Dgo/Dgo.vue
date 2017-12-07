@@ -11,7 +11,7 @@
          Failed to regiter the {{name}}. Please, verify if you filled correctly the fields.
        </v-alert>
        <v-card-title>
-         <span class="headline"> Register {{ 'Fabricant' | capitalize }} </span>
+         <span class="headline"> Register {{ 'DGO' | capitalize }} </span>
        </v-card-title>
        <v-card-text>
          <v-container grid-list-md>
@@ -23,7 +23,7 @@
                     v-model="code">
                   </v-text-field>
                   <v-layout row> 
-                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" item-text="description" v-on:change="getGODModel()" bottom></v-select> 
+                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" item-text="description"  v-on:change="getGODModel(fabricant.id)" bottom></v-select> 
                     <fabricant></fabricant>
                   </v-layout>
                   <v-select v-bind:items="models" v-model="god_model" label="DGO Model" item-text="name" bottom></v-select>
@@ -63,12 +63,17 @@ export default {
       fabricants: [],
       models: [],
       sites: [],
+      errors: [],
       headers: [
         { text: 'ID', type: 'id', value: '' },
-
         { text: 'Código do DGO', type: 'number', name: 'code', value: '' },
-        { text: 'Fabricante', type: 'text', name: 'fabricant', value: '' },
-        { text: 'Quantidade de Portas', type: 'number', name: 'port_quantity', value: '' },
+        {
+          text: 'Modelo do DGO',
+          type: 'select',
+          name: 'god_model',
+          item_name: 'god_fabricant_model',
+          itemText: 'name',
+        },
         {
           text: 'Site',
           type: 'select',
@@ -88,6 +93,21 @@ export default {
       this.code = '';
       this.fabricant = '';
     },
+    register() {
+      HTTP.post('/dgos/', {
+        code: this.code,
+        god_model: this.god_model.id,
+        site_id: this.site_id.id,
+      })
+      .then()
+      .catch((e) => {
+        this.errors.push(e);
+      });
+      setTimeout(() => {
+        this.close();
+        this.$store.dispatch('getObjects');
+      }, 500);
+    },
     getSites() {
       HTTP.get('/sites/?all=1')
         .then((response) => {
@@ -106,9 +126,8 @@ export default {
           this.errors.push(e);
         });
     },
-    getGODModel() {
-      console.log(this.fabricant);
-      HTTP.get('/god_fabricants/?search='.concat(this.fabricant.id, '?all=1'))
+    getGODModel(fabr) {
+      HTTP.get('/god_fabricant_models/?search='.concat(fabr, '&all=1'))
         .then((response) => {
           this.models = response.data;
         })
