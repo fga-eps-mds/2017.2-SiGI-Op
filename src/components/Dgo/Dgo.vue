@@ -20,14 +20,16 @@
                 <v-flex xs12>
                   <v-text-field
                     label="DGO Code"
-                    v-model="code">
+                    :rules="[rules.notNull]"
+                    v-model="code"
+                    type="number">
                   </v-text-field>
-                  <v-layout row> 
-                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" item-text="description"  bottom></v-select> 
+                  <v-layout row>
+                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" :rules="[rules.notNull]" item-text="description"  bottom></v-select>
                     <fabricant v-on:registerFab="getFabricants()" ></fabricant>
                   </v-layout>
-                  <v-select v-bind:items="models" v-model="god_model" label="DGO Model" item-text="name" bottom></v-select>
-                  <v-select v-bind:items="sites" v-model="site_id" label="Site" item-text="name" bottom></v-select>
+                  <v-select v-bind:items="models" v-model="god_model" label="DGO Model" :rules="[rules.notNull]" item-text="name" bottom></v-select>
+                  <v-select v-bind:items="sites" v-model="site_id" label="Site" :rules="[rules.notNull]" item-text="name" bottom></v-select>
                 </v-flex>
               </v-layout>
            </form>
@@ -82,6 +84,15 @@ export default {
           itemText: 'name',
         },
       ],
+      rules: {
+        notNull(value) {
+          console.log('validating value');
+          if (!value) {
+            return 'This field is required.';
+          }
+          return true;
+        },
+      },
     };
   },
   methods: {
