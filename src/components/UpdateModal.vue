@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import HTTP from '../http-common';
 
 export default {
   props: ['item'],
@@ -88,24 +87,6 @@ export default {
       }
     },
     update() {
-      if (this.headers[2].name === 'institution_type') {
-        const blankCamps = this.verifyCamps(0, 5);
-        if (blankCamps > 0) {
-          this.$store.dispatch('toggleAlert', true);
-          this.dialog = true;
-        } else {
-          for (let i = 1; i < 5; i += 1) {
-            this.updatedObject[this.headers[i].name] = this.headers[i].value;
-          }
-          HTTP.put(''.concat('ipas', '/', this.item.id, '/'), this.updatedObject)
-            .then()
-            .catch(() => {
-            });
-          if (this.alert !== true) {
-            this.close();
-          }
-        }
-      }
       let j = 0;
       for (let i = 1; i < this.headers.length; i += 1) {
         if (this.headers[i].value === '' && this.headers[i].required) {

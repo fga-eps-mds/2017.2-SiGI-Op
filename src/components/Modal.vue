@@ -1,6 +1,6 @@
 <template>
   <div class="segment">
-    <v-dialog v-model="dialog" persistent width="50%">
+    <v-dialog v-model="dialog" fullscreen persistent width="50%">
      <v-btn primary dark slot="activator">Register {{ name | capitalize}}</v-btn>
      <v-card>
        <v-alert error
