@@ -23,8 +23,8 @@
                     v-model="code">
                   </v-text-field>
                   <v-layout row> 
-                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" item-text="description"  v-on:change="getGODModel(fabricant.id)" bottom></v-select> 
-                    <fabricant></fabricant>
+                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" item-text="description"  bottom></v-select> 
+                    <fabricant v-on:registerFab="getFabricants()" ></fabricant>
                   </v-layout>
                   <v-select v-bind:items="models" v-model="god_model" label="DGO Model" item-text="name" bottom></v-select>
                   <v-select v-bind:items="sites" v-model="site_id" label="Site" item-text="name" bottom></v-select>
@@ -134,6 +134,11 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+  },
+  watch: {
+    fabricant() {
+      this.getGODModel(this.fabricant.id);
     },
   },
   components: { Modal, DataTable, Fabricant },

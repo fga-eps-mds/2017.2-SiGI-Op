@@ -66,6 +66,7 @@ export default {
       });
       setTimeout(() => {
         this.close();
+        this.$emit('registerFab');
       }, 500);
     },
   },
