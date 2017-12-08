@@ -22,13 +22,13 @@
                     label="DGO Code"
                     :rules="[rules.notNull]"
                     v-model="code"
-                    type="number">
+                  >
                   </v-text-field>
                   <v-layout row>
                     <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" :rules="[rules.notNull]" item-text="description"  bottom></v-select>
                     <fabricant v-on:registerFab="getFabricants()" ></fabricant>
                   </v-layout>
-                  <v-select v-bind:items="models" v-model="god_model" label="DGO Model" :rules="[rules.notNull]" item-text="name" bottom></v-select>
+                  <v-select v-if="fabricant && models.length>0" v-bind:items="models" v-model="god_model" label="DGO Model" :rules="[rules.notNull]" item-text="name" bottom></v-select>
                   <v-select v-bind:items="sites" v-model="site_id" label="Site" :rules="[rules.notNull]" item-text="name" bottom></v-select>
                 </v-flex>
               </v-layout>
@@ -68,7 +68,7 @@ export default {
       errors: [],
       headers: [
         { text: 'ID', type: 'id', value: '' },
-        { text: 'Código do DGO', type: 'number', name: 'code', value: '' },
+        { text: 'Código do DGO', type: 'text', name: 'code', value: '' },
         {
           text: 'Modelo do DGO',
           type: 'select',
@@ -138,6 +138,7 @@ export default {
         });
     },
     getGODModel(fabr) {
+      this.god_model = '';
       HTTP.get('/god_fabricant_models/?search='.concat(fabr, '&all=1'))
         .then((response) => {
           this.models = response.data;
