@@ -9,15 +9,14 @@
               <h6>Tipo IPA: {{ipaType.description}}</h6>
             </div>
             <div v-for="site in sites" :key="site" v-if="site.ipa_code === ipa.id">
-              <h6 style="padding-left:25px;">Sítio: {{site.name}}</h6>
+              <h6 style="padding-left:25px;">Nome Sítio: {{site.name}}</h6>
               <div v-for="siteType in sitesType" :key="siteType" v-if="site.site_type === siteType.id">
                 <h6 style="padding-left:50px;">Tipo Sítio: {{siteType.description}}</h6>
               </div>
-              <div v-for="dgo in dgos" :key="dgo" v-if="site.id === dgo.site_id">
-                <div v-for="segment in segments" :key="segment" v-if="segment.dgos.contains(dgo.id)">
+              <div v-for="dgo in dgos" :key="dgo" v-if="dgo.site_id === site.id">
+                <div v-for="segment in segments" :key="segment" v-if="itContainsKey(dgo.id, segment.dgos) === true">
                   <h6 style="padding-left:50px;">Segmento: {{segment.number}}</h6>
                 </div>
-                <h6 style="padding-left:50px;">Tipo Sítio: {{siteType.description}}</h6>
               </div>
             </div>
             <div v-for="contact in contacts" :key="contact" v-if="contact.ipa_code === ipa.id">
@@ -98,20 +97,26 @@ export default {
           });
     },
     getSegments() {
-      HTTP.get('segments/')
-          .then((response) => {
-            this.segments = response.data.results;
-          });
       HTTP.get('dgos/')
           .then((response) => {
             this.dgos = response.data.results;
             console.log(response.data.results);
+          });
+      HTTP.get('segments/')
+          .then((response) => {
+            this.segments = response.data.results;
           });
       HTTP.get('emendation_boxes/')
           .then((response) => {
             this.emendationBoxes = response.data.results;
             console.log(response.data.results);
           });
+    },
+    itContainsKey(id, arr) {
+      if (arr.indexOf(id) !== -1) {
+        return true;
+      }
+      return false;
     },
     click: function click(event) { // eslint-disable-line no-unused-vars
       doc.fromHTML(this.$refs.report.innerHTML, 15, 15, {
@@ -125,6 +130,7 @@ export default {
     this.getIpa();
     this.getSite();
     this.getContacts();
+    this.getSegments();
   },
 };
 </script>

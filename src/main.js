@@ -31,6 +31,7 @@ import SwitchSlots from './components/SwitchSlot/SwitchSlot';
 import Groups from './components/Groups/Groups';
 import CableStretch from './components/CableStretch/CableStretch';
 import Report from './components/Ipas/Report';
+import Profile from './components/Profile/Profile';
 
 
 Vue.use(VueRouter);
@@ -63,6 +64,7 @@ const routes = [
   { path: '/groups', component: Groups, name: 'groups' },
   { path: '/cable_stretch', component: CableStretch, name: 'cable_stretch' },
   { path: '/report', component: Report, name: 'report' },
+  { path: '/profiles', component: Profile, name: 'profiles' },
 ];
 
 Vue.use(Vuetify);
