@@ -94,6 +94,7 @@ export default {
             { title: 'NoBreaks', path: '/NoBreaks' },
             { title: 'Cabos de Acesso', path: '/access_cables' },
             { title: 'Trechos de Cabo', path: '/cable_stretch' },
+            { title: 'Relatório', path: '/report' },
           ],
         },
         { action: 'admin_menu_action',
