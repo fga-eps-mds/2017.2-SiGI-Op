@@ -1,5 +1,5 @@
 <template>
-  <div class="ipa" ref="ipas">
+  <div class="ipa" ref="report">
       <h3>Relatorio</h3>
       <div v-for="ipa in ipas" :key="ipa"  align="left">
           <h5 style="font-weight: bold;">Instituicao Participante</h5>
@@ -17,13 +17,22 @@
             <br>
           </div>
       </div>
-      <v-btn class="blue--text darken-1" v-on:click.prevent="addHtml" flat="flat">Gerar PDF</v-btn>
-      {{this.els}}
+      <v-btn class="blue--text darken-1" v-on:click.prevent="click" flat="flat">Gerar PDF</v-btn>
   </div>
 </template>
 
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script>
+import * as JsPDF from 'jspdf';
 import HTTP from '../../http-common';
+
+const doc = new JsPDF();
+const specialElementHandlers = {
+  '#editor': function editor(element, renderer) { // eslint-disable-line no-unused-vars
+    return true;
+  },
+};
+global.jQuery = require('jquery');
 
 export default {
   name: 'ipa',
@@ -35,7 +44,6 @@ export default {
       sitesType: '',
       contacts: '',
       contactsType: '',
-      els: '',
     };
   },
   methods: {
@@ -50,9 +58,6 @@ export default {
             this.ipasType = response.data.results;
             console.log(response.data.results);
           });
-    },
-    addHtml() {
-      this.els = this.$refs.ipas.innerHTML; // Returns html of that page
     },
     getSite() {
       HTTP.get('sites/')
@@ -75,6 +80,13 @@ export default {
             this.contactsType = response.data.results;
             console.log(response.data.results);
           });
+    },
+    click: function click(event) { // eslint-disable-line no-unused-vars
+      doc.fromHTML(this.$refs.report.innerHTML, 15, 15, {
+        width: 170,
+        elementHandlers: specialElementHandlers,
+      });
+      doc.save('sample-file.pdf');
     },
   },
   created() {
