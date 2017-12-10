@@ -1,9 +1,12 @@
-// import moxios from 'moxios';
-// import { equal } from 'assert';
-
+import { mount } from 'vue-test-utils';
+import store from '@/vuex/store';
 import UndergroundBox from '../../../src/components/UndergroundBox/UndergroundBox';
 
 describe('UndergroundBox', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(UndergroundBox, { store });
+  });
   it('check default values', () => {
     expect(typeof UndergroundBox.data).to.equal('function');
     const defaultData = UndergroundBox.data();
@@ -15,5 +18,16 @@ describe('UndergroundBox', () => {
     expect(defaultData.headers[5].text).to.equal('Cover Type');
     expect(defaultData.headers[6].text).to.equal('Emendation Box');
     expect(defaultData.headers[7].text).to.equal('Technical Reserve');
+  });
+  it('check default UndergroundBox components', () => {
+    expect(typeof UndergroundBox.components).to.equal('object');
+  });
+
+  it('check default UndergroundBox creation', () => {
+    expect(typeof UndergroundBox.created).to.equal('function');
+  });
+  it('renders a div', () => {
+    expect(wrapper.contains('.segment')).to.equal(true);
+    expect(wrapper.contains('div')).to.equal(true);
   });
 });

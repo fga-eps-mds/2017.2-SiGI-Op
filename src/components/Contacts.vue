@@ -1,5 +1,5 @@
 <template>
-  <div id="contact">
+  <div class="contact">
     <modal></modal>
     <data-table></data-table>
   </div>
@@ -16,7 +16,6 @@ export default {
       name: 'contact',
       headers: [
         { text: 'ID', type: 'id', value: '' },
-
         { text: 'Name', type: 'text', name: 'name', value: '' },
         { text: 'Phone Number', type: 'number', name: 'phone_number', value: '' },
         { text: 'Email', type: 'text', name: 'email', value: '' },
