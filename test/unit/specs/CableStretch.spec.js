@@ -38,6 +38,7 @@ describe('CableStretch', () => {
     expect(typeof CableStretch.created).to.equal('function');
   });
   it('renders a div', () => {
+    expect(wrapper.contains('.segment')).to.equal(true);
     expect(wrapper.contains('div')).to.equal(true);
   });
 });

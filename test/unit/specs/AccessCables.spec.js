@@ -1,6 +1,12 @@
+import { mount } from 'vue-test-utils';
+import store from '@/vuex/store';
 import AccessCables from '../../../src/components/AccessCables/AccessCables';
 
 describe('AccessCables', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(AccessCables, { store });
+  });
   it('check default AccessCables values', () => {
     expect(typeof AccessCables.data).to.equal('function');
     const defaultData = AccessCables.data();
@@ -23,5 +29,9 @@ describe('AccessCables', () => {
 
   it('check default AccessCables creation', () => {
     expect(typeof AccessCables.created).to.equal('function');
+  });
+  it('renders a div', () => {
+    expect(wrapper.contains('.segment')).to.equal(true);
+    expect(wrapper.contains('div')).to.equal(true);
   });
 });
