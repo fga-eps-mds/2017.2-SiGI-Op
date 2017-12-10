@@ -68,11 +68,15 @@ export const mutations = {
 
   PUT_OBJECTS(state, id) {
     let i = 1;
+    let headersLength = state.headers.length;
     const thisState = state;
     const ObjectToPut = {};
     const dgos = [];
     const emendationBoxes = [];
-    for (i = 1; i < state.headers.length; i += 1) {
+    if (state.name === 'ipa') {
+      headersLength = 5;
+    }
+    for (i = 1; i < headersLength; i += 1) {
       if (state.headers[i].name === 'dgos') {
         if (state.headers[i].value !== undefined) {
           dgos.push(state.headers[i].value);

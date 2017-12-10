@@ -18,13 +18,13 @@
              <v-layout row v-for="head in headers" :key="head.id">
                <v-flex xs12 v-if="head.text != 'ID'">
                  <v-checkbox
-                  v-if="head.type === 'boolean'"
+                  v-if="head.type === 'boolean' && head.visibility != false"
                   :label="head.text"
                   :rules="[() => !!head.value || 'This field is required.']"
                   v-model="head.value">
                  </v-checkbox>
                  <v-slider
-                  v-if="head.type === 'slider'"
+                  v-if="head.type === 'slider' && head.visibility != false"
                   color="blue"
                   :label="head.text"
                   min="1"
@@ -34,14 +34,14 @@
                   :rules="[() => !!head.value || 'This field is required.']"
                   ></v-slider>
                  <v-text-field
-                  v-if="head.type === 'date'"
+                  v-if="head.type === 'date' && head.visibility != false"
                   :label="head.text"
                   type="date"
                   :rules="[() => !!head.value || 'This field is required.']"
                   v-model="head.value">
                  </v-text-field>
                  <v-text-field
-                  v-if="head.type === 'number'"
+                  v-if="head.type === 'number' && head.visibility != false"
                   :label="head.text"
                   :rules="[
                    () => !!head.value || 'This field is required.',
@@ -52,14 +52,14 @@
                   v-model="head.value" >
                  </v-text-field>
                  <v-text-field
-                  v-if="head.type === 'int-number'"
+                  v-if="head.type === 'int-number' && head.visibility != false"
                   :label="head.text"
                   :rules="[() => !!head.value || 'This field is required.',]"
                   type="int-number"
                   v-model="head.value" >
                  </v-text-field>
                  <v-select
-                  v-if="head.type === 'select'"
+                  v-if="head.type === 'select' && head.visibility != false"
                   :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
@@ -67,7 +67,7 @@
                   bottom>
                 </v-select>
                 <v-select
-                  v-if="head.type === 'checkbox'"
+                  v-if="head.type === 'checkbox' && head.visibility != false"
                   :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
@@ -85,13 +85,17 @@
                   head.type != 'boolean' &&
                   head.type != 'checkbox' &&
                   head.type != 'slider' &&
-                  head.type != 'notappears'"
+                  head.type != 'notappears' && head.visibility != false"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This field is required.']"
+                  :rules="[() => !!head.value || 'This field is   required.']"
                   v-model="head.value">
                  </v-text-field>
                </v-flex>
              </v-layout>
+             <v-btn
+              @click.prevent="visibilityInverter()">
+              +Contact
+             </v-btn>
            </form>
          </v-container>
        </v-card-text>
@@ -107,10 +111,14 @@
 </template>
 
 <script>
+import HTTP from '../../http-common';
+
 export default {
   data() {
     return {
       dialog: false,
+      postObject: {},
+      ipaPk: '',
     };
   },
   methods: {
@@ -124,20 +132,56 @@ export default {
         this.headers[i].value = '';
       }
     },
-    register() {
-      let j = 0;
-      for (let i = 1; i < this.headers.length; i += 1) {
+    async register() {
+      let blankCamps = 0;
+      blankCamps = this.verifyCamps(0, 5);
+      await this.sendObjects(1, 5, 'ipas', blankCamps);
+      if (this.headers[5].value !== '') {
+        blankCamps = 0;
+        blankCamps = this.verifyCamps(5, this.headers.length);
+        await this.sendObjects(5, this.headers.length, 'contacts', blankCamps);
+      }
+      if (this.alert !== true) {
+        this.close();
+      }
+      this.$store.dispatch('getObjects');
+    },
+    verifyCamps(begin, end) {
+      let blankCamps = 0;
+      for (let i = begin; i < end; i += 1) {
         if (this.headers[i].value === '' && this.headers[i].required) {
-          j += j + 1;
+          blankCamps += 1;
         }
       }
-      if (j > 0) {
+      return blankCamps;
+    },
+    visibilityInverter() {
+      for (let i = 5; i <= this.headers.length - 2; i += 1) {
+        this.headers[i].visibility = !(this.headers[i].visibility);
+      }
+    },
+    async sendObjects(begin, end, modelURL, blankCamps) {
+      console.log('vem vem vem neguin');
+      if (blankCamps > 0) {
         this.$store.dispatch('toggleAlert', true);
         this.dialog = true;
       } else {
-        this.$store.dispatch('postObject');
-        if (this.alert !== true) {
-          this.close();
+        this.postObject = {};
+        for (let i = begin; i < end; i += 1) {
+          if (this.headers[i].name !== 'ipa_code') {
+            this.postObject[this.headers[i].name] = this.headers[i].value;
+          } else {
+            this.postObject[this.headers[i].name] = this.ipaPk.id;
+          }
+        }
+        try {
+          if (modelURL === 'contacts') {
+            this.postObject.ipa_code = this.ipaPk.id;
+          }
+          const data = await HTTP.post(''.concat(modelURL, '/'), this.postObject);
+          this.ipaPk = data.data;
+        } catch (error) {
+          console.log(error);
         }
       }
     },
