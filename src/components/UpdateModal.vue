@@ -18,7 +18,7 @@
          <v-container grid-list-md>
            <form>
              <v-layout row v-for="head in headers" :key="head.id">
-               <v-flex xs12 v-if="head.text != 'ID'">
+               <v-flex xs12 v-if="head.text != 'ID' && head.visibility != false">
                  <v-text-field
                   v-if="head.type === 'number'"
                   :label="head.text"
@@ -74,6 +74,7 @@ export default {
   data() {
     return {
       dialog: false,
+      updatedObject: {},
     };
   },
   methods: {
@@ -113,6 +114,15 @@ export default {
     },
     fill() {
       this.$store.dispatch('fillUpdateFields', this.item);
+    },
+    verifyCamps(begin, end) {
+      let blankCamps = 0;
+      for (let i = begin; i < end; i += 1) {
+        if (this.headers[i].value === '' && this.headers[i].required) {
+          blankCamps += 1;
+        }
+      }
+      return blankCamps;
     },
   },
   computed: {
