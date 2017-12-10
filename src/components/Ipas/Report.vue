@@ -35,7 +35,7 @@
 
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script>
-import * as JsPDF from 'jspdf';
+import JsPDF from 'jspdf';
 import HTTP from '../../http-common';
 
 const doc = new JsPDF();
