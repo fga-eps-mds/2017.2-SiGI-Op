@@ -32,6 +32,7 @@ import Map from './components/Map/Map';
 import SwitchSlots from './components/SwitchSlot/SwitchSlot';
 import Groups from './components/Groups/Groups';
 import CableStretch from './components/CableStretch/CableStretch';
+import Report from './components/Ipas/Report';
 import Profile from './components/Profile/Profile';
 
 
@@ -64,6 +65,7 @@ const routes = [
   { path: '/switchslots', component: SwitchSlots, name: 'slots' },
   { path: '/groups', component: Groups, name: 'groups' },
   { path: '/cable_stretch', component: CableStretch, name: 'cable_stretch' },
+  { path: '/report', component: Report, name: 'report' },
   { path: '/profiles', component: Profile, name: 'profiles' },
   { path: '/god_fabricants', component: FabricantList, name: 'god_fabricants' },
   { path: '/god_fabricant_models', component: DGOModelList, name: 'god_fabricant_models' },

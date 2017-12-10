@@ -1,5 +1,5 @@
 <template>
-  <div class="ipa">
+  <div class="ipa" id="content">
       <modal></modal>
       <data-table></data-table>
   </div>
