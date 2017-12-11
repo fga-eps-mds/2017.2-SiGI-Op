@@ -58,14 +58,27 @@
                   type="int-number"
                   v-model="head.value" >
                  </v-text-field>
-                 <v-select
-                  v-if="head.type === 'select' && head.visibility != false"
-                  :items="selectitems[head.name]"
-                  v-model="head.value"
-                  :label="head.text"
-                  :rules="[() => !!head.value || 'This field is required.']"
-                  bottom>
-                </v-select>
+                 <v-layout>
+                   <v-select
+                    v-if="head.type === 'select' && head.visibility != false && head.text === 'Type'"
+                    v-bind:items="ipatypes"
+                    v-model="head.value"
+                    item-text="description"
+                    :label="head.text"
+                    :rules="[() => !!head.value || 'This field is required.']"
+                    bottom>
+                  </v-select>
+                  <v-select
+                    v-if="head.type === 'select' && head.visibility != false && head.text !== 'Type'"
+                    :items="selectitems[head.name]"
+                    v-model="head.value"
+                    :label="head.text"
+                    :rules="[() => !!head.value || 'This field is required.']"
+                    bottom>
+                  </v-select>
+                  <ipa-type-register v-if="head.type === 'select' && head.visibility != false && 
+                  head.text === 'Type'" v-on:registerIPA="getIpaTypes()"></ipa-type-register>
+                </v-layout>
                 <v-select
                   v-if="head.type === 'checkbox' && head.visibility != false"
                   :items="selectitems[head.name]"
@@ -112,10 +125,12 @@
 
 <script>
 import HTTP from '../../http-common';
+import IpaTypeRegister from './IpaTypeRegister';
 
 export default {
   data() {
     return {
+      ipatypes: [],
       dialog: false,
       postObject: {},
       ipaPk: '',
@@ -131,6 +146,15 @@ export default {
       for (let i = 0; i < this.headers.length; i += 1) {
         this.headers[i].value = '';
       }
+    },
+    getIpaTypes() {
+      HTTP.get('/ipa-types/?all=1')
+        .then((response) => {
+          this.ipatypes = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
     async register() {
       let blankCamps = 0;
@@ -186,6 +210,7 @@ export default {
       }
     },
   },
+  components: { IpaTypeRegister },
   computed: {
     name() {
       return this.$store.getters.name;
@@ -207,6 +232,9 @@ export default {
     capitalize(value) {
       return value.charAt(0).toUpperCase() + value.slice(1);
     },
+  },
+  created() {
+    this.getIpaTypes();
   },
 };
 </script>
