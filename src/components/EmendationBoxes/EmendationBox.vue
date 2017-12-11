@@ -20,7 +20,7 @@ export default {
         { text: 'Latitude', type: 'float', name: 'lattitude', value: '' },
         { text: 'Longitude', type: 'float', name: 'longitude', value: '' },
         { text: 'Access Box?', type: 'boolean', name: 'access_box', value: '' },
-        { text: 'Extinction Date', type: 'date', name: 'extincition_date', value: '' },
+        { text: 'Extinction Date', type: 'notappears', name: 'extincition_date', value: '' },
         {
           text: 'Emendation Box Type',
           type: 'select',
