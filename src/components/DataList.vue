@@ -18,6 +18,9 @@
             <p v-if="!selectitems.hasOwnProperty(key)">
               {{ item }}
             </p>
+            <p v-if="selectitems.hasOwnProperty(key)">
+              {{ item | showText(key, selectitems)}}
+            </p>
           </td>
           <td class="text-xs-right ">
             <delete :id="props.item.id"></delete>
