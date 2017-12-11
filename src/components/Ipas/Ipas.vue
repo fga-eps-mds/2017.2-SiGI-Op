@@ -16,9 +16,9 @@ export default {
       name: 'ipa',
       headers: [
         { text: 'ID', type: 'id', value: '' },
-        { text: 'Name', type: 'text', name: 'name', value: '' },
+        { text: 'Nome', type: 'text', name: 'name', value: '' },
         {
-          text: 'Type',
+          text: 'Tipo',
           type: 'select',
           name: 'institution_type',
           item_name: 'ipa-type',
@@ -27,10 +27,10 @@ export default {
         { text: 'CNPJ', type: 'text', name: 'cnpj', value: '' },
         { text: 'Sigla', type: 'text', name: 'sigla', value: '' },
 
-        { text: 'Contact Name', type: 'text', name: 'name', value: '', visibility: false },
-        { text: 'Contact Phone', type: 'text', name: 'phone_number', value: '', visibility: false },
-        { text: 'Contact Email', type: 'text', name: 'email', value: '', visibility: false },
-        { text: 'Contact Priority', type: 'number', name: 'priority', value: '', visibility: false },
+        { text: 'Nome do Contato', type: 'text', name: 'name', value: '', visibility: false },
+        { text: 'Telefone do Contato', type: 'text', name: 'phone_number', value: '', visibility: false },
+        { text: 'Email do Contato', type: 'text', name: 'email', value: '', visibility: false },
+        { text: 'Prioridade do Contato', type: 'number', name: 'priority', value: '', visibility: false },
         {
           text: 'Contact Type',
           type: 'select',

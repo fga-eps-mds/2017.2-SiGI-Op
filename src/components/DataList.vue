@@ -3,7 +3,7 @@
      <v-flex xs5  offset-xs7>
        <v-text-field
           append-icon="search"
-          label="Search"
+          label="Procurar"
           single-line
           hide-details
           v-model="NewSearch"

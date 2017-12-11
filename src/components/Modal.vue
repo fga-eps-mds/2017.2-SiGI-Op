@@ -1,7 +1,7 @@
 <template>
   <div class="segment">
     <v-dialog v-model="dialog" fullscreen persistent width="50%">
-     <v-btn primary dark slot="activator">Register {{ name | capitalize}}</v-btn>
+     <v-btn primary dark slot="activator">Registrar {{ name | capitalize}}</v-btn>
      <v-card>
        <v-alert error
        :value="alert"
@@ -98,7 +98,7 @@
        <v-card-actions>
          <v-spacer></v-spacer>
          <v-btn class="blue--text darken-1" flat="flat" @click="close()">Close</v-btn>
-         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" >Register</v-btn>
+         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" >Registrar</v-btn>
        </v-card-actions>
      </v-card>
    </v-dialog>

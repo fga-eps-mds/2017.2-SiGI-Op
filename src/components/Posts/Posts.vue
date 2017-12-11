@@ -16,17 +16,17 @@ export default {
     return {
       name: 'post',
       headers: [
-        { text: 'ID', type: '', value: '', name: 'id' },
-        { text: 'Cable Length', type: 'number', name: 'cable_length', value: '' },
+        { text: 'ID', type: '', value: '', name: 'id'},
+        { text: 'Comprimento do cabo', type: 'number', value: '', name: 'cable_length'},
         {
-          text: 'Cable Stretch',
+          text: 'Trecho do cabo',
           type: 'select',
           name: 'cable_stretch',
           item_name: 'cable_stretche',
           itemText: 'cod',
         },
         {
-          text: 'Emendation Box',
+          text: 'Caixa de emenda',
           type: 'select',
           name: 'emendation_box',
           item_name: 'emendation_boxe',
