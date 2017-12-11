@@ -16,16 +16,27 @@ export default {
     return {
       name: 'post',
       headers: [
-        { text: 'ID', type: '', value: '' },
-        { text: 'Cable Length', type: 'number', value: '' },
-        { text: 'Stretch', type: 'number', value: '' },
+        { text: 'ID', type: '', value: '', name: 'id' },
+        { text: 'Cable Length', type: 'number', name: 'cable_length', value: '' },
+        {
+          text: 'Cable Stretch',
+          type: 'select',
+          name: 'cable_stretch',
+          item_name: 'cable_stretche',
+          itemText: 'cod',
+        },
         {
           text: 'Emendation Box',
           type: 'select',
-          value: '',
-          item_name: 'emendation_box',
+          name: 'emendation_box',
+          item_name: 'emendation_boxe',
           itemText: 'id' },
-        { text: 'GOD', type: 'select', value: '', itemtext: 'id' },
+        {
+          text: 'GOD',
+          type: 'select',
+          name: 'god',
+          item_name: 'dgo',
+          itemText: 'code' },
       ],
       text: 'description',
       objects: [],
