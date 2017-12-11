@@ -14,7 +14,7 @@ export default {
 
   data() {
     return {
-      name: 'post',
+      name: 'postes',
       headers: [
         { text: 'ID', type: '', value: '' },
         { text: 'Cable Length', type: 'number', value: '' },

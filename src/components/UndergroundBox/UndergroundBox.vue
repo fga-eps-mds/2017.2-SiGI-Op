@@ -10,10 +10,10 @@ import Modal from '../Modal';
 import DataTable from '../DataList';
 
 export default {
-  name: 'undergroundboxe',
+  name: 'undergroundbox',
   data() {
     return {
-      name: 'undergroundboxe',
+      name: 'caixa subterrânea',
       headers: [
         { text: 'ID', type: 'id', value: '' },
 

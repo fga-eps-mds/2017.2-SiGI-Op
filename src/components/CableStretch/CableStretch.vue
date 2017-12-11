@@ -13,7 +13,7 @@ export default {
   name: 'cable_stretch',
   data() {
     return {
-      name: 'cable_stretche',
+      name: 'trechos de cabo',
       headers: [
         { text: 'ID', name: 'id', type: 'id', value: '' },
         { text: 'Code', name: 'cod', type: 'number', value: '', required: '' },
