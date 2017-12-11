@@ -17,10 +17,10 @@ export default {
       name: 'post',
       headers: [
         { text: 'ID', type: '', value: '' },
-        { text: 'Cable Length', type: 'number', value: '' },
-        { text: 'Stretch', type: 'number', value: '' },
+        { text: 'Comprimento do cabo', type: 'number', value: '' },
+        { text: 'Trecho', type: 'number', value: '' },
         {
-          text: 'Emendation Box',
+          text: 'Caixa de emenda',
           type: 'select',
           value: '',
           item_name: 'emendation_box',

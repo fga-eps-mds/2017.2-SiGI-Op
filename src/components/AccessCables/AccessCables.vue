@@ -18,10 +18,10 @@ export default {
       name: 'access-cable',
       headers: [
         { text: 'ID', type: '', value: '', name: 'id' },
-        { text: 'Access Cable Code', type: 'number', value: '', name: 'cod' },
-        { text: 'Access Cable Length', type: 'number', value: '', name: 'length' },
-        { text: 'Access Cable Fiber Quantity', type: 'number', value: '', name: 'fiber_quantity' },
-        { text: 'GOD', type: 'select', value: '', name: 'god_id', itemText: 'code', item_name: 'dgo' },
+        { text: 'Código', type: 'number', value: '', name: 'cod' },
+        { text: 'Comprimento', type: 'number', value: '', name: 'length' },
+        { text: 'Quantidade de fibras', type: 'number', value: '', name: 'fiber_quantity' },
+        { text: 'DGO', type: 'select', value: '', name: 'god_id', itemText: 'code', item_name: 'dgo' },
         { text: 'Site', type: 'select', value: '', name: 'site_id', itemText: 'name', item_name: 'site' },
       ],
     };

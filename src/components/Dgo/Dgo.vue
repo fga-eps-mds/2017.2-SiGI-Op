@@ -19,16 +19,16 @@
              <v-layout row>
                 <v-flex xs12>
                   <v-text-field
-                    label="DGO Code"
+                    label="Codigo do DGO"
                     :rules="[rules.notNull]"
                     v-model="code"
                   >
                   </v-text-field>
                   <v-layout row>
-                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricant" :rules="[rules.notNull]" item-text="description"  bottom></v-select>
+                    <v-select v-bind:items="fabricants" v-model="fabricant" label="Fabricante" :rules="[rules.notNull]" item-text="description"  bottom></v-select>
                     <fabricant v-on:registerFab="getFabricants()" ></fabricant>
                   </v-layout>
-                  <v-select v-if="fabricant && models.length>0" v-bind:items="models" v-model="god_model" label="DGO Model" :rules="[rules.notNull]" item-text="name" bottom></v-select>
+                  <v-select v-if="fabricant && models.length>0" v-bind:items="models" v-model="god_model" label="Modelo DGO" :rules="[rules.notNull]" item-text="name" bottom></v-select>
                   <v-select v-bind:items="sites" v-model="site_id" label="Site" :rules="[rules.notNull]" item-text="name" bottom></v-select>
                 </v-flex>
               </v-layout>

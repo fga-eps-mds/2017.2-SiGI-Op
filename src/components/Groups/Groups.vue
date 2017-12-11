@@ -17,9 +17,9 @@ export default {
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'Name', type: 'text', name: 'name', value: '' },
+        { text: 'Nome', type: 'text', name: 'name', value: '' },
         {
-          text: 'Permissions',
+          text: 'Permissões',
           type: 'checkbox',
           value: '',
           itemText: 'name',

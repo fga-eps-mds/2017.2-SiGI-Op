@@ -17,9 +17,9 @@ export default {
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'Name VLan', type: 'text', name: 'name_vlan', value: '' },
-        { text: 'Band', type: 'number', name: 'band', value: '' },
-        { text: 'Code', type: 'number', name: 'code', value: '' },
+        { text: 'Nome VLan', type: 'text', name: 'name_vlan', value: '' },
+        { text: 'Banda', type: 'number', name: 'band', value: '' },
+        { text: 'Código', type: 'number', name: 'code', value: '' },
       ],
     };
   },

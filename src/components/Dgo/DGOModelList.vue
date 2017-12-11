@@ -16,9 +16,9 @@ export default {
       name: 'god_fabricant_model',
       headers: [
         { text: 'ID', type: 'id', value: '' },
-        { text: 'Fabricant', name: 'fabricant_id', type: 'select', value: undefined, item_name: 'god_fabricant', itemText: 'description' },
-        { text: 'Name', type: 'text', name: 'name', value: undefined },
-        { text: 'Number of ports', type: 'int-num', name: 'port_quantity', value: undefined },
+        { text: 'Fabricante', name: 'fabricant_id', type: 'select', value: undefined, item_name: 'god_fabricant', itemText: 'description' },
+        { text: 'Nome', type: 'text', name: 'name', value: undefined },
+        { text: 'Numero de portas', type: 'int-num', name: 'port_quantity', value: undefined },
       ],
     };
   },

@@ -17,9 +17,9 @@ export default {
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'Power', type: 'number', name: 'power', value: '' },
-        { text: 'Proprietary', type: 'text', name: 'proprietary', value: '' },
-        { text: 'Patrimony Number', type: 'text', name: 'patrimony_number', value: '' },
+        { text: 'Potência', type: 'number', name: 'power', value: '' },
+        { text: 'Proprietário', type: 'text', name: 'proprietary', value: '' },
+        { text: 'Numero de patrimônio', type: 'text', name: 'patrimony_number', value: '' },
         {
           text: 'Site',
           type: 'select',
