@@ -1,6 +1,5 @@
 // import moxios from 'moxios';
 // import { equal } from 'assert';
-import { mount } from 'vue-test-utils';
 import Vue from 'vue';
 import IpaTypeRegister from '../../../src/components/Ipas/IpaTypeRegister';
 

@@ -1,16 +1,16 @@
 <template>
-  <div id="ipa-type">
-    <v-dialog v-model="dialog" width="50%">
+  <div id="contact-type">
+    <v-dialog v-model="dialog1" width="50%">
      <v-btn primary dark slot="activator"><v-icon>add </v-icon></v-btn>
      <v-card>
        <v-alert error
        :value="alert"
        hide-icon
        transition="scale-transition">
-         Failed to register the IPA Type. Please, verify if you filled correctly the fields.
+         Failed to register the Contact Type. Please, verify if you filled correctly the fields.
        </v-alert>
        <v-card-title>
-         <span class="headline"> Register {{ 'IPA Type' | capitalize }} </span>
+         <span class="headline"> Register {{ 'Contact Type' | capitalize }} </span>
        </v-card-title>
        <v-card-text>
          <v-container grid-list-md>
@@ -45,19 +45,19 @@ export default {
   data() {
     return {
       description: '',
-      dialog: false,
+      dialog1: false,
     };
   },
   methods: {
     close() {
       this.clear();
-      this.dialog = false;
+      this.dialog1 = false;
     },
     clear() {
       this.description = '';
     },
     register() {
-      HTTP.post('/ipa-types/', {
+      HTTP.post('/contacttypes/', {
         description: this.description,
       })
       .then()
@@ -66,7 +66,7 @@ export default {
       });
       setTimeout(() => {
         this.close();
-        this.$emit('registerIPA');
+        this.$emit('registerType');
       }, 500);
     },
   },
