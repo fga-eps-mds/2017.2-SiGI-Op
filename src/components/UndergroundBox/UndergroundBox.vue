@@ -26,8 +26,8 @@ export default {
           name: 'box_type',
           item_name: 'undergroundboxtype',
         },
-        { text: 'Latitude', type: 'number', name: 'latitude', value: '' },
-        { text: 'Longitude', type: 'number', name: 'longitude', value: '' },
+        { text: 'Latitude', type: 'int-number', name: 'latitude', value: '' },
+        { text: 'Longitude', type: 'int-number', name: 'longitude', value: '' },
         { text: 'Cover Type', type: 'text', name: 'cover_type', value: '' },
         {
           text: 'Emendation Box',
