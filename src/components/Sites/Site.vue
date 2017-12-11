@@ -17,10 +17,10 @@ export default {
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'Name', type: 'text', name: 'name', value: '' },
+        { text: 'Nome', type: 'text', name: 'name', value: '' },
         { text: 'Latitude', type: 'int-number', name: 'lattitude', value: '' },
         { text: 'Longitude', type: 'int-number', name: 'longitude', value: '' },
-        { text: 'Bandwidth', type: 'number', name: 'bandwidth', value: '' },
+        { text: 'Largura de Banda', type: 'number', name: 'bandwidth', value: '' },
         {
           text: 'IPA',
           type: 'select',
@@ -29,7 +29,7 @@ export default {
           itemText: 'name',
         },
         {
-          text: 'Site type',
+          text: 'Tipo de Site',
           type: 'select',
           name: 'site_type',
           item_name: 'sitetype',

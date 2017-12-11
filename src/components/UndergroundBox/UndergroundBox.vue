@@ -17,20 +17,20 @@ export default {
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'Code', type: 'text', name: 'code', value: '' },
+        { text: 'Código', type: 'text', name: 'code', value: '' },
         {
-          text: 'Underground box type',
+          text: 'Tipo de caixa subterrânea',
           type: 'select',
           value: '',
           itemText: 'name',
           name: 'box_type',
           item_name: 'undergroundboxtype',
         },
-        { text: 'Latitude', type: 'number', name: 'latitude', value: '' },
-        { text: 'Longitude', type: 'number', name: 'longitude', value: '' },
-        { text: 'Cover Type', type: 'text', name: 'cover_type', value: '' },
+        { text: 'Latitude', type: 'int-number', name: 'latitude', value: '' },
+        { text: 'Longitude', type: 'int-number', name: 'longitude', value: '' },
+        { text: 'Tipo de cobertura', type: 'text', name: 'cover_type', value: '' },
         {
-          text: 'Emendation Box',
+          text: 'Caixa de emenda',
           name: 'emendation_box',
           type: 'select',
           value: '',
@@ -38,7 +38,7 @@ export default {
           item_name: 'emendation_boxe',
         },
         {
-          text: 'Technical Reserve',
+          text: 'Reserva técnica',
           name: 'technical_reserve',
           type: 'select',
           value: '',

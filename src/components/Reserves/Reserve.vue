@@ -17,10 +17,10 @@ export default {
       headers: [
         { text: 'ID', type: 'id', value: '' },
 
-        { text: 'Code', type: 'number', name: 'code', value: '' },
-        { text: 'Length', type: 'number', name: 'length', value: '' },
-        { text: 'Latitude', type: 'number', name: 'latitude', value: '' },
-        { text: 'Longitude', type: 'number', name: 'longitude', value: '' },
+        { text: 'Código', type: 'number', name: 'code', value: '' },
+        { text: 'Comprimento', type: 'number', name: 'length', value: '' },
+        { text: 'Latitude', type: 'int-number', name: 'latitude', value: '' },
+        { text: 'Longitude', type: 'int-number', name: 'longitude', value: '' },
       ],
     };
   },

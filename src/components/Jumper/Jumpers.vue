@@ -17,7 +17,7 @@ export default {
       headers: [
         { text: 'ID', name: 'id', type: 'id', value: '' },
         {
-          text: 'GOD Port 1',
+          text: 'Porta DGO 1',
           name: 'god_port1',
           itemText: 'code',
           item_name: 'god_port',
@@ -25,7 +25,7 @@ export default {
           value: '',
         },
         {
-          text: 'GOD Port 2',
+          text: 'Porta DGO 2',
           name: 'god_port2',
           itemText: 'code',
           item_name: 'god_port',

@@ -7,7 +7,7 @@
           <v-card-text>Usuário registrado com sucesso!</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" flat @click.native="dialog = false">Sair</v-btn>
+            <v-btn color="green darken-1" flat @click.native="redirect()">Sair</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -118,6 +118,12 @@
             this.dialog = true;
             this.clear();
           });
+      },
+      redirect() {
+        setTimeout(() => {
+          this.dialog = false;
+          this.$router.go(this.$router.currentRoute);
+        }, 500);
       },
       clear() {
         this.name = '';
