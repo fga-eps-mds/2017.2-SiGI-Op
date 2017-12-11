@@ -32,7 +32,7 @@ export default {
           item_name: 'emendation_boxe',
           itemText: 'id' },
         {
-          text: 'GOD',
+          text: 'DGO',
           type: 'select',
           name: 'god',
           item_name: 'dgo',

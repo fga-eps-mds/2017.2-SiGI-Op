@@ -15,19 +15,19 @@ describe('CableStretch', () => {
     expect(typeof CableStretch.data).to.equal('function');
     const defaultData = CableStretch.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('Code');
-    expect(defaultData.headers[2].text).to.equal('Length');
-    expect(defaultData.headers[3].text).to.equal('Manufacturing Year');
-    expect(defaultData.headers[4].text).to.equal('Infrastructure');
-    expect(defaultData.headers[5].text).to.equal('Owner');
-    expect(defaultData.headers[6].text).to.equal('Fabricant');
-    expect(defaultData.headers[7].text).to.equal('Cable Stretch Type');
-    expect(defaultData.headers[8].text).to.equal('Segment');
-    expect(defaultData.headers[9].text).to.equal('Access Cable');
+    expect(defaultData.headers[1].text).to.equal('Código');
+    expect(defaultData.headers[2].text).to.equal('Comprimento');
+    expect(defaultData.headers[3].text).to.equal('Ano de fabricação');
+    expect(defaultData.headers[4].text).to.equal('Infraestrutura');
+    expect(defaultData.headers[5].text).to.equal('Proprietário');
+    expect(defaultData.headers[6].text).to.equal('Fabricante');
+    expect(defaultData.headers[7].text).to.equal('Tipo de trecho de cabo');
+    expect(defaultData.headers[8].text).to.equal('Segmento');
+    expect(defaultData.headers[9].text).to.equal('Cabo de acesso');
     expect(defaultData.headers[10].text).to.equal('DGO');
-    expect(defaultData.headers[11].text).to.equal('Access');
-    expect(defaultData.headers[12].text).to.equal('Created at');
-    expect(defaultData.headers[13].text).to.equal('Updated at');
+    expect(defaultData.headers[11].text).to.equal('Acesso');
+    expect(defaultData.headers[12].text).to.equal('Criado em');
+    expect(defaultData.headers[13].text).to.equal('Atualizado em');
   });
 
   it('check default CableStretch components', () => {
