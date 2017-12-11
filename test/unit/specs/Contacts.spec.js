@@ -11,12 +11,12 @@ describe('Contact', () => {
     expect(typeof Contact.data).to.equal('function');
     const defaultData = Contact.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('Name');
-    expect(defaultData.headers[2].text).to.equal('Phone Number');
+    expect(defaultData.headers[1].text).to.equal('Nome');
+    expect(defaultData.headers[2].text).to.equal('Número de Telefone');
     expect(defaultData.headers[3].text).to.equal('Email');
-    expect(defaultData.headers[4].text).to.equal('Priority');
+    expect(defaultData.headers[4].text).to.equal('Prioridade');
     expect(defaultData.headers[5].text).to.equal('IPA');
-    expect(defaultData.headers[6].text).to.equal('Contact type');
+    expect(defaultData.headers[6].text).to.equal('Tipo de Contato');
   });
 
   it('check default Contact components', () => {

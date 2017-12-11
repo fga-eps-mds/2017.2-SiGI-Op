@@ -19,7 +19,7 @@ export default {
 
         { text: 'Potência', type: 'number', name: 'power', value: '' },
         { text: 'Proprietário', type: 'text', name: 'proprietary', value: '' },
-        { text: 'Numero de patrimônio', type: 'text', name: 'patrimony_number', value: '' },
+        { text: 'Número de patrimônio', type: 'text', name: 'patrimony_number', value: '' },
         {
           text: 'Site',
           type: 'select',

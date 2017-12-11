@@ -11,9 +11,9 @@ describe('NoBreak', () => {
     expect(typeof NoBreak.data).to.equal('function');
     const defaultData = NoBreak.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('Power');
-    expect(defaultData.headers[2].text).to.equal('Proprietary');
-    expect(defaultData.headers[3].text).to.equal('Patrimony Number');
+    expect(defaultData.headers[1].text).to.equal('Potência');
+    expect(defaultData.headers[2].text).to.equal('Proprietário');
+    expect(defaultData.headers[3].text).to.equal('Número de patrimônio');
     expect(defaultData.headers[4].text).to.equal('Site');
   });
   it('check default NoBreak components', () => {

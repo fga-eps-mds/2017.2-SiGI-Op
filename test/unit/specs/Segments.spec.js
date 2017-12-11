@@ -13,10 +13,10 @@ describe('Segment', () => {
     const defaultData = Segment.data();
     expect(defaultData.headers[0].text).to.equal('ID');
     expect(defaultData.headers[0].name).to.equal('id');
-    expect(defaultData.headers[1].text).to.equal('Segment Number');
+    expect(defaultData.headers[1].text).to.equal('Número de segmento');
     expect(defaultData.headers[1].name).to.equal('number');
     expect(defaultData.headers[1].type).to.equal('number');
-    expect(defaultData.headers[2].text).to.equal('Cable Length');
+    expect(defaultData.headers[2].text).to.equal('Comprimento do cabo');
     expect(defaultData.headers[2].name).to.equal('length');
   });
 

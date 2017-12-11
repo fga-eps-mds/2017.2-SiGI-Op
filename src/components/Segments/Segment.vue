@@ -16,8 +16,8 @@ export default {
       name: 'segment',
       headers: [
         { text: 'ID', name: 'id', type: 'id', value: undefined },
+        { text: 'Número de segmento', name: 'number', type: 'number', value: undefined },
         { text: 'Comprimento do cabo', name: 'length', type: 'number', value: undefined },
-        { text: 'Numero de segmento', name: 'number', type: 'number', value: undefined },
         { text: 'Quantidade de trechos de cabos', name: 'cable_stretch_quantity', type: 'slider', value: undefined, visibility: false },
         { text: 'DGO - Início', name: 'dgos', type: 'select', value: undefined, item_name: 'dgo', itemText: 'code' },
         { text: 'Caixa de emenda - Início', name: 'emendation_boxes', type: 'select', value: undefined, item_name: 'emendation_boxe', itemText: 'designNumber' },

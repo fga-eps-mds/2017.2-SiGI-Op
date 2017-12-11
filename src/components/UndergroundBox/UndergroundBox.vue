@@ -19,7 +19,7 @@ export default {
 
         { text: 'Código', type: 'text', name: 'code', value: '' },
         {
-          text: 'Tipo de caixa subterranea',
+          text: 'Tipo de caixa subterrânea',
           type: 'select',
           value: '',
           itemText: 'name',

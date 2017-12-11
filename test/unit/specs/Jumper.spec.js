@@ -13,9 +13,9 @@ describe('Jumper', () => {
     expect(typeof Jumper.data).to.equal('function');
     const defaultData = Jumper.data();
     expect(defaultData.headers[0].text).to.equal('ID');
-    expect(defaultData.headers[1].text).to.equal('GOD Port 1');
+    expect(defaultData.headers[1].text).to.equal('Porta DGO 1');
     expect(defaultData.headers[1].type).to.equal('select');
-    expect(defaultData.headers[2].text).to.equal('GOD Port 2');
+    expect(defaultData.headers[2].text).to.equal('Porta DGO 2');
     expect(defaultData.headers[2].type).to.equal('select');
   });
 

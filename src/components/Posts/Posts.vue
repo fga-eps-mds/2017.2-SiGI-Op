@@ -16,8 +16,8 @@ export default {
     return {
       name: 'post',
       headers: [
-        { text: 'ID', type: '', value: '', name: 'id'},
-        { text: 'Comprimento do cabo', type: 'number', value: '', name: 'cable_length'},
+        { text: 'ID', type: '', value: '', name: 'id' },
+        { text: 'Comprimento do cabo', type: 'number', value: '', name: 'cable_length' },
         {
           text: 'Trecho do cabo',
           type: 'select',
@@ -32,7 +32,7 @@ export default {
           item_name: 'emendation_boxe',
           itemText: 'id' },
         {
-          text: 'GOD',
+          text: 'DGO',
           type: 'select',
           name: 'god',
           item_name: 'dgo',
