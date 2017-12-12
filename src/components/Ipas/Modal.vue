@@ -60,7 +60,7 @@
                  </v-text-field>
                  <v-layout>
                    <v-select
-                    v-if="head.type === 'select' && head.visibility != false && head.text === 'Type'"
+                    v-if="head.type === 'select' && head.visibility != false && head.text === 'Tipo'"
                     v-bind:items="ipatypes"
                     v-model="head.value"
                     item-text="description"
@@ -69,7 +69,7 @@
                     bottom>
                   </v-select>
                   <v-select
-                    v-if="head.type === 'select' && head.visibility != false && head.text !== 'Type'"
+                    v-if="head.type === 'select' && head.visibility != false && head.text !== 'Tipo'"
                     :items="selectitems[head.name]"
                     v-model="head.value"
                     :label="head.text"
@@ -77,7 +77,7 @@
                     bottom>
                   </v-select>
                   <ipa-type-register v-if="head.type === 'select' && head.visibility != false && 
-                  head.text === 'Type'" v-on:registerIPA="getIpaTypes()"></ipa-type-register>
+                  head.text === 'Tipo'" v-on:registerIPA="getIpaTypes()"></ipa-type-register>
                 </v-layout>
                 <v-select
                   v-if="head.type === 'checkbox' && head.visibility != false"

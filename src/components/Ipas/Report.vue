@@ -49,7 +49,7 @@ const specialElementHandlers = {
 global.jQuery = require('jquery');
 
 export default {
-  name: 'ipa',
+  name: 'report',
   data() {
     return {
       ipas: '',
@@ -60,10 +60,6 @@ export default {
       contactsType: '',
       dgos: '',
       segments: '',
-      emendationBoxes: '',
-      csvObject: { ID: 0,
-        Nome: '',
-        Tipo: '' },
     };
   },
   methods: {
