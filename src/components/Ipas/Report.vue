@@ -30,6 +30,8 @@
           </div>
       </div>
       <v-btn class="blue--text darken-1" v-on:click.prevent="click" flat="flat">Gerar PDF</v-btn>
+      <v-btn class="blue--text darken-1" v-on:click.prevent="downloadCSV" flat="flat">Gerar CSV</v-btn>
+
   </div>
 </template>
 
@@ -59,6 +61,9 @@ export default {
       dgos: '',
       segments: '',
       emendationBoxes: '',
+      csvObject: { ID: 0,
+        Nome: '',
+        Tipo: '' },
     };
   },
   methods: {
@@ -118,12 +123,144 @@ export default {
       }
       return false;
     },
+    convertArrayOfObjectsToCSV(args) {
+      let result;
+      let ctr;
+
+      const data = args.data || null;
+      if (data == null || !data.length) {
+        return null;
+      }
+
+      const columnDelimiter = args.columnDelimiter || ',';
+      const lineDelimiter = args.lineDelimiter || '\n';
+
+      const keys = Object.keys(data[0]);
+
+      result = '';
+      result += keys.join(columnDelimiter);
+      result += lineDelimiter;
+
+      data.forEach((item) => {
+        ctr = 0;
+        keys.forEach((key) => {
+          if (ctr > 0) result += columnDelimiter;
+          result += item[key];
+          ctr += 1;
+        });
+        result += lineDelimiter;
+      });
+
+      return result;
+    },
+    downloadCSV() {
+      let data = '';
+      let csv = this.convertArrayOfObjectsToCSV({
+        data: this.addCsvObject(),
+      });
+      if (csv == null) return;
+
+      const filename = 'export.csv';
+
+      if (!csv.match(/^data:text\/csv/i)) {
+        csv = 'data:text/csv;charset=utf-8,'.concat(csv);
+      }
+      data = encodeURI(csv);
+
+      const link = document.createElement('a');
+      link.setAttribute('href', data);
+      link.setAttribute('download', filename);
+      link.click();
+    },
+    addCsvObject() {
+      const csvObj = [];
+      let i = 0;
+      this.ipas.forEach((ipa) => {
+        csvObj.push({ ID: -1,
+          NomeIPA: '',
+          Tipo: '',
+          Sigla: '',
+          CNPJ: '',
+          Sitio: '',
+          TipoSitio: '',
+          Segmento: '',
+          Contato: '',
+          Email: '',
+          TipoContato: '' });
+        csvObj[i].ID = ipa.id;
+        csvObj[i].NomeIPA = ipa.name;
+        csvObj[i].Sigla = ipa.sigla;
+        csvObj[i].CNPJ = ipa.cnpj;
+        this.ipasType.forEach((ipaType) => {
+          if (ipa.institution_type === ipaType.id) {
+            csvObj[i].Tipo = ipaType.description;
+          }
+        });
+        this.contacts.forEach((contact) => {
+          if (contact.ipa_code === ipa.id) {
+            if (csvObj[i].Contato !== '') {
+              csvObj[i].Contato = csvObj[i].Contato.concat(' / ', contact.name);
+            } else {
+              csvObj[i].Contato = contact.name;
+            }
+            if (csvObj[i].Email !== '') {
+              csvObj[i].Email = csvObj[i].Email.concat(' / ', contact.email);
+            } else {
+              csvObj[i].Email = contact.email;
+            }
+          }
+          this.contactsType.forEach((contactType) => {
+            if (contactType.id === contact.contact_type && contact.ipa_code === ipa.id) {
+              if (csvObj[i].TipoContato !== '') {
+                csvObj[i].TipoContato = csvObj[i].TipoContato.concat(' / ', contactType.description);
+              } else {
+                csvObj[i].TipoContato = contactType.description;
+              }
+            }
+          });
+        });
+        this.sites.forEach((site) => {
+          if (site.ipa_code === ipa.id) {
+            if (csvObj[i].Sitio !== '') {
+              csvObj[i].Sitio = csvObj[i].Sitio.concat(' / ', site.name);
+            } else {
+              csvObj[i].Sitio = site.name;
+            }
+          }
+          this.sitesType.forEach((siteType) => {
+            if (siteType.id === site.site_type && site.ipa_code === ipa.id) {
+              if (csvObj[i].TipoSitio !== '') {
+                csvObj[i].TipoSitio = csvObj[i].TipoSitio.concat(' / ', siteType.description);
+              } else {
+                csvObj[i].TipoSitio = siteType.description;
+              }
+            }
+          });
+          this.dgos.forEach((dgo) => {
+            if (dgo.site_id === site.id) {
+              this.segments.forEach((segment) => {
+                if (this.itContainsKey(dgo.id, segment.dgos) === true) {
+                  if (csvObj[i].Segmento !== '') {
+                    csvObj[i].Segmento = csvObj[i].Segmento.toString().concat(' / ', segment.number.toString());
+                  } else {
+                    csvObj[i].Segmento = segment.number.toString();
+                  }
+                }
+              });
+            }
+          });
+        });
+        i += 1;
+      });
+      console.log('depois, ', csvObj);
+      return csvObj;
+    },
     click: function click(event) { // eslint-disable-line no-unused-vars
       doc.fromHTML(this.$refs.report.innerHTML, 15, 15, {
         width: 170,
         elementHandlers: specialElementHandlers,
       });
-      doc.save('sample-file.pdf');
+      doc.save('RelatorioPDF.pdf');
     },
   },
   created() {
