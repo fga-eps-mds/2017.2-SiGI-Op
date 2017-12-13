@@ -57,7 +57,7 @@ export default {
       this.description = '';
     },
     register() {
-      HTTP.post('/ipa-types/', {
+      const req = HTTP.post('/ipa-types/', {
         description: this.description,
       })
       .then()
@@ -68,6 +68,7 @@ export default {
         this.close();
         this.$emit('registerIPA');
       }, 500);
+      return req;
     },
   },
   created() {
