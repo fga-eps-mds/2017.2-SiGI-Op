@@ -7,7 +7,7 @@
        :value="alert"
        hide-icon
        transition="scale-transition">
-         Failed to regiter the Fabricant. Please, verify if you filled correctly the fields.
+         Failed to register the Fabricant. Please, verify if you filled correctly the fields.
        </v-alert>
        <v-card-title>
          <span class="headline"> Register {{ 'Fabricant' | capitalize }} </span>
