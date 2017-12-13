@@ -29,13 +29,13 @@
       </v-layout>
     </v-navigation-drawer>
     <v-toolbar dark fixed class="primary">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="render_sidebar"></v-toolbar-side-icon>
+      <router-link :to="'/'"><img src="./assets/logogc4.png"></router-link>
       <v-spacer></v-spacer>
       <router-link to="/profiles">
-      <v-btn flat v-if="current_username !== 'null'">Perfil ({{ current_username }})</v-btn>
+      <v-btn flat v-if="render_sidebar">Perfil ({{ current_username }})</v-btn>
       </router-link>
-      <v-btn flat v-if="current_username !== 'null'"@click="sign_out">Sair ({{ current_username }})</v-btn>
+      <v-btn flat v-if="render_sidebar"@click="sign_out">Sair ({{ current_username }})</v-btn>
       <v-menu offset-y>
         <v-btn icon @click.native="show = !show" dark slot="activator">
           <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
