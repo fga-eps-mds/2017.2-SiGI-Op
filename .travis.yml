@@ -1,19 +1,17 @@
 language: node_js
 node_js:
-  - "6"
-
+- '6'
 install:
-  - npm install
-
+- npm install
 script:
-  - ./node_modules/eslint/bin/eslint.js --ext .js,.vue src
-  - npm run unit
-
+- "./node_modules/eslint/bin/eslint.js --ext .js,.vue src"
+- npm run unit
 after_success:
-  - ./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info
-
+- "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
 deploy:
   provider: heroku
-  api_key: cf4b601d-e8a0-436f-9b5c-1bfb70edb15f
+  api_key:
+    secure: Nrmr7N3NcoA4zZiLfRZeAp363wbx7h2Pje0xOMIsu5Cn9wSmOWgx37JpkVtrLCSf+LCUKhsWo47wRmHYAg/+yZj/j+5RBXHn21jGNk8HDkSKjXB2zbVeUsC8k7N8/d7idTa8CqzDg3q5iJUn24zxJE4Ih95QN93fUvUZEh8dxSlsd5m5KtTYvPqk6sO1X/WgyIS8zhW63jyExf35zO4wPVJmvMV724j7zV1oGNXYVCKUu+jnqOAcdx9hGrSGQIpoNkkonwvXtA1qlFepdk7Jh4cNkIDlk8FOxxEtoEchzha/mCjVBbUVMI0nZJOQ6NUfpVuRH2TE6wTeNWJZIeoIXon/HByU9t7m2Ck+Be1nuNr1LshOBIhdmhHRRmv2fhGx57tBOVhTOz/nbfapNfp9xZkL40hlQF34f2us1hhOCzaDvQdwV2SYWX+NApNU1m2657HwM/OcMKZOWsPEj2iWe+VnBPQ8p0JBxFpl/D05mjxuWGm3BA8J3vT6dJgd31041bzT9UVzFZQXKedeZkLYyeUixcyb31iRYa1f/xUujVsL3qoxwx7dsdIU3sBFy2sxPr03bqi6Ddd6LVGGL6wlBrVAvxtTVtlKZzJe1yKhUBuST5Z8AdENkMRT8Q7Kz/fD/IEjDVSFq4/jLB/SH/ub841cnAqiEGegRjAcy5K+cgQ=
+  app: sigi-op
   on:
     tags: true
