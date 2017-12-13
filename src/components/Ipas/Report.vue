@@ -63,7 +63,7 @@ export default {
     };
   },
   methods: {
-    getIpa(){
+    getIpa() {
       const request = HTTP.get('ipas/')
         .then((response) => {
           this.ipas = response.data.results;
@@ -74,7 +74,7 @@ export default {
         });
       return request;
     },
-    getIpaTypes(){
+    getIpaTypes() {
       const request = HTTP.get('ipa-types/')
         .then((response) => {
           this.ipasType = response.data.results;
@@ -85,7 +85,7 @@ export default {
         });
       return request;
     },
-    getSite(){
+    getSite() {
       const request = HTTP.get('sites/')
         .then((response) => {
           this.sites = response.data.results;
@@ -94,7 +94,8 @@ export default {
           this.errors.push(e);
         });
       return request;
-    getSiteTypes(){
+    },
+    getSiteTypes() {
       const request = HTTP.get('sitetypes/')
         .then((response) => {
           this.sitesType = response.data.results;
@@ -105,7 +106,7 @@ export default {
         });
       return request;
     },
-    getContacts(){
+    getContacts() {
       const request = HTTP.get('contacts/')
         .then((response) => {
           this.contacts = response.data.results;
@@ -115,7 +116,7 @@ export default {
         });
       return request;
     },
-    getContatTypes(){
+    getContatTypes() {
       const request = HTTP.get('contacttypes/')
         .then((response) => {
           this.contactsType = response.data.results;
@@ -126,7 +127,7 @@ export default {
         });
       return request;
     },
-    getGOD(){
+    getGOD() {
       const request = HTTP.get('dgos/')
         .then((response) => {
           this.dgos = response.data.results;
@@ -137,7 +138,7 @@ export default {
         });
       return request;
     },
-    getSegments(){
+    getSegments() {
       const request = HTTP.get('segments/')
         .then((response) => {
           this.segments = response.data.results;
@@ -147,7 +148,7 @@ export default {
         });
       return request;
     },
-    getEmendationBoxes(){
+    getEmendationBoxes() {
       const request = HTTP.get('emendation_boxes/')
         .then((response) => {
           this.emendationBoxes = response.data.results;
@@ -212,6 +213,7 @@ export default {
       link.setAttribute('href', data);
       link.setAttribute('download', filename);
       link.click();
+      console.log('cheguei');
     },
     addCsvObject() {
       const csvObj = [];
