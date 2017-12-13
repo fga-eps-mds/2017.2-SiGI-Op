@@ -57,7 +57,7 @@ export default {
       this.description = '';
     },
     register() {
-      HTTP.post('/god_fabricants/', {
+      const req = HTTP.post('/god_fabricants/', {
         description: this.description,
       })
       .then()
@@ -68,6 +68,7 @@ export default {
         this.close();
         this.$emit('registerFab');
       }, 500);
+      return req;
     },
   },
   created() {
