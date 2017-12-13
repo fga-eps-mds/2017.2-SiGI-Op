@@ -68,7 +68,7 @@
     },
     methods: {
       post() {
-        HTTP.post('login', {
+        const req = HTTP.post('login', {
           username: this.name,
           password: this.password,
         })
@@ -85,6 +85,7 @@
             this.clear();
             this.alert = true;
           });
+        return req;
       },
       clear() {
         this.name = '';
