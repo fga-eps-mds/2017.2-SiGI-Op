@@ -120,26 +120,28 @@ export default {
       }, 500);
     },
     getSites() {
-      HTTP.get('/sites/?all=1')
+      const request = HTTP.get('/sites/?all=1')
         .then((response) => {
           this.sites = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     getFabricants() {
-      HTTP.get('/god_fabricants/?all=1')
+      const request = HTTP.get('/god_fabricants/?all=1')
         .then((response) => {
           this.fabricants = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     getGODModel(fabr) {
       this.god_model = '';
-      HTTP.get('/god_fabricant_models/?search='.concat(fabr, '&all=1'))
+      return HTTP.get('/god_fabricant_models/?search='.concat(fabr, '&all=1'))
         .then((response) => {
           this.models = response.data;
         })
