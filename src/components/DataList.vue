@@ -33,7 +33,7 @@
     </v-data-table>
     <div class="text-center">
       <v-pagination
-        :length=totalPages
+        :length="totalPages"
         v-model="page"
         :total-visible="7"
         v-on:next.preventDefault="nextPage"
@@ -53,7 +53,6 @@ export default {
   data() {
     return {
       NewSearch: this.search,
-      totalItems: 0,
       disabled: false,
       disabled1: true,
     };

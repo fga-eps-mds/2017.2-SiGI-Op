@@ -58,6 +58,7 @@
                   type="int-number"
                   v-model="head.value" >
                  </v-text-field>
+                 <v-layout>
                  <v-select
                   v-if="head.type === 'select'"
                   :items="selectitems[head.name]"
@@ -66,6 +67,9 @@
                   :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   bottom>
                 </v-select>
+                <type-register v-show="head.type === 'select' &&
+                head.text === 'Tipo de Contato'" :name="'Contact Type'" v-on:registerType="getSelect()"></type-register>
+                </v-layout>
                 <v-select
                   v-if="head.type === 'checkbox'"
                   :items="selectitems[head.name]"
@@ -107,13 +111,22 @@
 </template>
 
 <script>
+import TypeRegister from './Ipas/TypeRegister';
+
 export default {
   data() {
     return {
       dialog: false,
     };
   },
+  components: { TypeRegister },
   methods: {
+    getSelect() {
+      this.$store.dispatch('getObjects');
+      setTimeout(() => {
+        this.$forceUpdate();
+      }, 300);
+    },
     close() {
       this.clear();
       this.dialog = false;
