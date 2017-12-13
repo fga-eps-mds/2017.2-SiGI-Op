@@ -7,10 +7,10 @@
        :value="alert"
        hide-icon
        transition="scale-transition">
-         Failed to register the IPA Type. Please, verify if you filled correctly the fields.
+         Failed to register the {{ name }}. Please, verify if you filled correctly the fields.
        </v-alert>
        <v-card-title>
-         <span class="headline"> Register {{ 'IPA Type' | capitalize }} </span>
+         <span class="headline"> Register {{ name }} </span>
        </v-card-title>
        <v-card-text>
          <v-container grid-list-md>
@@ -41,7 +41,7 @@
 import HTTP from '../../http-common';
 
 export default {
-  description: '',
+  props: ['name'],
   data() {
     return {
       description: '',
@@ -52,22 +52,34 @@ export default {
     close() {
       this.clear();
       this.dialog = false;
+      this.$forceUpdate();
+      this.$emit('registerType');
     },
     clear() {
       this.description = '';
     },
     register() {
-      HTTP.post('/ipa-types/', {
+      HTTP.post('/'.concat(this.request_name, '/'), {
         description: this.description,
       })
-      .then()
+      .then(
+        this.$store.dispatch('getObjects'),
+        this.close(),
+      )
       .catch((e) => {
         this.errors.push(e);
       });
-      setTimeout(() => {
-        this.close();
-        this.$emit('registerIPA');
-      }, 500);
+    },
+  },
+  computed: {
+    alert() {
+      return this.$store.getters.alert;
+    },
+    request_name() {
+      if (this.name === 'Contact Type') {
+        return 'contacttypes';
+      }
+      return 'ipa-types';
     },
   },
   created() {
@@ -75,3 +87,9 @@ export default {
 };
 
 </script>
+
+<style scoped>
+#ipa-type {
+  z-index: 1042 !important;
+}
+</style>
