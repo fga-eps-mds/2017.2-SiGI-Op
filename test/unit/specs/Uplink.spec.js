@@ -27,6 +27,7 @@ describe('Uplink', () => {
   it('check default Uplink creation', () => {
     expect(typeof Uplink.created).to.equal('function');
   });
+
   it('renders a div', () => {
     expect(wrapper.contains('div')).to.equal(true);
     expect(wrapper.contains('.segment')).to.equal(true);

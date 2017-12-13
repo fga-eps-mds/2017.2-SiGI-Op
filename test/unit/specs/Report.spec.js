@@ -1,16 +1,8 @@
 // import moxios from 'moxios';
 // import { equal } from 'assert';
-import { mount } from 'vue-test-utils';
-import store from '@/vuex/store';
 import Report from '../../../src/components/Ipas/Report';
 
 describe('Report', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = mount(Report, { store });
-  });
-
   it('check default Report values', () => {
     expect(typeof Report.data).to.equal('function');
     const defaultData = Report.data();
