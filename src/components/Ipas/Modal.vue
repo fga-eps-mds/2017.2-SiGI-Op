@@ -7,7 +7,7 @@
        :value="alert"
        hide-icon
        transition="scale-transition">
-         Failed to regiter the {{name}}. Please, verify if you filled correctly the fields.
+         Failed to register the {{name}}. Please, verify if you filled correctly the fields.
        </v-alert>
        <v-card-title>
          <span class="headline"> Register {{ name | capitalize }} </span>
@@ -76,7 +76,7 @@
                     :rules="[() => !!head.value || 'This field is required.']"
                     bottom>
                   </v-select>
-                  <ipa-type-register v-if="head.type === 'select' && head.visibility != false && 
+                  <ipa-type-register v-if="head.type === 'select' && head.visibility != false &&
                   head.text === 'Tipo'" v-on:registerIPA="getIpaTypes()"></ipa-type-register>
                 </v-layout>
                 <v-select
