@@ -21,18 +21,18 @@ export default {
         { text: 'Email', type: 'text', name: 'email', value: '' },
         { text: 'Prioridade', type: 'number', name: 'priority', value: '' },
         {
-          text: 'IPA',
-          type: 'select',
-          name: 'ipa_code',
-          item_name: 'ipa',
-          itemText: 'name',
-        },
-        {
           text: 'Tipo de Contato',
           type: 'select',
           name: 'contact_type',
           item_name: 'contacttype',
           itemText: 'description',
+        },
+        {
+          text: 'IPA',
+          type: 'select',
+          name: 'ipa_code',
+          item_name: 'ipa',
+          itemText: 'name',
         },
       ],
     };
