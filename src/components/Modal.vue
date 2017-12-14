@@ -1,7 +1,7 @@
 <template>
   <div class="segment">
     <v-dialog v-model="dialog" fullscreen persistent width="50%">
-     <v-btn primary dark slot="activator">Registrar {{ name | capitalize}}</v-btn>
+     <v-btn name="register" primary dark slot="activator">Registrar {{ name | capitalize}}</v-btn>
      <v-card>
        <v-alert error
        :value="alert"
@@ -21,12 +21,14 @@
                   v-if="head.type === 'boolean'"
                   :label="head.text"
                   :rules="[() => !!head.value || 'Esse campo é necessário.']"
+                  :name="head.text"
                   v-model="head.value">
                  </v-checkbox>
                  <v-slider
                   v-if="head.type === 'slider'"
                   color="blue"
                   :label="head.text"
+                  :name="head.text"
                   min="1"
                   max="100"
                   thumb-label
@@ -36,6 +38,7 @@
                  <v-text-field
                   v-if="head.type === 'date'"
                   :label="head.text"
+                  :name="head.text"
                   type="date"
                   :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   v-model="head.value">
@@ -43,6 +46,7 @@
                  <v-text-field
                   v-if="head.type === 'number'"
                   :label="head.text"
+                  :name="head.text"
                   :rules="[
                    () => !!head.value || 'Esse campo é necessário.',
                    () => !!head.value && head.value > 0 ||
@@ -55,6 +59,7 @@
                   v-if="head.type === 'int-number'"
                   :label="head.text"
                   :rules="[() => !!head.value || 'Esse campo é necessário.',]"
+                  :name="head.text"
                   type="int-number"
                   v-model="head.value" >
                  </v-text-field>
@@ -65,6 +70,7 @@
                   v-model="head.value"
                   :label="head.text"
                   :rules="[() => !!head.value || 'Esse campo é necessário.']"
+                  :name="head.text"
                   bottom>
                 </v-select>
                 <type-register v-show="head.type === 'select' &&
@@ -76,6 +82,7 @@
                   v-model="head.value"
                   :label="head.text"
                   :rules="[() => !!head.value || 'Esse campo é necessário.']"
+                  :name="head.text"
                   multiple
                   chips
                   bottom>
@@ -92,6 +99,7 @@
                   head.type != 'notappears'"
                   :label="head.text"
                   :rules="[() => !!head.value || 'Esse campo é necessário.']"
+                  :name="head.text"
                   v-model="head.value">
                  </v-text-field>
                </v-flex>
@@ -102,7 +110,7 @@
        <v-card-actions>
          <v-spacer></v-spacer>
          <v-btn class="blue--text darken-1" flat="flat" @click="close()">Fechar</v-btn>
-         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" >Registrar</v-btn>
+         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" name='done'>Registrar</v-btn>
        </v-card-actions>
      </v-card>
    </v-dialog>
