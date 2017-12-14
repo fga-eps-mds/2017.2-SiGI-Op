@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { getters } from '@/vuex/store';
 
 const { name, headers, objects, selectitems,
-    alert, errors, currentPage } = getters;
+    alert, errors, currentPage, search } = getters;
 
 describe('Getters', () => {
   it('gets correct name', () => {
@@ -52,5 +52,12 @@ describe('Getters', () => {
     expect(currentPage(state)).to.deep.equal(1);
     state.currentPage = 2;
     expect(currentPage(state)).to.deep.equal(2);
+  });
+
+  it('gets correct search', () => {
+    const state = { search: '' };
+    expect(search(state)).to.deep.equal('');
+    state.search = 'ola';
+    expect(search(state)).to.deep.equal('ola');
   });
 });

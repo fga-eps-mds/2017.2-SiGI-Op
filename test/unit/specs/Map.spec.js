@@ -1,12 +1,18 @@
+import HTTP from '@/http-common';
 import { mount } from 'vue-test-utils';
-import store from '@/vuex/store';
+import moxios from 'moxios';
 import Map from '../../../src/components/Map/Map';
 
 describe('Map', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(Map, { store });
+    moxios.install(HTTP);
+    wrapper = mount(Map);
+  });
+
+  afterEach(() => {
+    moxios.uninstall(HTTP);
   });
 
   it('check default values', () => {
@@ -36,15 +42,11 @@ describe('Map', () => {
 
   it('check if isDuplicateKey returns true', () => {
     const arr = [{ id: 1 }, { id: 2 }];
-    console.log(arr);
-    console.log(Map.methods.isDuplicateKey);
     expect(Map.methods.isDuplicateKey(1, arr)).to.equal(true);
   });
 
   it('check if isDuplicateKey returns false', () => {
     const arr = [{ id: 1 }, { id: 2 }];
-    console.log(arr);
-    console.log(Map.methods.isDuplicateKey);
     expect(Map.methods.isDuplicateKey(3, arr)).to.equal(false);
   });
 
