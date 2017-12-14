@@ -60,7 +60,7 @@
                  </v-text-field>
                  <v-layout>
                   <v-select
-                    v-if="head.type === 'select' && head.visibility != false && head.text !== 'Type'"
+                    v-if="head.type === 'select' && head.visibility != false && head.text !== 'Tipo'"
                     :items="selectitems[head.name]"
                     v-model="head.value"
                     :label="head.text"
