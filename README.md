@@ -30,26 +30,26 @@ A rede é baseada numa infraestrutura de fibras ópticas própria. Isto permite 
 O projeto Sistema de Gerenciamento de Infraestrutura (SiGI) consiste do desenvolvimento de uma aplicação com o objetivo de subsidiar a operação e a gestão da rede GigaCandanga.
 </p>
 
-## Build Setup
+## Subir o servidor
 
 ``` bash
-# install dependencies
-npm install
+# Subir o servidor
+[sudo] docker-compose up
 
-# serve with hot reload at localhost:8080
-npm run dev
+# Construir novamente o container caso mude alguma coisa do projeto
+[sudo] docker-compose build
 
-# build for production with minification
-npm run build
+```
 
-# build for production and view the bundle analyzer report
-npm run build --report
+## Rodar os testes
 
-# run unit tests
-npm run unit
+``` bash
+# Construir o docker de forma separada ao docker-compose
+[sudo] docker build -t myenv .
 
-# run all tests
-npm test
+# Rodar os testes
+[sudo] docker run -it myenv npm test 
+
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
