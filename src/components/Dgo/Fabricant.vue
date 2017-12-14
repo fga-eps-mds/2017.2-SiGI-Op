@@ -7,7 +7,7 @@
        :value="alert"
        hide-icon
        transition="scale-transition">
-         Failed to regiter the Fabricant. Please, verify if you filled correctly the fields.
+         Failed to register the Fabricant. Please, verify if you filled correctly the fields.
        </v-alert>
        <v-card-title>
          <span class="headline"> Register {{ 'Fabricant' | capitalize }} </span>
@@ -57,7 +57,7 @@ export default {
       this.description = '';
     },
     register() {
-      HTTP.post('/god_fabricants/', {
+      const req = HTTP.post('/god_fabricants/', {
         description: this.description,
       })
       .then()
@@ -68,6 +68,7 @@ export default {
         this.close();
         this.$emit('registerFab');
       }, 500);
+      return req;
     },
   },
   created() {

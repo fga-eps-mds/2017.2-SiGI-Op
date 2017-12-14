@@ -2,7 +2,7 @@
 // import { equal } from 'assert';
 import { mount } from 'vue-test-utils';
 import store from '@/vuex/store';
-import Modal from '../../../src/components/Modal';
+import Modal from '../../../src/components/Ipas/Modal';
 
 describe('Modal', () => {
   let wrapper;
@@ -37,7 +37,6 @@ describe('Modal', () => {
     expect(vm.dialog).to.equal(false);
   });
 
-
   it('check valid Modal register', () => {
     expect(typeof Modal.data).to.equal('function');
     vm.dialog = true;
@@ -47,6 +46,6 @@ describe('Modal', () => {
     ];
     vm.alert = false;
     vm.register();
-    expect(vm.dialog).to.equal(false);
+    expect(vm.dialog).to.equal(true);
   });
 });

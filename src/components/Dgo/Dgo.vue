@@ -105,7 +105,7 @@ export default {
       this.fabricant = '';
     },
     register() {
-      HTTP.post('/dgos/', {
+      const request = HTTP.post('/dgos/', {
         code: this.code,
         god_model: this.god_model.id,
         site_id: this.site_id.id,
@@ -118,28 +118,31 @@ export default {
         this.close();
         this.$store.dispatch('getObjects');
       }, 500);
+      return request;
     },
     getSites() {
-      HTTP.get('/sites/?all=1')
+      const request = HTTP.get('/sites/?all=1')
         .then((response) => {
           this.sites = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     getFabricants() {
-      HTTP.get('/god_fabricants/?all=1')
+      const request = HTTP.get('/god_fabricants/?all=1')
         .then((response) => {
           this.fabricants = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     getGODModel(fabr) {
       this.god_model = '';
-      HTTP.get('/god_fabricant_models/?search='.concat(fabr, '&all=1'))
+      return HTTP.get('/god_fabricant_models/?search='.concat(fabr, '&all=1'))
         .then((response) => {
           this.models = response.data;
         })

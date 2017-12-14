@@ -64,54 +64,100 @@ export default {
   },
   methods: {
     getIpa() {
-      HTTP.get('ipas/')
-          .then((response) => {
-            this.ipas = response.data.results;
-            console.log(response.data.results);
-          });
-      HTTP.get('ipa-types/')
-          .then((response) => {
-            this.ipasType = response.data.results;
-            console.log(response.data.results);
-          });
+      const request = HTTP.get('ipas/')
+        .then((response) => {
+          this.ipas = response.data.results;
+          console.log(response.data.results);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
+    },
+    getIpaTypes() {
+      const request = HTTP.get('ipa-types/')
+        .then((response) => {
+          this.ipasType = response.data.results;
+          console.log(response.data.results);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
     },
     getSite() {
-      HTTP.get('sites/')
-          .then((response) => {
-            this.sites = response.data.results;
-          });
-      HTTP.get('sitetypes/')
-          .then((response) => {
-            this.sitesType = response.data.results;
-            console.log(response.data.results);
-          });
+      const request = HTTP.get('sites/')
+        .then((response) => {
+          this.sites = response.data.results;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
+    },
+    getSiteTypes() {
+      const request = HTTP.get('sitetypes/')
+        .then((response) => {
+          this.sitesType = response.data.results;
+          console.log(response.data.results);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
     },
     getContacts() {
-      HTTP.get('contacts/')
-          .then((response) => {
-            this.contacts = response.data.results;
-          });
-      HTTP.get('contacttypes/')
-          .then((response) => {
-            this.contactsType = response.data.results;
-            console.log(response.data.results);
-          });
+      const request = HTTP.get('contacts/')
+        .then((response) => {
+          this.contacts = response.data.results;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
+    },
+    getContatTypes() {
+      const request = HTTP.get('contacttypes/')
+        .then((response) => {
+          this.contactsType = response.data.results;
+          console.log(response.data.results);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
+    },
+    getGOD() {
+      const request = HTTP.get('dgos/')
+        .then((response) => {
+          this.dgos = response.data.results;
+          console.log(response.data.results);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
     },
     getSegments() {
-      HTTP.get('dgos/')
-          .then((response) => {
-            this.dgos = response.data.results;
-            console.log(response.data.results);
-          });
-      HTTP.get('segments/')
-          .then((response) => {
-            this.segments = response.data.results;
-          });
-      HTTP.get('emendation_boxes/')
-          .then((response) => {
-            this.emendationBoxes = response.data.results;
-            console.log(response.data.results);
-          });
+      const request = HTTP.get('segments/')
+        .then((response) => {
+          this.segments = response.data.results;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
+    },
+    getEmendationBoxes() {
+      const request = HTTP.get('emendation_boxes/')
+        .then((response) => {
+          this.emendationBoxes = response.data.results;
+          console.log(response.data.results);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      return request;
     },
     itContainsKey(id, arr) {
       if (arr.indexOf(id) !== -1) {
@@ -167,6 +213,7 @@ export default {
       link.setAttribute('href', data);
       link.setAttribute('download', filename);
       link.click();
+      console.log('cheguei');
     },
     addCsvObject() {
       const csvObj = [];
@@ -261,9 +308,14 @@ export default {
   },
   created() {
     this.getIpa();
+    this.getIpaTypes();
     this.getSite();
+    this.getSiteTypes();
     this.getContacts();
+    this.getContatTypes();
     this.getSegments();
+    this.getGOD();
+    this.getEmendationBoxes();
   },
 };
 </script>
