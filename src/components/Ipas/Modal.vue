@@ -67,15 +67,10 @@
                     :rules="[() => !!head.value || 'This field is required.']"
                     bottom>
                   </v-select>
-<<<<<<< HEAD
-                  <ipa-type-register v-if="head.type === 'select' && head.visibility != false &&
-                  head.text === 'Tipo'" v-on:registerIPA="getIpaTypes()"></ipa-type-register>
-=======
                   <type-register v-show="head.type === 'select' && head.visibility != false &&
                   head.text === 'Contact Type'" :name="'Contact Type'" v-on:registerType="getSelect()"></type-register>
                   <type-register v-if="head.type === 'select' && head.visibility != false &&
                   head.text === 'Tipo'" :name="'IPA Type'" v-on:registerType="getSelect()"></type-register>
->>>>>>> 1d33c7de1e09cfedfb3e9d9cca8d83bfd260d2ff
                 </v-layout>
                 <v-select
                   v-if="head.type === 'checkbox' && head.visibility != false"
@@ -137,7 +132,7 @@ export default {
     close() {
       this.clear();
       this.dialog = false;
-      if (this.headers[5].visibility) {
+      if (this.headers.hasOwnProperty() && this.headers[5].visibility) {
         this.visibilityInverter();
       }
       this.$store.dispatch('toggleAlert', false);

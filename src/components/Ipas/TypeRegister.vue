@@ -59,11 +59,7 @@ export default {
       this.description = '';
     },
     register() {
-<<<<<<< HEAD:src/components/Ipas/IpaTypeRegister.vue
-      const req = HTTP.post('/ipa-types/', {
-=======
       HTTP.post('/'.concat(this.request_name, '/'), {
->>>>>>> 1d33c7de1e09cfedfb3e9d9cca8d83bfd260d2ff:src/components/Ipas/TypeRegister.vue
         description: this.description,
       })
       .then(
@@ -73,13 +69,6 @@ export default {
       .catch((e) => {
         this.errors.push(e);
       });
-<<<<<<< HEAD:src/components/Ipas/IpaTypeRegister.vue
-      setTimeout(() => {
-        this.close();
-        this.$emit('registerIPA');
-      }, 500);
-      return req;
-=======
     },
   },
   computed: {
@@ -91,7 +80,6 @@ export default {
         return 'contacttypes';
       }
       return 'ipa-types';
->>>>>>> 1d33c7de1e09cfedfb3e9d9cca8d83bfd260d2ff:src/components/Ipas/TypeRegister.vue
     },
   },
   created() {
