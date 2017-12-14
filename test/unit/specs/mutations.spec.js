@@ -3,7 +3,7 @@ import { mutations } from '@/vuex/store';
 
 
 const { GET_OBJECTS, GET_SELECT_ITEMS, SET_NEW_HEADERS, SET_NEW_NAME,
-  TOGGLE_ALERT, FILL_UPDATE_FIELDS, CHANGE_PAGE } = mutations;
+  TOGGLE_ALERT, FILL_UPDATE_FIELDS, CHANGE_PAGE, SET_SEARCH } = mutations;
 
 describe('Mutations', () => {
   it('GET_OBJECTS', () => {
@@ -74,5 +74,14 @@ describe('Mutations', () => {
     expect(state.currentPage).to.equal(1);
     CHANGE_PAGE(state, 2);
     expect(state.currentPage).to.equal(2);
+  });
+
+  it('SET_SEARCH', () => {
+    const state = { search: '3' };
+    expect(state.search).to.equal('3');
+    SET_SEARCH(state, '1');
+    expect(state.search).to.equal('1');
+    SET_SEARCH(state, '2');
+    expect(state.search).to.equal('2');
   });
 });

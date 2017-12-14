@@ -38,14 +38,14 @@
     <v-card-text>
       <subheader>Selecione para mostrar</subheader>
       <v-checkbox color="primary" label="Sites" v-model="site_checkbox" light></v-checkbox><img src="https://i.imgur.com/WPTh4cI.png"/>
-      
+
       <v-checkbox color="primary" label="Reservas Tecnicas" v-model="technical_reserve_checkbox" light></v-checkbox><img src="https://i.imgur.com/hzgQpkB.png">
-      
+
       <v-checkbox color="primary" label="Caixas de Emenda" v-model="emendation_box_checkbox" light></v-checkbox>
       <img src="https://i.imgur.com/xx2pMQT.png">
-      
-      <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox><img src="https://i.imgur.com/aR2HQNS.png">     
-  
+
+      <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox><img src="https://i.imgur.com/aR2HQNS.png">
+
       <v-checkbox color="primary" label="Segmentos" v-model="segment_box_checkbox" @click="changeCheckbox" light></v-checkbox>
     </v-card-text>
   </v-card>
@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     getObjects() {
-      HTTP.get('/networkmap/')
+      const request = HTTP.get('/networkmap/')
         .then((response) => {
           // JSON responses are automatically parsed.
           this.objects = response.data;
@@ -100,6 +100,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+      return request;
     },
     getEmendationBoxesAttr() {
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
@@ -150,7 +151,6 @@ export default {
               .get('sites/'.concat(siteID, '/'))
               .then((response) => {
                 // JSON responses are automatically parsed.
-                console.log(response.data);
                 if (!this.isDuplicateKey(response.data.id, this.sites_dgo)) {
                   this.sites_dgo.push(response.data);
                 }
@@ -303,4 +303,3 @@ export default {
   float: right;
 }
 </style>
-  

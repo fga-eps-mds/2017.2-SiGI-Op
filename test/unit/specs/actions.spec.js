@@ -34,6 +34,12 @@ describe('Actions', () => {
     ], done);
   });
 
+  it('setNewHeaders', (done) => {
+    testAction(actions.setNewHeaders, [], state, [
+      { type: 'SET_NEW_HEADERS', payload: [] },
+    ], done);
+  });
+
   it('setNewName', (done) => {
     testAction(actions.setNewName, [], state, [
       { type: 'SET_NEW_NAME', payload: '' },
@@ -73,6 +79,12 @@ describe('Actions', () => {
   it('changePage', (done) => {
     testAction(actions.changePage, [], state, [
       { type: 'CHANGE_PAGE', payload: 1 },
+    ], done);
+  });
+
+  it('setSearch', (done) => {
+    testAction(actions.setSearch, [], state, [
+      { type: 'SET_SEARCH', payload: 1 },
     ], done);
   });
 });
