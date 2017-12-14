@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="test"
+    errors="1" failures="0" hostname="" id="" package="test" skipped="0"
+    tests="1" time="0.005000" timestamp="Thu, 14 Dec 2017 14:07:53 GMT">
+  
+    <testcase name="Create IPA" classname="test" time="0.005000" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Test / Create IPA]:
+
+  TypeError: browser.url(...).waitForElementVisible(...).setValue(...).setValue(...).click(...).waitForElementVisible(...).url(...).waitForElementVisible(...).click(...).setValue(...).select is not a function
+    at Object.module.exports.Create IPA (/home/felipe/Documents/unb/GPP/sigiop-Front/test/nightwatch/test.js:33:4)
+    at Module.call (/home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/home/felipe/Documents/unb/GPP/sigiop-Front/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:67:7)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

@@ -29,23 +29,18 @@ module.exports = {
      .waitForElementVisible('#content > div.segment > div > div > button > div', 1000)
      .click('#content > div.segment > div > div > button > div')
 
-     .pause(10000)
-     .waitForElementVisible('', 2000)
-     .setValue('#app > div:nth-child(4) > div > div > div.card__text > div > form > div:nth-child(2) > div > div.input-group.input-group--error.input-group--text-field > div.input-group__input > input[type="text"]', 'NightwatchTestIpa')
-     .setValue('#app > div:nth-child(4) > div > div > div.card__text > div > form > div:nth-child(4) > div > div.input-group.input-group--error.input-group--text-field > div.input-group__input > input[type="text"]', '123')
-     .setValue('#app > div:nth-child(4) > div > div > div.card__text > div > form > div:nth-child(5) > div > div.input-group.input-group--error.input-group--text-field > div.input-group__input > input[type="text"]', 'NTI')
-     .click('#ipa-type > div > div > button > div')
-     .waitForElementVisible('#app > div:nth-child(15) > div > div > div.card__text > div > form > div > div > div > div.input-group__input > input[type="text"]', 1000)
-     .setValue('#app > div:nth-child(15) > div > div > div.card__text > div > form > div > div > div > div.input-group__input > input[type="text"]', 'TestType')
-     .click('#app > div:nth-child(13) > div > div > div.card__actions > button:nth-child(3) > div')
-     .click('#app > div:nth-child(4) > div > div > div.card__text > div > form > button > div')
-     .waitForElementVisible('input[aria-label="Nome do Contato"]', 1000)
-     .setValue('input[aria-label="Nome do Contato"]', 'Tio')
-     .click('button[name=done]')
-     .waitForElementVisible('#app > main > div > div > div.table > div.table__overflow.elevation-1 > table > tbody > tr > td:nth-child(2) > p')
+     .setValue('input[name="Nome"]', 'NightwatchTestIpa')
+	 .click('.input-group__selections')
+	 .pause(1000)
+	 .click('div.menu__content:nth-child(12) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)')
+     .setValue('input[name="CNPJ"]', '123')
+     .setValue('input[name="Sigla"]', 'NTI')
+	 .click('button[name=register-modal]')
+	 .pause(1000)
+	 .assert.elementPresent('td.text-xs-right:nth-child(1) > p:nth-child(1)')
      .end();
 },
-  /*'Create Site' : function (browser) {
+  'Create Site' : function (browser) {
     browser
      // .url('localhost:8000/sitetypes/')
      // .setValue('input[name=description]', 'TestType')
@@ -61,46 +56,108 @@ module.exports = {
      .url('localhost:8080/sites')
      .waitForElementVisible('button[name=register]', 5000)
      .click('button[name=register]')
-     .waitForElementVisible('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(2) > div > div > div.input-group__input > input[type="text"]', 1000)
-     .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(2) > div > div > div.input-group__input > input[type="text"]', 'NightwatchTestSite')
-     .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(3) > div > div > div.input-group__input > input[type="int-number"]', 123)
-     .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(4) > div > div > div.input-group__input > input[type="int-number"]', 321)
-     .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(5) > div > div > div.input-group__input > input[type="number"]', '555')
-     .click('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(6) > div > div > div.input-group__input > div.input-group__selections')
-     .waitForElementVisible('#app > div:nth-child(3) > div > ul > li > div > div > div', 500)
-     .click('#app > div:nth-child(3) > div > ul > li > div > div > div')
-     .click('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(7) > div > div > div.input-group__input > div.input-group__selections')
-     .waitForElementVisible('#app > div:nth-child(2) > div > ul > li:nth-child(1) > div > div > div', 500)
-     .click('#app > div:nth-child(2) > div > ul > li:nth-child(1) > div > div > div')
-     .click('button[name=done]')
+
+
+     .setValue('input[name="Nome"]', 'SiteTest')
+     .setValue('input[name="Latitude"]', '123')
+     .setValue('input[name="Longitude"]', '123')
+	 .setValue('input[name="Largura de Banda"]', '123')
+	 .click('div.layout:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)')
+	 .pause(1000)
+	 .click('div.menu__content:nth-child(5) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)')
+	 .click('div.layout:nth-child(7) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)')
+	 .pause(1000)
+	 .click('#app > div:nth-child(3) > div > ul > li > div')
+	 .pause(1000)
+	 .click('button[name=done]')
+	 .pause(1000)
+	 .assert.elementPresent('td.text-xs-right:nth-child(1) > p:nth-child(1)')
      .end();
-},*/
-/*'Create Contact' : function (browser) {
+},
+'Create Contact' : function (browser) {
  browser
    // .url('localhost:8000/contacttypes/')
    // .setValue('input[name=description]', 'TestType')
    // .click('#post-object-form > form > fieldset > div.form-actions > button')
 
-   .url('localhost:8080')
-   .waitForElementVisible('input[name=user-login]', 2000)
-   .setValue('input[name=user-login]', 'user')
-   .setValue('input[name=user-password]', 'abc123456')
-   .click('#login > div > div > div > div > div > div > form > div:nth-child(5) > div > center > button')
-   .waitForElementVisible('button[name=logout-button]')
+    .url('localhost:8080')
+    .waitForElementVisible('input[name=user-login]', 2000)
+    .setValue('input[name=user-login]', 'user')
+    .setValue('input[name=user-password]', 'abc123456')
+    .click('#login > div > div > div > div > div > div > form > div:nth-child(5) > div > center > button')
+    .waitForElementVisible('button[name=logout-button]')
+ 
+    .url('localhost:8080/contacts')
+    .waitForElementVisible('button[name=register]', 5000)
+    .click('button[name=register]')
 
-   .url('localhost:8080/contacts')
-   .waitForElementVisible('button[name=register]', 5000)
-   .click('button[name=register]')
+	.setValue('input[name="Nome"]', 'ContactTest')
+    .setValue('input[name="Número de Telefone"]', '12345678')
+    .setValue('input[name="Email"]', 'email@email.com')
+	.setValue('input[name="Prioridade"]', '1')
+	.click('div.layout:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)')
+	.pause(1000)
+	.click('div.menu__content:nth-child(5) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > div:nth-child(1)')
+	.click('div.layout:nth-child(7) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)')
+	.pause(1000)
+	.click('div.menu__content:nth-child(3) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > div:nth-child(1)')
+	.click('button[name=done]')
+	.pause(1000)
+	.assert.elementPresent('td.text-xs-right:nth-child(1) > p:nth-child(1)')
+	.end()
+},
+'Create Techinical Reserve' : function (browser) {
+ browser
+   // .url('localhost:8000/contacttypes/')
+   // .setValue('input[name=description]', 'TestType')
+   // .click('#post-object-form > form > fieldset > div.form-actions > button')
 
-   .waitForElementVisible('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(2) > div > div > div.input-group__input > input[type="text"]', 1000)
-   .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(2) > div > div > div.input-group__input > input[type="text"]', 'NightwatchTestContact')
-   .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(3) > div > div > div.input-group__input > input[type="number"]', 12341234)
-   .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(4) > div > div > div.input-group__input > input[type="text"]', 'night@watch.com')
-   .setValue('#app > div.dialog__content > div > div > div.card__text > div > form > div:nth-child(5) > div > div > div.input-group__input > input[type="number"]', '1')
-   // ipa fk
-   // contact type
-   .end();
-   },*/
+    .url('localhost:8080')
+    .waitForElementVisible('input[name=user-login]', 2000)
+    .setValue('input[name=user-login]', 'user')
+    .setValue('input[name=user-password]', 'abc123456')
+    .click('#login > div > div > div > div > div > div > form > div:nth-child(5) > div > center > button')
+    .waitForElementVisible('button[name=logout-button]')
+ 
+    .url('localhost:8080/technical_reserves')
+    .waitForElementVisible('button[name=register]', 5000)
+    .click('button[name=register]')
+
+	.setValue('input[name="Código"]', '123')
+    .setValue('input[name="Comprimento"]', '123')
+    .setValue('input[name="Latitude"]', '123')
+	.setValue('input[name="Longitude"]', '123')
+	.click('button[name=done]')
+	.pause(1000)
+	.assert.elementPresent('td.text-xs-right:nth-child(1) > p:nth-child(1)')
+	.end()
+   },
+'Create Techinical Reserve' : function (browser) {
+ browser
+   // .url('localhost:8000/contacttypes/')
+   // .setValue('input[name=description]', 'TestType')
+   // .click('#post-object-form > form > fieldset > div.form-actions > button')
+
+    .url('localhost:8080')
+    .waitForElementVisible('input[name=user-login]', 2000)
+    .setValue('input[name=user-login]', 'user')
+    .setValue('input[name=user-password]', 'abc123456')
+    .click('#login > div > div > div > div > div > div > form > div:nth-child(5) > div > center > button')
+    .waitForElementVisible('button[name=logout-button]')
+ 
+    .url('localhost:8080/Uplink')
+    .waitForElementVisible('button[name=register]', 5000)
+    .click('button[name=register]')
+
+	.setValue('input[name="Nome VLan"]', 'nome')
+    .setValue('input[name="Banda"]', '123')
+    .setValue('input[name="Código"]', '123')
+	.click('button[name=done]')
+	.pause(1000)
+	.assert.elementPresent('td.text-xs-right:nth-child(1) > p:nth-child(1)')
+	.end()
+   },
+
    /*'Create DGO' : function (browser) {
     browser
 

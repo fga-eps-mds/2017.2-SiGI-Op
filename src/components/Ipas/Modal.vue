@@ -64,6 +64,7 @@
                     :items="selectitems[head.name]"
                     v-model="head.value"
                     :label="head.text"
+                    :name="head.text"
                     :rules="[() => !!head.value || 'This field is required.']"
                     bottom>
                   </v-select>
@@ -93,6 +94,7 @@
                   head.type != 'slider' &&
                   head.type != 'notappears' && head.visibility != false"
                   :label="head.text"
+                  :name="head.text"
                   :rules="[() => !!head.value || 'This field is   required.']"
                   v-model="head.value">
                  </v-text-field>
@@ -107,8 +109,8 @@
        </v-card-text>
        <v-card-actions>
          <v-spacer></v-spacer>
-         <v-btn class="blue--text darken-1" flat="flat" @click="close()">Close</v-btn>
-         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" >Register</v-btn>
+         <v-btn class="blue--text darken-1" flat="flat" @click="close()">Fechar</v-btn>
+         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" name=register-modal >Registrar</v-btn>
        </v-card-actions>
      </v-card>
    </v-dialog>
