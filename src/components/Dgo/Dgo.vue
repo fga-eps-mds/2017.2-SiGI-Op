@@ -105,7 +105,7 @@ export default {
       this.fabricant = '';
     },
     register() {
-      HTTP.post('/dgos/', {
+      const request = HTTP.post('/dgos/', {
         code: this.code,
         god_model: this.god_model.id,
         site_id: this.site_id.id,
@@ -118,6 +118,7 @@ export default {
         this.close();
         this.$store.dispatch('getObjects');
       }, 500);
+      return request;
     },
     getSites() {
       const request = HTTP.get('/sites/?all=1')
