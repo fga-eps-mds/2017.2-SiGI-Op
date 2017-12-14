@@ -23,6 +23,7 @@ export default {
           name: 'institution_type',
           item_name: 'ipa-type',
           itemText: 'description',
+          value: '',
         },
         { text: 'CNPJ', type: 'text', name: 'cnpj', value: '' },
         { text: 'Sigla', type: 'text', name: 'sigla', value: '' },
@@ -38,6 +39,7 @@ export default {
           item_name: 'contacttype',
           itemText: 'description',
           visibility: false,
+          value: '',
         },
         {
           text: 'Contact IPA',

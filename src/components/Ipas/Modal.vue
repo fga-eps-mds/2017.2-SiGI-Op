@@ -2,7 +2,7 @@
   <div class="segment">
     <v-dialog v-model="dialog" fullscreen persistent width="50%">
      <v-btn primary dark slot="activator">Register {{ name | capitalize}}</v-btn>
-     <v-card>
+     <v-card class="modal">
        <v-alert error
        :value="alert"
        hide-icon
@@ -59,15 +59,6 @@
                   v-model="head.value" >
                  </v-text-field>
                  <v-layout>
-                   <v-select
-                    v-if="head.type === 'select' && head.visibility != false && head.text === 'Tipo'"
-                    v-bind:items="ipatypes"
-                    v-model="head.value"
-                    item-text="description"
-                    :label="head.text"
-                    :rules="[() => !!head.value || 'This field is required.']"
-                    bottom>
-                  </v-select>
                   <v-select
                     v-if="head.type === 'select' && head.visibility != false && head.text !== 'Tipo'"
                     :items="selectitems[head.name]"
@@ -76,12 +67,19 @@
                     :rules="[() => !!head.value || 'This field is required.']"
                     bottom>
                   </v-select>
+<<<<<<< HEAD
                   <ipa-type-register v-if="head.type === 'select' && head.visibility != false &&
                   head.text === 'Tipo'" v-on:registerIPA="getIpaTypes()"></ipa-type-register>
+=======
+                  <type-register v-show="head.type === 'select' && head.visibility != false &&
+                  head.text === 'Contact Type'" :name="'Contact Type'" v-on:registerType="getSelect()"></type-register>
+                  <type-register v-if="head.type === 'select' && head.visibility != false &&
+                  head.text === 'Tipo'" :name="'IPA Type'" v-on:registerType="getSelect()"></type-register>
+>>>>>>> 1d33c7de1e09cfedfb3e9d9cca8d83bfd260d2ff
                 </v-layout>
                 <v-select
                   v-if="head.type === 'checkbox' && head.visibility != false"
-                  :items="selectitems[head.name]"
+                  v-bind:items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
                   :rules="[() => !!head.value || 'This field is required.']"
@@ -125,12 +123,11 @@
 
 <script>
 import HTTP from '../../http-common';
-import IpaTypeRegister from './IpaTypeRegister';
+import TypeRegister from './TypeRegister';
 
 export default {
   data() {
     return {
-      ipatypes: [],
       dialog: false,
       postObject: {},
       ipaPk: '',
@@ -140,6 +137,9 @@ export default {
     close() {
       this.clear();
       this.dialog = false;
+      if (this.headers[5].visibility) {
+        this.visibilityInverter();
+      }
       this.$store.dispatch('toggleAlert', false);
     },
     clear() {
@@ -147,14 +147,11 @@ export default {
         this.headers[i].value = '';
       }
     },
-    getIpaTypes() {
-      HTTP.get('/ipa-types/?all=1')
-        .then((response) => {
-          this.ipatypes = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+    getSelect() {
+      this.$store.dispatch('getObjects');
+      setTimeout(() => {
+        this.$forceUpdate();
+      }, 300);
     },
     async register() {
       let blankCamps = 0;
@@ -185,7 +182,6 @@ export default {
       }
     },
     async sendObjects(begin, end, modelURL, blankCamps) {
-      console.log('vem vem vem neguin');
       if (blankCamps > 0) {
         this.$store.dispatch('toggleAlert', true);
         this.dialog = true;
@@ -210,7 +206,7 @@ export default {
       }
     },
   },
-  components: { IpaTypeRegister },
+  components: { TypeRegister },
   computed: {
     name() {
       return this.$store.getters.name;
@@ -234,7 +230,13 @@ export default {
     },
   },
   created() {
-    this.getIpaTypes();
   },
 };
 </script>
+
+<style scoped>
+.modal {
+  z-index: 10;
+  position: absolute;
+}
+</style>

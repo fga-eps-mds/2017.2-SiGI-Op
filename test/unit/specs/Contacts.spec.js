@@ -15,8 +15,8 @@ describe('Contact', () => {
     expect(defaultData.headers[2].text).to.equal('Número de Telefone');
     expect(defaultData.headers[3].text).to.equal('Email');
     expect(defaultData.headers[4].text).to.equal('Prioridade');
-    expect(defaultData.headers[5].text).to.equal('IPA');
-    expect(defaultData.headers[6].text).to.equal('Tipo de Contato');
+    expect(defaultData.headers[5].text).to.equal('Tipo de Contato');
+    expect(defaultData.headers[6].text).to.equal('IPA');
   });
 
   it('check default Contact components', () => {
