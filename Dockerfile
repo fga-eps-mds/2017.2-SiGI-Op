@@ -5,7 +5,7 @@
 #
 
 FROM buildpack-deps:jessie
-FROM node:8.2
+FROM node:6.1
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:$PATH
@@ -22,4 +22,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ADD / sigiop-front/
 
-RUN cd sigiop-front && npm install
+RUN cd sigiop-front && rm -rf node_modules && npm install

@@ -1,0 +1,17 @@
+version: '2'
+services:
+  
+  sigiop-front:
+    build:
+            context: .
+            dockerfile: Dockerfile
+    container_name: sigiop-Front
+    command: /bin/bash -lc "cd sigiop-front && npm run dev 0.0.0.0:8080"
+    volumes:
+      - .:/sigiop-Front
+    ports:
+      - 8080:8080
+    networks:
+      - default
+    ipc: host
+
