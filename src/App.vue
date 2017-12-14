@@ -35,7 +35,7 @@
       <router-link to="/profiles">
       <v-btn flat v-if="render_sidebar">Perfil ({{ current_username }})</v-btn>
       </router-link>
-      <v-btn flat name= "logout-button"  v-if="render_sidebar"@click="sign_out">Sair ({{ current_username }})</v-btn>
+      <v-btn flat name="logout-button" v-if="render_sidebar"@click="sign_out">Sair ({{ current_username }})</v-btn>
       <v-menu offset-y>
         <v-btn icon @click.native="show = !show" dark slot="activator">
           <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
