@@ -1,16 +1,16 @@
 <template>
   <div class="segment">
-    <v-dialog v-model="dialog" persistent width="50%">
-     <v-btn primary dark slot="activator">Register {{ name | capitalize}}</v-btn>
+    <v-dialog v-model="dialog" fullscreen persistent width="50%">
+     <v-btn primary dark slot="activator">Registrar {{ name | capitalize}}</v-btn>
      <v-card>
        <v-alert error
        :value="alert"
        hide-icon
        transition="scale-transition">
-         Failed to regiter the {{name}}. Please, verify if you filled correctly the fields.
+         Falha ao registrar {{name}}. Por favor, verifique se você preencheu corretamente os campos.
        </v-alert>
        <v-card-title>
-         <span class="headline"> Register {{ name | capitalize }} </span>
+         <span class="headline"> Registrar {{ name | capitalize }} </span>
        </v-card-title>
        <v-card-text>
          <v-container grid-list-md>
@@ -20,7 +20,7 @@
                  <v-checkbox
                   v-if="head.type === 'boolean'"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This field is required.']"
+                  :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   v-model="head.value">
                  </v-checkbox>
                  <v-slider
@@ -31,22 +31,22 @@
                   max="100"
                   thumb-label
                   v-model="head.value"
-                  :rules="[() => !!head.value || 'This field is required.']"
+                  :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   ></v-slider>
                  <v-text-field
                   v-if="head.type === 'date'"
                   :label="head.text"
                   type="date"
-                  :rules="[() => !!head.value || 'This field is required.']"
+                  :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   v-model="head.value">
                  </v-text-field>
                  <v-text-field
                   v-if="head.type === 'number'"
                   :label="head.text"
                   :rules="[
-                   () => !!head.value || 'This field is required.',
+                   () => !!head.value || 'Esse campo é necessário.',
                    () => !!head.value && head.value > 0 ||
-                   'Number must be bigger than 0.',
+                   'Numero deverá ser maior do que 0.',
                   ]"
                   type="number"
                   v-model="head.value" >
@@ -54,24 +54,28 @@
                  <v-text-field
                   v-if="head.type === 'int-number'"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This field is required.',]"
+                  :rules="[() => !!head.value || 'Esse campo é necessário.',]"
                   type="int-number"
                   v-model="head.value" >
                  </v-text-field>
+                 <v-layout>
                  <v-select
                   v-if="head.type === 'select'"
                   :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This field is required.']"
+                  :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   bottom>
                 </v-select>
+                <type-register v-show="head.type === 'select' &&
+                head.text === 'Tipo de Contato'" :name="'Contact Type'" v-on:registerType="getSelect()"></type-register>
+                </v-layout>
                 <v-select
                   v-if="head.type === 'checkbox'"
                   :items="selectitems[head.name]"
                   v-model="head.value"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This field is required.']"
+                  :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   multiple
                   chips
                   bottom>
@@ -87,7 +91,7 @@
                   head.type != 'slider' &&
                   head.type != 'notappears'"
                   :label="head.text"
-                  :rules="[() => !!head.value || 'This field is required.']"
+                  :rules="[() => !!head.value || 'Esse campo é necessário.']"
                   v-model="head.value">
                  </v-text-field>
                </v-flex>
@@ -97,8 +101,8 @@
        </v-card-text>
        <v-card-actions>
          <v-spacer></v-spacer>
-         <v-btn class="blue--text darken-1" flat="flat" @click="close()">Close</v-btn>
-         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" >Register</v-btn>
+         <v-btn class="blue--text darken-1" flat="flat" @click="close()">Fechar</v-btn>
+         <v-btn class="blue--text darken-1" @click.prevent="register()" flat="flat" >Registrar</v-btn>
        </v-card-actions>
      </v-card>
    </v-dialog>
@@ -107,13 +111,22 @@
 </template>
 
 <script>
+import TypeRegister from './Ipas/TypeRegister';
+
 export default {
   data() {
     return {
       dialog: false,
     };
   },
+  components: { TypeRegister },
   methods: {
+    getSelect() {
+      this.$store.dispatch('getObjects');
+      setTimeout(() => {
+        this.$forceUpdate();
+      }, 300);
+    },
     close() {
       this.clear();
       this.dialog = false;

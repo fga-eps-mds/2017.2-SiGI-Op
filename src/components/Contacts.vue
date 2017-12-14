@@ -1,5 +1,5 @@
 <template>
-  <div id="contact">
+  <div class="contact">
     <modal></modal>
     <data-table></data-table>
   </div>
@@ -16,24 +16,23 @@ export default {
       name: 'contact',
       headers: [
         { text: 'ID', type: 'id', value: '' },
-
-        { text: 'Name', type: 'text', name: 'name', value: '' },
-        { text: 'Phone Number', type: 'number', name: 'phone_number', value: '' },
+        { text: 'Nome', type: 'text', name: 'name', value: '' },
+        { text: 'Número de Telefone', type: 'number', name: 'phone_number', value: '' },
         { text: 'Email', type: 'text', name: 'email', value: '' },
-        { text: 'Priority', type: 'number', name: 'priority', value: '' },
+        { text: 'Prioridade', type: 'number', name: 'priority', value: '' },
+        {
+          text: 'Tipo de Contato',
+          type: 'select',
+          name: 'contact_type',
+          item_name: 'contacttype',
+          itemText: 'description',
+        },
         {
           text: 'IPA',
           type: 'select',
           name: 'ipa_code',
           item_name: 'ipa',
           itemText: 'name',
-        },
-        {
-          text: 'Contact type',
-          type: 'select',
-          name: 'contact_type',
-          item_name: 'contacttype',
-          itemText: 'description',
         },
       ],
     };

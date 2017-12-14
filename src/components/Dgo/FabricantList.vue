@@ -1,31 +1,22 @@
 <template>
-  <div class="group">
-      <modal></modal>
-      <data-table></data-table>
+  <div id="god_fabricant">
+    <modal></modal>
+    <data-table></data-table>
   </div>
 </template>
 
 <script>
 import Modal from '../Modal';
-import DataTable from './DataList';
+import DataTable from '../DataList';
 
 export default {
-  name: 'group',
+  name: 'god_fabricant',
   data() {
     return {
-      name: 'group',
+      name: 'god_fabricant',
       headers: [
         { text: 'ID', type: 'id', value: '' },
-
-        { text: 'Nome', type: 'text', name: 'name', value: '' },
-        {
-          text: 'Permissões',
-          type: 'checkbox',
-          value: '',
-          itemText: 'name',
-          name: 'permissions',
-          item_name: 'permission',
-        },
+        { text: 'Nome', type: 'text', name: 'description', value: '' },
       ],
     };
   },
@@ -36,4 +27,5 @@ export default {
     this.$store.dispatch('getObjects');
   },
 };
+
 </script>

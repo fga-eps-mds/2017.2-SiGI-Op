@@ -3,7 +3,7 @@
      <v-flex xs5  offset-xs7>
        <v-text-field
           append-icon="search"
-          label="Search"
+          label="Procurar"
           single-line
           hide-details
           v-model="NewSearch"
@@ -15,6 +15,9 @@
       <template slot="items" scope="props">
         <tr>
           <td class="text-xs-right" v-for="(item, key) in props.item">
+            <p v-if="selectitems.hasOwnProperty(key)">
+              {{ item | showText(key, selectitems)}}
+            </p>
             <p v-if="!selectitems.hasOwnProperty(key)">
               {{ item }}
             </p>
@@ -30,7 +33,7 @@
     </v-data-table>
     <div class="text-center">
       <v-pagination
-        :length=totalPages
+        :length="totalPages"
         v-model="page"
         :total-visible="7"
         v-on:next.preventDefault="nextPage"
@@ -50,7 +53,6 @@ export default {
   data() {
     return {
       NewSearch: this.search,
-      totalItems: 0,
       disabled: false,
       disabled1: true,
     };
@@ -80,7 +82,14 @@ export default {
       return this.$store.getters.name;
     },
     headers() {
-      return this.$store.getters.headers;
+      const headersList = this.$store.getters.headers;
+      const visibleHeaders = [];
+      for (let i = 0; i < headersList.length; i += 1) {
+        if (headersList[i].visibility !== false) {
+          visibleHeaders.push(headersList[i]);
+        }
+      }
+      return visibleHeaders;
     },
     objects() {
       return this.$store.getters.objects.results;
@@ -113,14 +122,34 @@ export default {
   },
   filters: {
     showText: (value, key, selectitems) => {
+      if (key === 'dgos') {
+        const index = Object.keys(selectitems).indexOf(key);
+        if (value.length === 2) {
+          const firstDgo = ''.concat(Object.values(selectitems)[index][0].text);
+          const secondDgo = ''.concat(Object.values(selectitems)[index][1].text);
+          return (firstDgo.concat(' - ', secondDgo));
+        } else if (value.length < 2 && value.length > 0) {
+          console.log('daa', value[0]);
+          console.log('ADASDA', Object.values(selectitems)[0][value[0] - 1]);
+          return Object.values(selectitems)[0][value[0] - 1].text;
+        }
+      } else if (key === 'emendation_boxes') {
+        const index = Object.keys(selectitems).indexOf(key);
+        if (value.length === 2) {
+          const firstBox = ''.concat(Object.values(selectitems)[index][0].text);
+          const secondBox = ''.concat(Object.values(selectitems)[index][1].text);
+          return firstBox.concat(' - ', secondBox);
+        } else if (value.length < 2 && value.length > 0) {
+          return Object.values(selectitems)[1][value[0] - 1].text;
+        }
+      }
       let i = 0;
-      console.log(selectitems);
       for (i = 0; i < selectitems[key].length; i += 1) {
         if (selectitems[key][i].value === value) {
           return selectitems[key][i].text;
         }
       }
-      return value;
+      return '';
     },
   },
   created() {

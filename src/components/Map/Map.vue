@@ -46,12 +46,9 @@
       
       <v-checkbox color="primary" label="Caixas Subterranea" v-model="underground_box_checkbox" light></v-checkbox><img src="https://i.imgur.com/aR2HQNS.png">     
   
-      <v-checkbox color="primary" label="Segmentos" v-model="segment_box_checkbox" @click="getSitesIds()" light></v-checkbox>
+      <v-checkbox color="primary" label="Segmentos" v-model="segment_box_checkbox" @click="changeCheckbox" light></v-checkbox>
     </v-card-text>
   </v-card>
-
-  <v-btn class="blue--text darken-1" v-on:click.prevent="addPolylines" flat="flat">Adicionar Polylines</v-btn>
-  <v-btn class="blue--text darken-1" v-on:click.prevent="getSitesIds" flat="flat">Adicionar Sites</v-btn>
 
 </div>
 </template>
@@ -144,12 +141,7 @@ export default {
         }
       }
     },
-    getSitesIds() {
-      if (this.segment_box_checkbox === false) {
-        this.segment_box_checkbox = true;
-      } else {
-        this.segment_box_checkbox = false;
-      }
+    async getSitesIds() {
       if (Object.values(this.sites_dgo).length === 0) {
         for (let i = 0; i < Object.values(this.dgo_sites).length; i += 1) {
           const siteID = Object.values(this.dgo_sites)[i].site_id;
@@ -168,6 +160,14 @@ export default {
               });
           }
         }
+      }
+    },
+    async changeCheckbox() {
+      await this.addPolylines();
+      if (this.segment_box_checkbox === false) {
+        this.segment_box_checkbox = true;
+      } else {
+        this.segment_box_checkbox = false;
       }
     },
     isDuplicateKey(id, arr) {
@@ -216,7 +216,8 @@ export default {
         }
       }
     },
-    addPolylines() {
+    async addPolylines() {
+      await this.getSitesIds();
       for (let i = 0; i < Object.keys(this.objects.segment).length; i += 1) {
         const segment = [];
         if (Object.values(this.objects.segment)[i].dgos.length === 2) {

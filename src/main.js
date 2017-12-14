@@ -7,6 +7,8 @@ import 'vuetify/dist/vuetify.min.css';
 import store from './vuex/store';
 import App from './App';
 import Dgo from './components/Dgo/Dgo';
+import FabricantList from './components/Dgo/FabricantList';
+import DGOModelList from './components/Dgo/DGOModelList';
 import GODPort from './components/GODPort/GODPort';
 import Site from './components/Sites/Site';
 import Ipas from './components/Ipas/Ipas';
@@ -30,6 +32,7 @@ import Map from './components/Map/Map';
 import SwitchSlots from './components/SwitchSlot/SwitchSlot';
 import Groups from './components/Groups/Groups';
 import CableStretch from './components/CableStretch/CableStretch';
+import Report from './components/Ipas/Report';
 import Profile from './components/Profile/Profile';
 
 
@@ -51,18 +54,19 @@ const routes = [
   { path: '/emendation_boxes', component: EmendationBox, name: 'emendation_boxes' },
   { path: '/posts', component: Posts, name: 'posts' },
   { path: '/generators', component: Generator, name: 'generators' },
-  { path: '/segments', component: Segment, name: 'segments' },
   { path: '/jumpers', component: Jumper, name: 'jumpers' },
   { path: '/nobreaks', component: NoBreak, name: 'nobreaks' },
   { path: '/gbics', component: GBIC, name: 'gbics' },
   { path: '/segments', component: Segment, name: 'segments' },
-  { path: '/jumpers', component: Jumper, name: 'jumpers' },
   { path: '/access_cables', component: AccessCables, name: 'access-cables' },
   { path: '/map', component: Map, name: 'map' },
   { path: '/switchslots', component: SwitchSlots, name: 'slots' },
   { path: '/groups', component: Groups, name: 'groups' },
   { path: '/cable_stretch', component: CableStretch, name: 'cable_stretch' },
+  { path: '/report', component: Report, name: 'report' },
   { path: '/profiles', component: Profile, name: 'profiles' },
+  { path: '/god_fabricants', component: FabricantList, name: 'god_fabricants' },
+  { path: '/god_fabricant_models', component: DGOModelList, name: 'god_fabricant_models' },
 ];
 
 Vue.use(Vuetify);

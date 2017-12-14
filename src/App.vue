@@ -4,7 +4,7 @@
       <v-layout row>
         <v-flex xs12 sm12>
           <v-card>
-            <v-list v-for="category in categories">
+            <v-list v-for="category in categories" :key="category.action">
               <v-list-group :value="category.active" v-bind:key="category.title">
                 <v-list-tile slot="item" @click="">
                   <v-list-tile-content>
@@ -29,14 +29,13 @@
       </v-layout>
     </v-navigation-drawer>
     <v-toolbar dark fixed class="primary">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <router-link :to="'/home'"><img src="./assets/logogc4.png"></router-link>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="render_sidebar"></v-toolbar-side-icon>
+      <router-link :to="'/'"><img src="./assets/logogc4.png"></router-link>
       <v-spacer></v-spacer>
-      <v-if></v-if>
       <router-link to="/profiles">
-      <v-btn flat v-if="current_username !== 'null'">Perfil ({{ current_username }})</v-btn>
+      <v-btn flat v-if="render_sidebar">Perfil ({{ current_username }})</v-btn>
       </router-link>
-      <v-btn flat v-if="current_username !== 'null'"@click="sign_out">Sair ({{ current_username }})</v-btn>
+      <v-btn flat v-if="render_sidebar"@click="sign_out">Sair ({{ current_username }})</v-btn>
       <v-menu offset-y>
         <v-btn icon @click.native="show = !show" dark slot="activator">
           <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -73,34 +72,44 @@ export default {
       categories: [
         { action: 'menu_action',
           title: 'Área Técnica',
-          active: true,
+          active: false,
           items: [
             { title: 'IPAs', path: '/ipas' },
             { title: 'Sites', path: '/sites' },
             { title: 'Contatos', path: '/contacts' },
             { title: 'Reservas Técnicas', path: '/technical_reserves' },
-            { title: 'DGOs', path: '/dgos' },
             { title: 'Uplink', path: '/Uplink' },
             { title: 'Segmentos', path: '/segments' },
             { title: 'Mapa da Rede', path: '/map' },
           ],
         },
+        { action: 'dgo_menu_action',
+          title: 'DGOs',
+          active: false,
+          items: [
+            { title: 'DGOs', path: '/dgos' },
+            { title: 'Fabricantes', path: '/god_fabricants' },
+            { title: 'Modelos de DGO', path: '/god_fabricant_models' },
+          ],
+        },
         { action: 'other_menu_action',
           title: 'Outros',
-          active: true,
+          active: false,
           items: [
             { title: 'Caixas Subterrâneas', path: '/undergroundboxes' },
             { title: 'Caixas de Emenda', path: '/emendation_boxes' },
+            { title: 'Geradores', path: '/generators' },
             { title: 'Jumpers', path: '/jumpers' },
-            { title: 'Postes', path: '/Posts' },
+            { title: 'Postes', path: '/posts' },
             { title: 'NoBreaks', path: '/NoBreaks' },
             { title: 'Cabos de Acesso', path: '/access_cables' },
             { title: 'Trechos de Cabo', path: '/cable_stretch' },
+            { title: 'Relatório', path: '/report' },
           ],
         },
         { action: 'admin_menu_action',
           title: 'Admin',
-          active: true,
+          active: false,
           items: [
             { title: 'Registrar Usuário', path: '/register' },
             { title: 'Groups', path: '/groups' },
