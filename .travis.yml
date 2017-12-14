@@ -1,13 +1,18 @@
+sudo: required
 language: node_js
 node_js:
 - '6'
+services:
+  - docker
 install:
-- npm install
+  - rm -rf ./node_modules
+  - docker-compose up --build -d
+  - docker exec sigiop-Front npm install
 script:
-- "./node_modules/eslint/bin/eslint.js --ext .js,.vue src"
-- npm run unit
+  - "docker exec sigiop-Front ./node_modules/eslint/bin/eslint.js --ext .js,.vue src"
+  - docker exec sigiop-Front npm run unit
 after_success:
-- "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
+  - "docker exec sigiop-Front ./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
 deploy:
   provider: heroku
   api_key:
@@ -15,3 +20,6 @@ deploy:
   app: sigi-op
   on:
     tags: true
+
+after_script:
+  - docker-compose down
