@@ -58,7 +58,7 @@ export const mutations = {
       console.log(state.headers[i].name);
       console.log(state.headers[i].value);
     }
-    HTTP.post(''.concat(state.name, 's', '/'), ObjectToPost)
+    HTTP.post(''.concat(state.name, '/'), ObjectToPost)
       .then(thisState.alert = false)
       .catch((e) => {
         thisState.alert = true;
@@ -97,7 +97,7 @@ export const mutations = {
         }
       }
     }
-    HTTP.put(''.concat(state.name, 's', '/', id, '/'), ObjectToPut)
+    HTTP.put(''.concat(state.name, '/', id, '/'), ObjectToPut)
       .then(thisState.alert = false)
       .catch((e) => {
         thisState.alert = true;
@@ -106,7 +106,7 @@ export const mutations = {
   },
 
   DELETE_OBJECTS(state, id) {
-    HTTP.delete(''.concat(state.name, 's', '/', id, '/'))
+    HTTP.delete(''.concat(state.name, '/', id, '/'))
     .then(() => {})
     .catch((e) => {
       state.errors.push(e);
@@ -167,7 +167,7 @@ export const state = {
 
 export const actions = {
   getObjects({ commit }) {
-    HTTP.get(''.concat(state.name, 's/?search=', state.search, '&page=', state.currentPage))
+    HTTP.get(''.concat(state.name, '/?search=', state.search, '&page=', state.currentPage))
     .then((response) => {
       commit('GET_OBJECTS', response.data);
     })
@@ -177,7 +177,7 @@ export const actions = {
 
     for (let i = 1; i < state.headers.length; i += 1) {
       if (state.headers[i].type === 'select' || state.headers[i].type === 'checkbox') {
-        HTTP.get(''.concat(state.headers[i].item_name, 's', '/?all=1'))
+        HTTP.get(''.concat(state.headers[i].item_name, '/?all=1'))
         .then((response) => {
           commit({
             type: 'GET_SELECT_ITEMS',

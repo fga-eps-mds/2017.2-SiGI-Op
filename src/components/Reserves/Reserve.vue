@@ -13,7 +13,7 @@ export default {
   name: 'technicalreserve',
   data() {
     return {
-      name: 'technicalreserve',
+      name: 'reserva técnica',
       headers: [
         { text: 'ID', type: 'id', value: '' },
 

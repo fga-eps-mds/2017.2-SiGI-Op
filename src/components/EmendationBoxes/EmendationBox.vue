@@ -10,10 +10,10 @@ import Modal from '../Modal';
 import DataTable from '../DataList';
 
 export default {
-  name: 'emendation_boxe',
+  name: 'emendation_box',
   data() {
     return {
-      name: 'emendation_boxe',
+      name: 'emendation box',
       headers: [
         { text: 'ID', type: 'id', value: '' },
         { text: 'Numero de design', type: 'number', name: 'designNumber', value: '' },

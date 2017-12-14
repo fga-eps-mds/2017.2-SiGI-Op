@@ -14,7 +14,7 @@ export default {
 
   data() {
     return {
-      name: 'post',
+      name: 'postes',
       headers: [
         { text: 'ID', type: '', value: '', name: 'id' },
         { text: 'Comprimento do cabo', type: 'number', value: '', name: 'cable_length' },
