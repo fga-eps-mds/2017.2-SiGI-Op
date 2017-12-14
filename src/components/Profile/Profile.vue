@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     post() {
-      HTTP.post('users/update', {
+      const request = HTTP.post('users/update', {
         pk: this.pk,
         username: this.name,
         email: this.email,
@@ -122,7 +122,12 @@ export default {
           localStorage.setItem('username', response.data.username);
           localStorage.setItem('email', response.data.email);
           this.$router.go(this.$router.currentRoute);
+        })
+        .catch(() => {
+          this.clear();
+          this.alert = true;
         });
+      return request;
     },
     clear() {
       this.name = localStorage.getItem('username');
