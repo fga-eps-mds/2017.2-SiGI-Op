@@ -54,7 +54,7 @@ describe('Dgo', () => {
     done();
   });
 
-  it('get request for Fabricants in DGO', (done) => {
+  it('get request for Fabricants in DGO', () => {
     moxios.withMock(() => {
       const onFulfilled = sinon.spy();
       vm.getFabricants().then(onFulfilled);
@@ -69,7 +69,6 @@ describe('Dgo', () => {
           },
         }).then(() => {
           equal(onFulfilled.called, true);
-          done();
         });
       });
     });
