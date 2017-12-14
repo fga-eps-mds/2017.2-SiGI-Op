@@ -60,7 +60,7 @@
                  </v-text-field>
                  <v-layout>
                   <v-select
-                    v-if="head.type === 'select' && head.visibility != false && head.text !== 'Tipo'"
+                    v-if="head.type === 'select' && head.visibility != false"
                     :items="selectitems[head.name]"
                     v-model="head.value"
                     :label="head.text"
@@ -132,8 +132,8 @@ export default {
     close() {
       this.clear();
       this.dialog = false;
-      if (this.headers.hasOwnProperty() && this.headers[5].visibility) {
-        this.visibilityInverter();
+      for (let i = 5; i <= this.headers.length - 2; i += 1) {
+        this.headers[i].visibility = false;
       }
       this.$store.dispatch('toggleAlert', false);
     },

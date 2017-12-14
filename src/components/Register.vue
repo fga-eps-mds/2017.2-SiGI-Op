@@ -108,7 +108,7 @@
     }),
     methods: {
       post() {
-        HTTP.post('users/register', {
+        const request = HTTP.post('users/register', {
           username: this.name,
           password: this.password,
           email: this.email,
@@ -117,7 +117,12 @@
             console.log(response);
             this.dialog = true;
             this.clear();
+          })
+          .catch(() => {
+            this.clear();
+            this.alert = true;
           });
+        return request;
       },
       redirect() {
         setTimeout(() => {

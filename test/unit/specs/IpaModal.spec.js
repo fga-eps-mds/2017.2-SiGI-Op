@@ -48,5 +48,4 @@ describe('Modal', () => {
     vm.register();
     expect(vm.dialog).to.equal(true);
   });
-
 });
